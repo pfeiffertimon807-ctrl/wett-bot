@@ -1,45 +1,163 @@
 <!doctype html><html lang='de'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'><meta name='apple-mobile-web-app-title' content='Wett-Bot'><meta name='theme-color' content='#0f1420'><link rel='apple-touch-icon' sizes='180x180' href='icon.png'><title>Scharfe Konsensquote – Wett-Bot</title><style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0f1420;--card:#1a2232;--ink:#e9eef7;--mut:#8b98ad;--line:#27324a;
---accent:#6c8cff;--good:#31c48d;--bad:#f05252;--warn:#f6a609;--goodbg:#12291e}
+:root{--bg:#0f1420;--card:#1a2232;--card2:#141b29;--ink:#e9eef7;--mut:#8b98ad;
+--line:#27324a;--accent:#6c8cff;--good:#31c48d;--bad:#f05252;--warn:#f6a609}
+html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);
 font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
-font-size:15px;line-height:1.5;padding-bottom:40px}
-.wrap{max-width:900px;margin:0 auto;padding:16px}
+font-size:15px;line-height:1.5;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 20px}
 a{color:var(--accent);text-decoration:none}
-h1{font-size:22px;margin:0 0 4px}
-h2{font-size:16px;margin:26px 0 10px;color:var(--mut);font-weight:600;
-text-transform:uppercase;letter-spacing:.06em}
-.sub{color:var(--mut);font-size:13px;margin:0 0 18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
-.kacheln{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+
+/* ---------- Kopf ---------- */
+.kopf{position:sticky;top:0;z-index:20;background:rgba(15,20,32,.92);
+backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+border-bottom:1px solid var(--line);padding:12px 16px 10px;margin:0 -16px 14px}
+.kopf-reihe{display:flex;align-items:center;gap:10px;max-width:900px;margin:0 auto}
+.kopf h1{font-size:19px;margin:0;font-weight:700;letter-spacing:-.01em}
+.kopf .e{font-size:22px;line-height:1}
+.kopf .sub{color:var(--mut);font-size:12.5px;margin:3px 0 0;max-width:900px}
+.zurueck{color:var(--mut);font-size:20px;line-height:1;padding:4px 8px 4px 0;margin-left:-4px}
+
+/* ---------- Hero ---------- */
+.hero{background:linear-gradient(160deg,#1c2538,#161d2c);border:1px solid var(--line);
+border-radius:18px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:-40% -20% auto auto;width:60%;height:160%;
+background:radial-gradient(circle,rgba(108,140,255,.10),transparent 68%);pointer-events:none}
+.hero .k{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.07em}
+.hero .gross{font-size:36px;font-weight:800;letter-spacing:-.02em;margin:2px 0 0;
+font-variant-numeric:tabular-nums}
+.hero .neben{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap}
+.hero .neben div{font-size:13px}
+.hero .neben span{display:block;color:var(--mut);font-size:10.5px;text-transform:uppercase;
+letter-spacing:.05em}
+
+/* ---------- Kacheln ---------- */
+.kacheln{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:12px}
 @media(min-width:620px){.kacheln{grid-template-columns:repeat(4,1fr)}}
-.kachel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
-.kachel .k{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
-.kachel .v{font-size:21px;font-weight:700;margin-top:3px}
+.kachel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 12px}
+.kachel .k{color:var(--mut);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em}
+.kachel .v{font-size:19px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kachel .z{color:var(--mut);font-size:11px;margin-top:1px}
+
 .gut{color:var(--good)}.schlecht{color:var(--bad)}.warn{color:var(--warn)}.mut{color:var(--mut)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;
-letter-spacing:.04em;padding:6px 8px;border-bottom:1px solid var(--line)}
-td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
-tr:last-child td{border-bottom:none}
-.nr{text-align:right;font-variant-numeric:tabular-nums}
-.leer{color:var(--mut);text-align:center;padding:26px 10px;font-size:14px}
-.zurueck{display:inline-block;margin-bottom:12px;color:var(--mut);font-size:14px}
-.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;
-background:#223049;color:var(--mut);margin-left:6px}
-.info{border-left:3px solid var(--accent);padding:10px 12px;background:#161e2e;
-border-radius:0 10px 10px 0;margin:10px 0;font-size:13px;color:#c6d0e0}
+
+/* ---------- Karten / Abschnitte ---------- */
+h2{font-size:12px;margin:22px 0 9px;color:var(--mut);font-weight:700;
+text-transform:uppercase;letter-spacing:.07em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+padding:14px;margin-bottom:12px}
+.card.eng{padding:8px}
+.info{border-left:3px solid var(--accent);padding:10px 12px;background:var(--card2);
+border-radius:0 10px 10px 0;margin:10px 0 0;font-size:12.5px;color:#c2ccdc;line-height:1.55}
 .info b{color:var(--ink)}
+.info:first-child{margin-top:0}
 .warnbox{border-left-color:var(--warn)}
-.grund{font-size:12px;color:var(--mut);margin-top:3px}
-.menu-k{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;
-padding:16px;margin-bottom:12px;color:inherit;transition:border-color .15s}
-.menu-k:hover{border-color:var(--accent)}
-.menu-kopf{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.menu-kopf .e{font-size:26px}
-.menu-kopf .t{font-size:17px;font-weight:700}
-.menu-zahlen{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:13px}
-.menu-zahlen div span{color:var(--mut);font-size:11px;display:block;text-transform:uppercase}
-.fuss{color:var(--mut);font-size:12px;text-align:center;margin-top:26px;line-height:1.7}
-</style></head><body><div class='wrap'><a class='zurueck' href='index.html'>&larr; Alle Strategien</a><h1>🎯 Scharfe Konsensquote</h1><p class='sub'>Pinnacle lesen, auf SX wetten — der klassische Weg, ohne eigenes Modell</p><div class='kacheln'><div class='kachel'><div class='k'>Ergebnis</div><div class='v gut'>+0.00</div></div><div class='kachel'><div class='k'>ROI</div><div class='v gut'>+0.0%</div></div><div class='kachel'><div class='k'>Erwartet war</div><div class='v mut'>+0.0%</div></div><div class='kachel'><div class='k'>Wetten</div><div class='v '>0<span class='pill'>0 offen</span></div></div></div><div class='card'><h2 style='margin-top:0'>Ergebnis über die Zeit</h2><div class='leer'>Noch keine abgerechneten Wetten &ndash; die Kurve beginnt mit der ersten.</div></div><div class='card'><h2 style='margin-top:0'>Stimmt die Einschätzung?</h2><div class='kacheln' style='margin-bottom:6px'><div class='kachel'><div class='k'>Versprochen</div><div class='v '>0.0%</div></div><div class='kachel'><div class='k'>Trefferquote</div><div class='v '>0.0%</div></div><div class='kachel'><div class='k'>Abweichung</div><div class='v '>+0.0 Pp</div></div><div class='kachel'><div class='k'>z-Wert</div><div class='v gut'>+0.00</div></div></div><div class='info'>Der <b>z-Wert</b> sagt, ob eine Abweichung Zufall sein kann. Zwischen &minus;2 und +2 ist alles unauffällig. Unter &minus;2,5 schätzt die Strategie systematisch zu optimistisch &ndash; genau daran ist der Oddify-Ansatz gescheitert (dort: &minus;5,8).</div></div><div class='card'><h2 style='margin-top:0'>Schlussquoten-Vorteil (CLV)</h2><div class='leer'>Noch keine Schlussquote gemessen.<br><span style='font-size:12px'>Gemessen wird in den letzten 25 Minuten vor Anpfiff &ndash; danach verschwindet der Vorspielmarkt.</span></div></div><div class='card'><h2 style='margin-top:0'>Datenquelle</h2><div class='info warnbox'><b>Es fehlt ein Schlüssel.</b> Diese Strategie braucht Konsensquoten von einem Datenanbieter. Die kostenlose Stufe von <b>the-odds-api.com</b> umfasst 500 Abfragen im Monat &ndash; genug, denn abgefragt wird nur alle 4 Stunden (rund 360 im Monat).<br><br>Registrieren, Schlüssel kopieren, dann auf dem Rechner eintragen:<br><code>ODDS_API_KEY=…</code> in die Datei <code>.env</code>.<br><br>Bis dahin sammelt die Seite nichts &ndash; die Mechanik steht aber bereit.</div></div><h2>Wetten, die jetzt offen sind</h2><div class='card'><div class='leer'>Gerade keine offene Papier-Wette.<br><span style='font-size:12px'>Das ist ein gültiges Ergebnis: Die Strategie nimmt nur, was ihre Schwelle besteht.</span></div></div><h2>Verlauf</h2><div class='card'><div class='leer'>Noch nichts abgerechnet.</div></div><h2>Wie die Strategie arbeitet</h2><div class='card'><p style='margin-top:0'>Pinnacles Quote gilt als der verlässlichste faire Preis im Sportwettenmarkt. Deutschland ist dort fürs Wetten gesperrt — fürs Lesen braucht man aber kein Konto: Die Quote kommt über einen Datenanbieter, gewettet wird auf SX. Aus den beiden Seiten wird die Marge herausgerechnet; wo SX mehr als 2 Prozentpunkte günstiger steht als dieser faire Wert, entsteht eine Wette.</p><div class='info'><b>Worauf sie beruht.</b> Über 397.935 Spiele betrug die Korrelation zwischen Pinnacles Schlussquote und der tatsächlich beobachteten Häufigkeit r² = 0,997. Dauerhaft bessere Preise zu bekommen als diese Schlussquote ist der am breitesten replizierte Hinweis auf echten Vorteil, den die Literatur kennt.</div><div class='info warnbox'><b>Was sie kippen kann.</b> Von den drei Ansätzen der schwächste. Die eigene Messung zeigte, dass SX auf liquiden Märkten bereits innerhalb von 0,6 Prozentpunkten am Konsens liegt — als Taker zahlt man 2 bis 5 % Spread und sucht darin einen Fehler von 1 %. Das geht nicht auf. Die Demo prüft, ob es in dünneren Ecken anders aussieht; der eigentliche Wert der Konsensquote liegt vermutlich darin, als fairer Anker für das Market Making zu dienen.</div></div><div class='fuss'>Stand 03.10.2026 11:14 &middot; Papierhandel, kein echtes Geld<br>Startkapital der Rechnung: 1.000 USDC (fiktiv)</div></div></body></html>
+.gutbox{border-left-color:var(--good)}
+
+/* ---------- Fortschrittsbalken ---------- */
+.balken{height:6px;border-radius:99px;background:#222c42;overflow:hidden;margin-top:8px}
+.balken i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+
+/* ---------- Wett-Liste ---------- */
+.liste{display:flex;flex-direction:column;gap:7px}
+.wette{background:var(--card2);border:1px solid var(--line);border-radius:13px;
+padding:11px 12px;cursor:pointer;transition:border-color .15s}
+.wette:active{border-color:var(--accent)}
+.wette .z1{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.wette .ev{font-weight:650;font-size:14px;line-height:1.3}
+.wette .tipp{color:var(--mut);font-size:12.5px;margin-top:2px}
+.wette .rechts{text-align:right;flex:none;font-variant-numeric:tabular-nums}
+.wette .quote{font-size:15px;font-weight:700}
+.wette .klein{font-size:11px;color:var(--mut)}
+.wette .z2{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10.5px;
+background:#223049;color:var(--mut);white-space:nowrap}
+.pill.g{background:rgba(49,196,141,.14);color:var(--good)}
+.pill.r{background:rgba(240,82,82,.14);color:var(--bad)}
+.pill.w{background:rgba(246,166,9,.14);color:var(--warn)}
+.detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
+font-size:12.5px;color:#c2ccdc;line-height:1.6}
+.wette.auf .detail{display:block}
+.wette .pfeil{color:var(--mut);font-size:11px;transition:transform .18s;display:inline-block}
+.wette.auf .pfeil{transform:rotate(90deg)}
+.rechnung{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;color:var(--mut);
+margin-top:7px;background:#111825;border-radius:8px;padding:8px 10px;overflow-x:auto}
+.rechnung b{color:var(--ink);font-family:inherit}
+
+.leer{color:var(--mut);text-align:center;padding:26px 12px;font-size:13.5px;line-height:1.6}
+
+/* ---------- Diagramm ---------- */
+.chart{position:relative}
+.chart svg{width:100%;height:auto;display:block;touch-action:pan-y}
+.tip{position:absolute;pointer-events:none;background:#0b1120;border:1px solid var(--line);
+border-radius:9px;padding:5px 9px;font-size:11.5px;white-space:nowrap;opacity:0;
+transition:opacity .12s;transform:translate(-50%,-130%);z-index:5}
+.tip.an{opacity:1}
+
+/* ---------- Menü-Kacheln ---------- */
+.mk{display:block;background:var(--card);border:1px solid var(--line);border-radius:17px;
+padding:15px;margin-bottom:10px;color:inherit;position:relative;overflow:hidden;
+transition:border-color .15s,transform .12s}
+.mk:active{transform:scale(.993);border-color:var(--accent)}
+.mk-kopf{display:flex;align-items:center;gap:11px;margin-bottom:5px}
+.mk-kopf .e{font-size:25px;line-height:1}
+.mk-kopf .t{font-size:16.5px;font-weight:700;letter-spacing:-.01em}
+.mk-kopf .pf{margin-left:auto;color:var(--mut);font-size:17px}
+.mk .be{color:var(--mut);font-size:12.5px;line-height:1.45}
+.mk-z{display:flex;gap:15px;flex-wrap:wrap;margin-top:11px;font-size:13.5px;
+font-variant-numeric:tabular-nums}
+.mk-z div span{color:var(--mut);font-size:10px;display:block;text-transform:uppercase;
+letter-spacing:.05em;font-weight:600}
+
+/* ---------- Reiterleiste ---------- */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+background:rgba(16,22,35,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+padding:9px 2px 8px;color:var(--mut);font-size:10px;font-weight:600;letter-spacing:.01em}
+.nav a .e{font-size:19px;line-height:1;filter:grayscale(1) opacity(.65);transition:filter .15s}
+.nav a.an{color:var(--ink)}
+.nav a.an .e{filter:none}
+.nav a.an::before{content:'';position:absolute;top:0;width:30px;height:2px;border-radius:0 0 3px 3px;
+background:var(--accent)}
+.nav a{position:relative}
+
+.fuss{color:var(--mut);font-size:11.5px;text-align:center;margin-top:22px;line-height:1.7}
+</style></head><body data-nachbar='["strat-poly.html", ""]'><div class='wrap'><div class='kopf'><div class='kopf-reihe'><a class='zurueck' href='index.html'>&#8249;</a><span class='e'>🎯</span><h1>Scharfe Konsensquote</h1></div><p class='sub'>Pinnacle lesen, auf SX wetten — der klassische Weg, ohne eigenes Modell</p></div><div class='hero'><div class='k'>Ergebnis (Papier)</div><div class='gross gut'>+0,00</div><div class='neben'><div><span>ROI</span><b class='gut'>+0,0 %</b></div><div><span>erwartet war</span><b class='mut'>+0,0 %</b></div><div><span>abgerechnet</span><b>0</b></div><div><span>offen</span><b>0</b></div></div></div><h2>Ergebnis über die Zeit</h2><div class='card eng'><div class='leer'>Noch keine abgerechnete Wette.<br><span style='font-size:12px'>Die Kurve beginnt mit der ersten.</span></div></div><h2>Schlussquoten-Vorteil</h2><div class='card'><div class='info'>CLV vergleicht unsere Quote mit der, die der Markt kurz vor Anpfiff zeigt. Er misst nicht, ob wir gewonnen haben, sondern ob wir beim <i>Preis</i> richtig lagen &ndash; und das zeigt sich viel schneller: rund <b>100 Messungen</b> genügen, während der ROI 2.000 bis 5.000 Wetten braucht. Der Oddify-Ansatz hat 1.322 Wetten und drei Monate gebraucht; mit dieser Zahl wäre es nach etwa 100 sichtbar gewesen.</div><div class='leer' style='padding:14px'>Noch keine Schlussquote gemessen &ndash; gemessen wird in den letzten 25 Minuten vor Anpfiff.</div></div><h2>Stimmt die Einschätzung?</h2><div class='card'><div class='kacheln' style='margin-bottom:0'><div class='kachel'><div class='k'>versprochen</div><div class='v '>0,0 %</div></div><div class='kachel'><div class='k'>Trefferquote</div><div class='v '>0,0 %</div></div><div class='kachel'><div class='k'>Abweichung</div><div class='v '>+0,0 Pp</div></div><div class='kachel'><div class='k'>z-Wert</div><div class='v gut'>+0,00</div></div></div><div class='info'>Der <b>z-Wert</b> sagt, ob eine Abweichung Zufall sein kann. Zwischen &minus;2 und +2 ist alles unauffällig. Unter &minus;2,5 schätzt die Strategie systematisch zu optimistisch &ndash; genau daran ist der Oddify-Ansatz gescheitert (dort: &minus;5,8).</div></div><div class='card'><h2 style='margin-top:0'>Datenquelle</h2><div class='info warnbox'><b>Es fehlt ein Schlüssel.</b> Diese Strategie braucht Konsensquoten von einem Datenanbieter. Die kostenlose Stufe von <b>the-odds-api.com</b> umfasst 500 Abfragen im Monat &ndash; genug, denn abgefragt wird nur alle 4 Stunden (rund 360 im Monat).<br><br>Registrieren, Schlüssel kopieren, dann auf dem Rechner eintragen:<br><code>ODDS_API_KEY=…</code> in die Datei <code>.env</code>.<br><br>Bis dahin sammelt die Seite nichts &ndash; die Mechanik steht aber bereit.</div></div><h2>Offen <span class='pill'>0</span></h2><div class='leer'>Gerade keine offene Papier-Wette.<br><span style='font-size:12px'>Das ist ein gültiges Ergebnis: Die Strategie nimmt nur, was ihre Schwelle besteht.</span></div><h2>Verlauf</h2><div class='leer'>Noch nichts abgerechnet.</div><h2>Wie die Strategie arbeitet</h2><div class='card'><p style='margin:0 0 4px'>Pinnacles Quote gilt als der verlässlichste faire Preis im Sportwettenmarkt. Deutschland ist dort fürs Wetten gesperrt — fürs Lesen braucht man aber kein Konto: Die Quote kommt über einen Datenanbieter, gewettet wird auf SX. Aus den beiden Seiten wird die Marge herausgerechnet; wo SX mehr als 2 Prozentpunkte günstiger steht als dieser faire Wert, entsteht eine Wette.</p><div class='info gutbox'><b>Worauf sie beruht.</b> Über 397.935 Spiele betrug die Korrelation zwischen Pinnacles Schlussquote und der tatsächlich beobachteten Häufigkeit r² = 0,997. Dauerhaft bessere Preise zu bekommen als diese Schlussquote ist der am breitesten replizierte Hinweis auf echten Vorteil, den die Literatur kennt.</div><div class='info warnbox'><b>Was sie kippen kann.</b> Von den drei Ansätzen der schwächste. Die eigene Messung zeigte, dass SX auf liquiden Märkten bereits innerhalb von 0,6 Prozentpunkten am Konsens liegt — als Taker zahlt man 2 bis 5 % Spread und sucht darin einen Fehler von 1 %. Das geht nicht auf. Die Demo prüft, ob es in dünneren Ecken anders aussieht; der eigentliche Wert der Konsensquote liegt vermutlich darin, als fairer Anker für das Market Making zu dienen.</div></div><div class='fuss'>Stand 03.10.2026 11:19 &middot; Papierhandel, kein echtes Geld<br>Startkapital der Rechnung: 1.000 USDC (fiktiv)</div></div><nav class='nav'><a href='index.html'><span class='e'>📊</span>Übersicht</a><a href='strat-mm.html'><span class='e'>📐</span>Making</a><a href='strat-res.html'><span class='e'>⏳</span>Fenster</a><a href='strat-poly.html'><span class='e'>🔗</span>Polymarket</a><a href='strat-sharp.html' class='an'><span class='e'>🎯</span>Konsens</a></nav><script>
+function kipp(el){el.classList.toggle('auf');}
+// Fadenkreuz im Diagramm -- funktioniert mit Maus UND Finger.
+function chart(id){
+ var box=document.getElementById(id);if(!box)return;
+ var svg=box.querySelector('svg'),tip=box.querySelector('.tip');
+ var pts=JSON.parse(box.dataset.pts||'[]');if(!pts.length)return;
+ var lin=svg.querySelector('.cross'),pkt=svg.querySelector('.dot');
+ function zeig(cx){
+  var r=svg.getBoundingClientRect(),vb=svg.viewBox.baseVal;
+  var x=(cx-r.left)/r.width*vb.width,nah=pts[0],d=1e9;
+  for(var i=0;i<pts.length;i++){var dd=Math.abs(pts[i][0]-x);if(dd<d){d=dd;nah=pts[i];}}
+  if(lin){lin.setAttribute('x1',nah[0]);lin.setAttribute('x2',nah[0]);lin.style.opacity=1;}
+  if(pkt){pkt.setAttribute('cx',nah[0]);pkt.setAttribute('cy',nah[1]);pkt.style.opacity=1;}
+  tip.textContent=nah[2];tip.classList.add('an');
+  tip.style.left=(nah[0]/vb.width*r.width)+'px';
+  tip.style.top=(nah[1]/vb.height*r.height)+'px';
+ }
+ function weg(){tip.classList.remove('an');if(lin)lin.style.opacity=0;if(pkt)pkt.style.opacity=0;}
+ svg.addEventListener('mousemove',function(e){zeig(e.clientX);});
+ svg.addEventListener('mouseleave',weg);
+ svg.addEventListener('touchstart',function(e){zeig(e.touches[0].clientX);},{passive:true});
+ svg.addEventListener('touchmove',function(e){zeig(e.touches[0].clientX);},{passive:true});
+ svg.addEventListener('touchend',weg);
+}
+// Wischen zwischen den Seiten -- gleiche Geste wie in der alten App.
+(function(){
+ var sx=0,sy=0;
+ document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+ document.addEventListener('touchend',function(e){
+  var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+  if(Math.abs(dx)<70||Math.abs(dx)<Math.abs(dy)*1.6)return;
+  var z=document.body.dataset.nachbar;if(!z)return;
+  var n=JSON.parse(z);var ziel=dx<0?n[1]:n[0];if(ziel)location.href=ziel;
+ },{passive:true});
+})();
+</script></body></html>
