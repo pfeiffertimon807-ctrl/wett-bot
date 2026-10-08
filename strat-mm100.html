@@ -1,0 +1,503 @@
+<!doctype html><html lang='de'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'><meta name='apple-mobile-web-app-title' content='Wett-Bot'><meta name='theme-color' content='#0f1420'><link rel='apple-touch-icon' sizes='180x180' href='icon.png'><title>Market Making mit 100 € – Wett-Bot</title><style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0f1420;--card:#1a2232;--card2:#141b29;--ink:#e9eef7;--mut:#8b98ad;
+--line:#27324a;--accent:#6c8cff;--good:#31c48d;--bad:#f05252;--warn:#f6a609}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+font-size:15px;line-height:1.5;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 20px}
+a{color:var(--accent);text-decoration:none}
+
+/* ---------- Kopf ---------- */
+.kopf{position:sticky;top:0;z-index:20;background:rgba(15,20,32,.92);
+backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+border-bottom:1px solid var(--line);padding:12px 16px 10px;margin:0 -16px 14px}
+.kopf-reihe{display:flex;align-items:center;gap:10px;max-width:900px;margin:0 auto}
+.kopf h1{font-size:19px;margin:0;font-weight:700;letter-spacing:-.01em}
+.kopf .e{font-size:22px;line-height:1}
+.kopf .sub{color:var(--mut);font-size:12.5px;margin:3px 0 0;max-width:900px}
+.zurueck{color:var(--mut);font-size:20px;line-height:1;padding:4px 8px 4px 0;margin-left:-4px}
+
+/* ---------- Hero ---------- */
+.hero{background:linear-gradient(160deg,#1c2538,#161d2c);border:1px solid var(--line);
+border-radius:18px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:-40% -20% auto auto;width:60%;height:160%;
+background:radial-gradient(circle,rgba(108,140,255,.10),transparent 68%);pointer-events:none}
+.hero .k{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.07em}
+.hero .gross{font-size:36px;font-weight:800;letter-spacing:-.02em;margin:2px 0 0;
+font-variant-numeric:tabular-nums}
+.hero .neben{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap}
+.hero .neben div{font-size:13px}
+.hero .neben span{display:block;color:var(--mut);font-size:10.5px;text-transform:uppercase;
+letter-spacing:.05em}
+
+/* ---------- Kacheln ---------- */
+.kacheln{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:12px}
+@media(min-width:620px){.kacheln{grid-template-columns:repeat(4,1fr)}}
+.kachel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 12px}
+.kachel .k{color:var(--mut);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em}
+.kachel .v{font-size:19px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kachel .z{color:var(--mut);font-size:11px;margin-top:1px}
+
+.gut{color:var(--good)}.schlecht{color:var(--bad)}.warn{color:var(--warn)}.mut{color:var(--mut)}
+
+/* ---------- Karten / Abschnitte ---------- */
+h2{font-size:12px;margin:22px 0 9px;color:var(--mut);font-weight:700;
+text-transform:uppercase;letter-spacing:.07em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+padding:14px;margin-bottom:12px}
+.card.eng{padding:8px}
+.info{border-left:3px solid var(--accent);padding:10px 12px;background:var(--card2);
+border-radius:0 10px 10px 0;margin:10px 0 0;font-size:12.5px;color:#c2ccdc;line-height:1.55}
+.info b{color:var(--ink)}
+.info:first-child{margin-top:0}
+.warnbox{border-left-color:var(--warn)}
+.gutbox{border-left-color:var(--good)}
+
+/* ---------- Fortschrittsbalken ---------- */
+.balken{height:6px;border-radius:99px;background:#222c42;overflow:hidden;margin-top:8px}
+.balken i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+
+/* ---------- Wett-Liste ---------- */
+.liste{display:flex;flex-direction:column;gap:7px}
+.wette{background:var(--card2);border:1px solid var(--line);border-radius:13px;
+padding:11px 12px;cursor:pointer;transition:border-color .15s}
+.wette:active{border-color:var(--accent)}
+.wette .z1{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.wette .ev{font-weight:650;font-size:14px;line-height:1.3}
+.wette .tipp{color:var(--mut);font-size:12.5px;margin-top:2px}
+.wette .rechts{text-align:right;flex:none;font-variant-numeric:tabular-nums}
+.wette .quote{font-size:15px;font-weight:700}
+.wette .klein{font-size:11px;color:var(--mut)}
+.wette .z2{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10.5px;
+background:#223049;color:var(--mut);white-space:nowrap}
+.pill.g{background:rgba(49,196,141,.14);color:var(--good)}
+.pill.r{background:rgba(240,82,82,.14);color:var(--bad)}
+.pill.w{background:rgba(246,166,9,.14);color:var(--warn)}
+.detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
+font-size:12.5px;color:#c2ccdc;line-height:1.6}
+.wette.auf .detail{display:block}
+.wette .pfeil{color:var(--mut);font-size:11px;transition:transform .18s;display:inline-block}
+.wette.auf .pfeil{transform:rotate(90deg)}
+.rechnung{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;color:var(--mut);
+margin-top:7px;background:#111825;border-radius:8px;padding:8px 10px;overflow-x:auto}
+.rechnung b{color:var(--ink);font-family:inherit}
+
+.leer{color:var(--mut);text-align:center;padding:26px 12px;font-size:13.5px;line-height:1.6}
+
+/* ---------- Diagramm ---------- */
+.chart{position:relative}
+.chart svg{width:100%;height:auto;display:block;touch-action:pan-y}
+.tip{position:absolute;pointer-events:none;background:#0b1120;border:1px solid var(--line);
+border-radius:9px;padding:5px 9px;font-size:11.5px;white-space:nowrap;opacity:0;
+transition:opacity .12s;transform:translate(-50%,-130%);z-index:5}
+.tip.an{opacity:1}
+
+/* ---------- Menü-Kacheln ---------- */
+.mk{display:block;background:var(--card);border:1px solid var(--line);border-radius:17px;
+padding:15px;margin-bottom:10px;color:inherit;position:relative;overflow:hidden;
+transition:border-color .15s,transform .12s}
+.mk:active{transform:scale(.993);border-color:var(--accent)}
+.mk-kopf{display:flex;align-items:center;gap:11px;margin-bottom:5px}
+.mk-kopf .e{font-size:25px;line-height:1}
+.mk-kopf .t{font-size:16.5px;font-weight:700;letter-spacing:-.01em}
+.mk-kopf .pf{margin-left:auto;color:var(--mut);font-size:17px}
+.mk .be{color:var(--mut);font-size:12.5px;line-height:1.45}
+.mk-z{display:flex;gap:15px;flex-wrap:wrap;margin-top:11px;font-size:13.5px;
+font-variant-numeric:tabular-nums}
+.mk-z div span{color:var(--mut);font-size:10px;display:block;text-transform:uppercase;
+letter-spacing:.05em;font-weight:600}
+
+/* ---------- Reiterleiste ---------- */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+background:rgba(16,22,35,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+padding:9px 2px 8px;color:var(--mut);font-size:10px;font-weight:600;letter-spacing:.01em}
+.nav a .e{font-size:19px;line-height:1;filter:grayscale(1) opacity(.65);transition:filter .15s}
+.nav a.an{color:var(--ink)}
+.nav a.an .e{filter:none}
+.nav a.an::before{content:'';position:absolute;top:0;width:30px;height:2px;border-radius:0 0 3px 3px;
+background:var(--accent)}
+.nav a{position:relative}
+.nav.sechs a{font-size:9px;padding:8px 1px 7px}
+.nav.sechs a .e{font-size:17px}
+
+/* ---------- Reiterleiste (Abschnitte innerhalb einer Strategie) ---------- */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+background:rgba(16,22,35,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;
+padding:8px 2px 7px;color:var(--mut);font-size:10px;font-weight:600;background:none;
+border:none;font-family:inherit;cursor:pointer;position:relative}
+.tabbtn .i{font-size:18px;line-height:1.1;filter:grayscale(1) opacity(.6);transition:filter .15s}
+.tabbtn.active{color:var(--accent)}
+.tabbtn.active .i{filter:none}
+.tabbtn.active::before{content:'';position:absolute;top:0;width:28px;height:2px;
+border-radius:0 0 3px 3px;background:var(--accent)}
+.tabbtn .cnt{font-size:9.5px;background:#243050;color:#a9b7d6;border-radius:10px;
+padding:0 5px;margin-top:1px;line-height:1.5}
+.abschnitt{display:none}
+.abschnitt.an{display:block}
+
+/* ---------- Aufschlüsselung nach Sportart ---------- */
+.sport{padding:10px 0;border-bottom:1px solid var(--line)}
+.sport:last-child{border-bottom:none}
+.sport .k1{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.sport .n{font-weight:650;font-size:13.5px}
+.sport .w{font-variant-numeric:tabular-nums;font-size:13.5px;font-weight:700}
+.sport .k2{color:var(--mut);font-size:11.5px;margin-top:2px}
+.sbar{height:5px;border-radius:99px;background:#222c42;margin-top:7px;overflow:hidden;
+display:flex}
+.sbar i{display:block;height:100%}
+
+/* ---------- Kompaktzeilen (Zusatzblöcke) ---------- */
+.zeile{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.zeile:last-child{border-bottom:none}
+.zeile .l{min-width:0;flex:1}
+.zeile .l b{display:block;font-weight:600;font-size:13px;overflow:hidden;
+text-overflow:ellipsis;white-space:nowrap}
+.zeile .l span{color:var(--mut);font-size:11.5px}
+.zeile .r{flex:none;text-align:right;font-variant-numeric:tabular-nums;font-size:12.5px}
+.zeile .r b{display:block;font-weight:700}
+.zeile .r span{color:var(--mut);font-size:11px}
+
+.fuss{color:var(--mut);font-size:11.5px;text-align:center;margin-top:22px;line-height:1.7}
+
+/* ---------- Reiterleiste mit sechs Abschnitten ---------- */
+.tabbar.sechs .tabbtn{font-size:9px;padding:7px 1px 6px}
+.tabbar.sechs .tabbtn .i{font-size:16px}
+.tabbar.sechs .tabbtn .cnt{font-size:9px;padding:0 4px}
+
+/* ---------- Hero-Aufteilung ---------- */
+.hero-split{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;padding-top:11px;
+border-top:1px solid var(--line);font-size:12.5px}
+.hero-split span{color:var(--mut)}
+.hero-split b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ---------- Kachel-Hub (Übersicht -> Detailseite) ---------- */
+.hubgrid{display:grid;grid-template-columns:1fr;gap:9px;margin-bottom:12px}
+@media(min-width:620px){.hubgrid{grid-template-columns:repeat(2,1fr)}}
+.hubtile{background:var(--card);border:1px solid var(--line);border-radius:15px;
+padding:13px 14px;cursor:pointer;transition:border-color .15s,transform .12s}
+.hubtile:active{transform:scale(.993);border-color:var(--accent)}
+.ht-top{display:flex;align-items:center;gap:9px}
+.ht-em{font-size:20px;line-height:1}
+.ht-title{font-weight:650;font-size:14.5px}
+.ht-go{margin-left:auto;color:var(--mut);font-size:17px}
+.ht-big{font-size:25px;font-weight:800;margin-top:4px;letter-spacing:-.02em;
+font-variant-numeric:tabular-nums}
+.ht-sub{color:var(--mut);font-size:12px}
+.ht-bar{height:5px;border-radius:99px;background:#222c42;margin-top:8px;overflow:hidden}
+.ht-fill{height:100%;border-radius:99px;background:var(--accent)}
+.ht-fill.gut{background:var(--good)}.ht-fill.schlecht{background:var(--bad)}
+.ht-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.ht-chip{background:#223049;color:#a9b7d6;border-radius:999px;padding:2px 8px;font-size:10.5px;
+white-space:nowrap}
+
+/* ---------- Detailseite innerhalb eines Reiters ---------- */
+.dhead{display:flex;align-items:center;gap:8px;margin:0 0 12px}
+.backbtn{background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;
+font-size:17px;line-height:1;padding:4px 11px;cursor:pointer;font-family:inherit}
+.backbtn:active{border-color:var(--accent)}
+.dtitle{font-weight:700;font-size:16px}
+.dsec{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.07em;
+font-weight:700;margin:16px 0 8px}
+.dstat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:620px){.dstat-grid{grid-template-columns:repeat(4,1fr)}}
+.dstat{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:9px 11px}
+.dstat .k{color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.dstat .v{font-size:16.5px;font-weight:700;margin-top:1px;font-variant-numeric:tabular-nums}
+
+/* ---------- Filter + Sortierung ---------- */
+.filt-bar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+.filt-bar input,.filt-bar select{background:var(--card2);color:var(--ink);
+border:1px solid var(--line);border-radius:10px;padding:7px 9px;font-size:12.5px;
+font-family:inherit;flex:1 1 128px;min-width:0;-webkit-appearance:none;appearance:none}
+.filt-bar input:focus,.filt-bar select:focus{outline:none;border-color:var(--accent)}
+.filt-count{color:var(--mut);font-size:11.5px;margin-bottom:8px}
+
+/* ---------- Wochenkalender ---------- */
+.cal-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cal-grid{display:flex;gap:3px;min-width:min-content}
+.cal-col{display:flex;flex-direction:column;gap:3px}
+.cal-cell{width:15px;height:15px;border-radius:3px;background:#1b2434;flex:none}
+.cal-none{background:#1b2434}
+.cal-empty{background:transparent}
+.cal-legend{display:flex;align-items:center;gap:4px;margin-top:9px;color:var(--mut);font-size:10.5px}
+.cal-legend .cal-cell{width:11px;height:11px}
+.cal-day-info{margin-top:8px;font-size:12px;color:var(--mut)}
+.cal-day-info b{color:var(--ink)}
+
+/* ---------- Sportkarten ---------- */
+.sportgrid{display:grid;grid-template-columns:1fr;gap:9px}
+@media(min-width:620px){.sportgrid{grid-template-columns:repeat(2,1fr)}}
+.sportcard{background:var(--card);border:1px solid var(--line);border-radius:15px;
+padding:12px 13px;cursor:pointer;transition:border-color .15s}
+.sportcard:active{border-color:var(--accent)}
+.sportcard .top{display:flex;align-items:center;gap:8px}
+.sportcard .top .em{font-size:18px;line-height:1}
+.sportcard .top .nm{font-weight:650;font-size:14px}
+.sportcard .top .pnl{margin-left:auto;font-weight:800;font-variant-numeric:tabular-nums}
+.sportcard .meta{color:var(--mut);font-size:11.5px;margin-top:3px}
+.track{height:5px;border-radius:99px;background:#222c42;margin-top:8px;overflow:hidden}
+.track .fill{height:100%;border-radius:99px;background:var(--mut)}
+.track .fill.gut{background:var(--good)}.track .fill.schlecht{background:var(--bad)}
+.spark-cap{color:var(--mut);font-size:10.5px;margin-top:5px}
+.aufklapp{display:none;margin-top:9px;padding-top:9px;border-top:1px solid var(--line)}
+.auf > .aufklapp{display:block}
+.sportcard .pfeil2{color:var(--mut);font-size:10px;transition:transform .18s;
+display:inline-block}
+.auf > .spark-cap .pfeil2{transform:rotate(90deg)}
+
+/* ---------- Kompakte Aufschlüsselungs-Zeilen ----------
+   Name und Erläuterung stehen UNTEREINANDER, nicht nebeneinander. Die erste
+   Fassung legte beides in eine Zeile -- auf 375 px drückte die lange Erläuterung
+   den Namen auf null Breite, und in der Sportart-Tabelle stand gar nicht mehr
+   da, um welche Sportart es ging. */
+.trow{display:flex;align-items:center;gap:10px;padding:8px 0;
+border-bottom:1px solid var(--line);font-size:12.5px}
+.trow:last-child{border-bottom:none}
+.tl{flex:1 1 auto;min-width:0}
+.tname{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tmeta{display:block;color:var(--mut);font-size:11px;line-height:1.4;margin-top:1px}
+.tval{flex:none;font-weight:700;font-variant-numeric:tabular-nums;min-width:64px;
+text-align:right}
+
+/* ---------- Nummerierte Erklärschritte ---------- */
+.schritt{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid var(--line);
+font-size:12.5px;line-height:1.55;color:#c2ccdc}
+.schritt:last-child{border-bottom:none}
+.schritt .nr{flex:none;width:23px;height:23px;border-radius:50%;background:#223049;
+color:var(--accent);font-weight:700;font-size:12px;display:flex;align-items:center;
+justify-content:center}
+.schritt b{color:var(--ink)}
+
+/* ---------- System-Check ---------- */
+.checkhead{display:flex;align-items:center;gap:9px;font-weight:700;font-size:13.5px;
+margin-bottom:9px}
+.chk{display:flex;align-items:flex-start;gap:8px;padding:6px 0;font-size:12.5px;line-height:1.45}
+.chk .txt span{display:block;color:var(--mut);font-size:11px}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;
+border-radius:50%;font-size:11px;font-weight:700;flex:none;margin-top:1px}
+.ic.ok{background:rgba(49,196,141,.18);color:var(--good)}
+.ic.no{background:rgba(240,82,82,.18);color:var(--bad)}
+.ic.i{background:#223049;color:var(--mut)}
+
+/* ---------- Trichter ---------- */
+.tr-row{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13px}
+.tr-lab{flex:0 0 96px;color:var(--mut);font-size:11.5px}
+.tr-bar{flex:1 1 auto;height:20px;border-radius:6px;background:#1b2434;overflow:hidden;
+position:relative}
+.tr-bar i{display:block;height:100%;border-radius:6px}
+.tr-val{flex:none;font-weight:700;font-variant-numeric:tabular-nums;min-width:66px;
+text-align:right;font-size:12.5px}
+
+/* ---------- Histogramm ---------- */
+.hist{display:flex;align-items:flex-end;gap:3px;height:112px;margin-top:4px}
+.hist .hcol{flex:1 1 0;display:flex;flex-direction:column;justify-content:flex-end;
+align-items:center;height:100%;min-width:0}
+.hist .hbar{width:100%;border-radius:4px 4px 0 0;background:var(--accent);min-height:2px}
+.hist .hbar.gut{background:var(--good)}.hist .hbar.schlecht{background:var(--bad)}
+.hist .hn{font-size:9.5px;color:var(--mut);margin-bottom:2px}
+.histx{display:flex;gap:3px;margin-top:4px}
+.histx span{flex:1 1 0;text-align:center;font-size:8.5px;color:var(--mut);min-width:0;
+overflow:hidden;white-space:nowrap}
+
+/* ---------- Gruppen im Verlauf ---------- */
+.grp{border:1px solid var(--line);border-radius:14px;margin-bottom:9px;overflow:hidden;
+background:var(--card)}
+.grp-head{display:flex;align-items:center;gap:8px;padding:11px 13px;cursor:pointer;font-size:13.5px}
+.grp-head .em{font-size:17px;line-height:1}
+.grp-head .nm{font-weight:650}
+.grp-head .sum{margin-left:auto;color:var(--mut);font-size:12px;
+font-variant-numeric:tabular-nums}
+.grp-head .ar{color:var(--mut);font-size:11px;transition:transform .18s;display:inline-block}
+.grp.auf .grp-head .ar{transform:rotate(180deg)}
+.grp-body{display:none;padding:0 11px 11px}
+.grp.auf .grp-body{display:block}
+
+/* ---------- Wett-Zeile (kompakt, filterbar) ---------- */
+.wz{background:var(--card2);border:1px solid var(--line);border-radius:12px;
+padding:9px 11px;cursor:pointer;margin-bottom:6px;transition:border-color .15s}
+.wz:active{border-color:var(--accent)}
+.wz .z1{display:flex;justify-content:space-between;align-items:flex-start;gap:9px}
+.wz .ev{font-weight:620;font-size:13px;line-height:1.3}
+.wz .tp{color:var(--mut);font-size:11.5px;margin-top:1px}
+.wz .rr{text-align:right;flex:none;font-variant-numeric:tabular-nums}
+.wz .q{font-size:13.5px;font-weight:700}
+.wz .kl{font-size:10.5px;color:var(--mut)}
+.wz .z2{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;align-items:center}
+.wz .dt{display:none;margin-top:9px;padding-top:9px;border-top:1px solid var(--line);
+font-size:12px;color:#c2ccdc;line-height:1.6}
+.wz.auf .dt{display:block}
+.wz .pfeil{color:var(--mut);font-size:10px;transition:transform .18s;display:inline-block}
+.wz.auf .pfeil{transform:rotate(90deg)}
+/* Bewusst <b> und <i> statt eigener Klassen: Bei bis zu zwölf Feldern je Wette
+   und mehreren hundert Wetten spart das rund 45 Byte je Feld -- auf der großen
+   Demo etwa 150 KB Seitengröße, ohne dass eine Angabe entfällt. */
+.kv{display:grid;grid-template-columns:repeat(2,1fr);gap:5px 11px;margin-top:6px}
+@media(min-width:560px){.kv{grid-template-columns:repeat(3,1fr)}}
+.kv div{min-width:0}
+.kv b{display:block;color:var(--mut);font-size:10px;text-transform:uppercase;
+letter-spacing:.04em;font-weight:600}
+.kv i{font-style:normal;font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:600}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10.5px;font-weight:600}
+.badge.b-won{background:rgba(49,196,141,.16);color:var(--good)}
+.badge.b-lost{background:rgba(240,82,82,.16);color:var(--bad)}
+.badge.b-void{background:#223049;color:var(--mut)}
+.badge.b-open{background:rgba(108,140,255,.16);color:var(--accent)}
+</style></head><body><div class='wrap'><div class='kopf'><div class='kopf-reihe'><a class='zurueck' href='index.html'>&#8249;</a><span class='e'>💶</span><h1>Market Making mit 100 €</h1></div><p class='sub'>Dieselbe Mechanik auf echtem Kapitalniveau — 2 USDC je Quote, nur Fußball</p></div><div class='abschnitt an' id='t-ueber'><div class='hero'><div class='k'>Ergebnis (Papier)</div><div class='gross mut'>+0,00</div><div class='neben'><div><span>ROI</span><b class='mut'>+0,00 %</b></div><div><span>erwartet war</span><b class='mut'>+0,00 %</b></div><div><span>abgerechnet</span><b>0</b></div><div><span>offen</span><b>0</b></div></div><div class='hero-split'><span>💰 frei <b>100,00</b></span><span>🎯 in Wetten gebunden <b>0,00</b></span><span>📐 in Quoten angeboten <b>60,00</b></span><span>🏦 Startkapital <b>100</b></span></div></div><div class='kacheln'><div class='kachel'><div class='k'>Ergebnis</div><div class='v mut'>+0,00</div><div class='z'>erwartet +0,00</div></div><div class='kachel'><div class='k'>ROI</div><div class='v mut'>+0,00 %</div><div class='z'>auf abgerechnete Einsätze</div></div><div class='kachel'><div class='k'>Trefferquote</div><div class='v '>0,0 %</div><div class='z'>versprochen 0,0 %</div></div><div class='kachel'><div class='k'>z-Wert</div><div class='v gut'>+0,00</div><div class='z'>Kalibrierung</div></div><div class='kachel'><div class='k'>Füllquote</div><div class='v '>0,0 %</div><div class='z'>0 von 0</div></div><div class='kachel'><div class='k'>Ø Marge gefüllt</div><div class='v gut'>&ndash;</div><div class='z'>Median beim Posten</div></div><div class='kachel'><div class='k'>offene Quoten</div><div class='v '>30</div><div class='z'>von höchstens 30</div></div><div class='kachel'><div class='k'>bequotete Märkte</div><div class='v '>16</div><div class='z'>seit Beginn</div></div></div><h2>Ergebnis über die Zeit</h2><div class='card eng'><div class='leer'>Noch keine abgerechnete Wette.<br><span style='font-size:12px'>Die Kurve beginnt mit der ersten.</span></div></div><h2>Nach Sportart</h2><div class='leer'>Noch keine Wetten.</div><h2>System-Check</h2><div class='card'><div class='checkhead'><span class='ic ok' style='width:25px;height:25px'>&#10003;</span><span class='gut'>&#10003; Alle Prüfungen bestanden</span></div><div class='chk'><span class='ic ok'>&#10003;</span><span class='txt'>Edge korrekt gerechnet (fairer Preis × Quote − 1)<span>Rechenprobe über alle Wetten, Toleranz 0,5 Prozentpunkte.</span></span></div><div class='chk'><span class='ic ok'>&#10003;</span><span class='txt'>Jede Quote liegt UNTER dem fairen Wert<span>Keine einzige Quote mit negativem Erwartungswert gestellt.</span></span></div><div class='chk'><span class='ic ok'>&#10003;</span><span class='txt'>Mindestabstand 0.30 Pp eingehalten<span>Alle gestellten Quoten hatten genug Luft zum fairen Wert.</span></span></div><div class='chk'><span class='ic ok'>&#10003;</span><span class='txt'>Kein Einsatz unter der SX-Mindestgröße (1 USDC)<span>Jede Papier-Wette wäre auch echt platzierbar gewesen.</span></span></div><div class='chk'><span class='ic ok'>&#10003;</span><span class='txt'>Keine Überbuchung des Papierkapitals<span>Gebunden 0.00 von 100.00 USDC Startkapital.</span></span></div><div class='chk'><span class='ic ok'>&#10003;</span><span class='txt'>Nur Vorspielmärkte bequotet<span>Keine Quote gegen ein laufendes Spiel.</span></span></div><div class='chk'><span class='ic ok'>&#10003;</span><span class='txt'>Füllbetrag nie größer als das Angebot<span>Die Füllsimulation hat nie mehr zugeteilt als angeboten.</span></span></div><div class='chk'><span class='ic ok'>&#10003;</span><span class='txt'>Jede Wette stammt aus einer gefüllten Quote<span>0 Füllungen auf 0 Markt/Seite-Kombinationen, daraus 0 Positionen.</span></span></div><div class='chk'><span class='ic ok'>&#10003;</span><span class='txt'>Keine Doppelbuchung derselben Seite<span>Jede Markt/Seite-Kombination genau einmal verbucht.</span></span></div><div class='chk'><span class='ic i'>i</span><span class='txt mut'>0 Wetten (0 offen, 0 abgerechnet) aus 0 gefüllten Quoten</span></div><div class='chk'><span class='ic i'>i</span><span class='txt mut'>frei 100,00 &middot; gebunden 0,00 &middot; Startkapital 100 USDC</span></div><div class='chk'><span class='ic i'>i</span><span class='txt mut'>Ordergröße 2,00 USDC &middot; höchstens 30 Quoten gleichzeitig &middot; Mindestabstand 0,30 Pp</span></div><div class='chk'><span class='ic i'>i</span><span class='txt mut'>Papierhandel &ndash; es gibt im Code keinen Pfad zum Ausführen, ein Test prüft das bei jedem Durchlauf</span></div></div></div><div class='abschnitt' id='t-buch'><div class='info'>Eine <b>Quote ist noch keine Wette</b>. Dieser Reiter zeigt die Ebene darunter: was wir ins Buch gelegt haben, was daraus geworden ist und zu welchem Preis. Alles Weitere hängt davon ab &ndash; ohne Füllungen kein Umschlag, und vom Umschlag lebt der Ansatz.</div><h2>Was wird aus einer Quote?</h2><div class='card'><div class='tr-row'><span class='tr-lab'>gestellt</span><span class='tr-bar'><i style='width:100.0%;background:var(--accent)'></i></span><span class='tr-val'>30</span></div><div class='tr-row'><span class='tr-lab'>gefüllt</span><span class='tr-bar'><i style='width:0.0%;background:var(--good)'></i></span><span class='tr-val'>0</span></div><div class='tr-row'><span class='tr-lab'>verfallen</span><span class='tr-bar'><i style='width:0.0%;background:var(--bad)'></i></span><span class='tr-val'>0</span></div><div class='tr-row'><span class='tr-lab'>noch offen</span><span class='tr-bar'><i style='width:100.0%;background:var(--mut)'></i></span><span class='tr-val'>30</span></div><div class='info gutbox' style='margin-bottom:0'>Die <b>Füllquote</b> von <b>0,0 %</b> rechnet gegen die 0 entschiedenen Quoten (gefüllt + verfallen) &ndash; offene Quoten haben ihr Schicksal noch vor sich und würden die Zahl künstlich drücken. Sie ist eine <b>Obergrenze</b>: Die Simulation nimmt an, dass wir die Preisstufe allein halten. Real rücken andere Maker nach und teilen sich die Füllung.</div></div><h2>Von der Füllung zur Position</h2><div class='card'><div class='tr-row'><span class='tr-lab'>gefüllt</span><span class='tr-bar'><i style='width:0.0%;background:var(--accent)'></i></span><span class='tr-val'>0</span></div><div class='tr-row'><span class='tr-lab'>verschiedene Seiten</span><span class='tr-bar'><i style='width:0.0%;background:#5a7bd4'></i></span><span class='tr-val'>0</span></div><div class='tr-row'><span class='tr-lab'>daraus Positionen</span><span class='tr-bar'><i style='width:0.0%;background:var(--good)'></i></span><span class='tr-val'>0</span></div></div><div class='kacheln'><div class='kachel'><div class='k'>Ø Zeit bis Füllung</div><div class='v '>&ndash;</div><div class='z'>Median aus 0</div></div><div class='kachel'><div class='k'>Aufschlag über Spitze</div><div class='v '>+0,125 Pp</div><div class='z'>soll eine Leiterstufe sein</div></div><div class='kachel'><div class='k'>voll gefüllt</div><div class='v '>&ndash;</div><div class='z'>Rest waren Teilfüllungen</div></div><div class='kachel'><div class='k'>Märkte bequotet</div><div class='v '>16</div><div class='z'>1,9 Quoten je Markt</div></div></div><h2>Abstand zum fairen Wert</h2><div class='card'><div class='kacheln' style='margin-bottom:10px'><div class='kachel'><div class='k'>Median gestellt</div><div class='v '>+0,754 Pp</div></div><div class='kachel'><div class='k'>Median gefüllt</div><div class='v '>&ndash;</div></div><div class='kachel'><div class='k'>Maximum</div><div class='v '>+2,642 Pp</div></div><div class='kachel'><div class='k'>Messungen</div><div class='v '>30</div></div></div><div class='hist'><div class='hcol'><span class='hn'>5</span><div class='hbar ' style='height:62.5%'></div></div><div class='hcol'><span class='hn'>5</span><div class='hbar ' style='height:62.5%'></div></div><div class='hcol'><span class='hn'>8</span><div class='hbar ' style='height:100.0%'></div></div><div class='hcol'><span class='hn'>8</span><div class='hbar ' style='height:100.0%'></div></div><div class='hcol'><span class='hn'>4</span><div class='hbar ' style='height:50.0%'></div></div></div><div class='histx'><span>0,30 – 0,45</span><span>0,45 – 0,60</span><span>0,60 – 0,80</span><span>0,80 – 1,20</span><span>über 1,20</span></div><div class='spark-cap'>Verteilung aller gestellten Quoten, in Prozentpunkten</div></div><h2>Füllquote und Marge je Sportart</h2><div class='card'><div class='trow'><span class='tl'><span class='tname'>⚽ Soccer</span><span class='tmeta'>30 Quoten &middot; 0 gefüllt &middot; 16 Märkte &middot; Marge 0,861 Pp</span></span><span class='tval gut'>0,0 %</span></div><div class='info'>Dieselbe Marge ist nichts wert, wenn dort nie gefüllt wird. Deshalb steht hier die <b>Füllquote</b> vorn und nicht das Ergebnis &ndash; die Wett-Aufschlüsselung im Reiter <b>Verlauf</b> sieht nur die Füllungen und kann diesen Unterschied gar nicht zeigen.</div></div><h2>Beide Seiten gefüllt</h2><div class='card'><div class='info gutbox'><b>Das ist der Idealfall.</b> Wer beide Seiten eines Marktes zu einer Preissumme <i>unter</i> 100 % hält, hat den Spread eingefangen: Eine Seite gewinnt, die andere verliert, und die Differenz bleibt &ndash; ganz unabhängig davon, wie das Spiel ausgeht. 98,50 % Preissumme bedeutet 1,50 % sicheren Ertrag auf den eingesetzten Betrag. Dass das überhaupt vorkommt, ist der deutlichste Beleg dafür, dass die Mechanik greift.</div></div><h2>Jetzt im Buch <span class='pill'>30</span></h2><div class='card'><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Tie &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>4,08</b><span>fair 4,03 &middot; <span class='gut'>+0,340 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Over 2.5 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,77</b><span>fair 1,76 &middot; <span class='gut'>+0,477 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Under 2.5 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,35</b><span>fair 2,32 &middot; <span class='gut'>+0,649 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Over 2.0 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,36</b><span>fair 1,35 &middot; <span class='gut'>+0,390 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Under 2.0 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>4,06</b><span>fair 3,85 &middot; <span class='gut'>+1,361 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Over 3.5 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,88</b><span>fair 2,80 &middot; <span class='gut'>+0,923 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Under 3.5 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,57</b><span>fair 1,55 &middot; <span class='gut'>+0,452 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Over 3.0 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,23</b><span>fair 2,18 &middot; <span class='gut'>+0,959 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Under 3.0 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,87</b><span>fair 1,85 &middot; <span class='gut'>+0,791 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Santos FC SP &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>3,70</b><span>fair 3,55 &middot; <span class='gut'>+1,142 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>CR Flamengo &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,40</b><span>fair 1,39 &middot; <span class='gut'>+0,358 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Santos FC SP +0.75 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,93</b><span>fair 1,85 &middot; <span class='gut'>+2,233 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>CR Flamengo -0.75 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,31</b><span>fair 2,17 &middot; <span class='gut'>+2,642 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Santos FC SP 0 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>3,69</b><span>fair 3,55 &middot; <span class='gut'>+1,047 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>CR Flamengo 0 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,40</b><span>fair 1,39 &middot; <span class='gut'>+0,328 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Santos FC SP +1 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,71</b><span>fair 1,68 &middot; <span class='gut'>+0,749 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>CR Flamengo -1 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,53</b><span>fair 2,46 &middot; <span class='gut'>+1,126 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>Santos FC SP +0.5 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,22</b><span>fair 2,18 &middot; <span class='gut'>+0,680 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Santos FC SP vs CR Flamengo</b><span>CR Flamengo -0.5 &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,86</b><span>fair 1,85 &middot; <span class='gut'>+0,570 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Ceara-ce vs Criciuma</b><span>Ceara-ce &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,02</b><span>fair 1,99 &middot; <span class='gut'>+0,742 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Ceara-ce vs Criciuma</b><span>Criciuma &middot; Anstoß in 5,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,04</b><span>fair 2,01 &middot; <span class='gut'>+0,758 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Fluminense FC vs Coritiba</b><span>Over 3.0 &middot; Anstoß in 7,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,32</b><span>fair 2,30 &middot; <span class='gut'>+0,366 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Incheon United vs Pohang Steelers</b><span>Over 2.0 &middot; Anstoß in 14,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,95</b><span>fair 1,91 &middot; <span class='gut'>+0,880 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Incheon United vs Pohang Steelers</b><span>Under 2.0 &middot; Anstoß in 14,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,14</b><span>fair 2,09 &middot; <span class='gut'>+0,995 Pp</span></span></div></div><div class='zeile'><div class='l'><b>SJK Seinajoki vs FC Lahti</b><span>SJK Seinajoki 0 &middot; Anstoß in 21,8 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,23</b><span>fair 2,17 &middot; <span class='gut'>+1,228 Pp</span></span></div></div><div class='zeile'><div class='l'><b>SJK Seinajoki vs FC Lahti</b><span>FC Lahti 0 &middot; Anstoß in 21,8 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,89</b><span>fair 1,85 &middot; <span class='gut'>+1,022 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Sunderland vs Brighton and Hove Albion</b><span>Sunderland &middot; Anstoß in 44,8 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,38</b><span>fair 2,34 &middot; <span class='gut'>+0,797 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Sunderland vs Brighton and Hove Albion</b><span>Brighton and Hove Albion &middot; Anstoß in 44,8 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,77</b><span>fair 1,75 &middot; <span class='gut'>+0,578 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Barcelona FC vs Getafe</b><span>Over 4.0 &middot; Anstoß in 47,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>2,16</b><span>fair 2,13 &middot; <span class='gut'>+0,666 Pp</span></span></div></div><div class='zeile'><div class='l'><b>Barcelona FC vs Getafe</b><span>Under 4.0 &middot; Anstoß in 47,3 h &middot; steht 0,2 h</span></div><div class='r'><b class=''>1,90</b><span>fair 1,88 &middot; <span class='gut'>+0,584 Pp</span></span></div></div></div></div><div class='abschnitt' id='t-offen'><div id='offen-hub'><div class='leer'>Gerade keine offene Papier-Wette.<br><span style='font-size:12px'>Offen wird eine Wette erst, wenn eine gestellte Quote gefüllt wird. Solange keine gefüllt ist, ist das der korrekte Zustand.</span></div></div><div id='offen-detail' style='display:none'></div></div><div class='abschnitt' id='t-verlauf'><div id='verlauf-hub'><h2>Übersicht</h2><div class='kacheln'><div class='kachel'><div class='k'>aktuelle Wetten</div><div class='v '>0</div><div class='z'>0,00 gebunden</div></div><div class='kachel'><div class='k'>vergangene Wetten</div><div class='v '>0</div><div class='z'>0 gewonnen / 0 verloren</div></div><div class='kachel'><div class='k'>Ergebnis vergangen</div><div class='v mut'>+0,00</div><div class='z'>ROI +0,00 %</div></div><div class='kachel'><div class='k'>Trefferquote</div><div class='v '>0,0 %</div><div class='z'>auf 0 entschiedene</div></div></div><div class='leer'>Noch nichts abgerechnet.</div></div><div id='verlauf-detail' style='display:none'></div></div><div class='abschnitt' id='t-analyse'><h2>Schlussquoten-Vorteil (CLV)</h2><div class='card'><div class='leer'>Noch keine Schlussquote gemessen &ndash; gemessen wird in den letzten 25 Minuten vor Anpfiff.</div><div class='info'>CLV vergleicht unsere Quote mit der, die der Markt kurz vor Anpfiff zeigt. Er misst nicht, ob wir gewonnen haben, sondern ob wir beim <i>Preis</i> richtig lagen &ndash; und das zeigt sich viel schneller: rund <b>100 Messungen</b> genügen, während der ROI 2.000 bis 5.000 Wetten braucht. Beim Oddify-Ansatz hätte diese Zahl nach etwa 100 Wetten gewarnt statt nach 1.322.</div><div class='info warnbox'><b>Eine ehrliche Einschränkung.</b> Als Maker stellen wir unter dem fairen Wert, gemessen wird aber gegen den besten <i>Taker</i>-Preis. Der ist per Konstruktion schlechter als fair &ndash; ein Teil des gemessenen CLV ist deshalb Mechanik und nicht Können. Die ehrlichere Zahl für den Ertrag je Füllung ist der Abstand zum fairen Wert im Reiter <b>Buch</b>.</div></div></div><div class='abschnitt' id='t-info'><h2>Wie die Strategie arbeitet</h2><div class='card'><p style='margin:0 0 4px'>Der Zwilling der großen Demo, zugeschnitten auf 100 Euro. Ordergröße 2 USDC statt 25, höchstens 30 Quoten gleichzeitig (also nie mehr als 60 USDC gebunden), und nur Fußball — das Segment mit der größten Stichprobe und dem besten Ergebnis. Diese Seite zeigt, wie der Ansatz aussieht, wenn Kapital der Engpass ist und nicht die Zahl der Gelegenheiten.</p><div class='info gutbox'><b>Worauf sie beruht.</b> Auswertung vom 07.10.2026 über 415 abgerechnete Wetten der großen Demo: Fußball +9,98 % ROI über 210 Wetten, alle übrigen Sportarten zusammen negativ. Dazu die Rahmendaten von SX: Mindestgröße einer liegenden Order 1 USDC, Maker-Gebühr 0 %, Taker zahlt seit August 1 % der Auszahlung — Stellen ist also strukturell günstiger als Nehmen.</div><div class='info warnbox'><b>Was sie kippen kann.</b> Mit diesem Kapital ist der Gewinn nicht messbar: Bei rund 250 Füllungen liegt der Erwartungswert bei +7,50 USDC, die Streuung bei ±32. Wer hier auf die Ergebniszahl schaut, liest Rauschen. Aussagekräftig sind Füllquote, Kalibrierung und die Frage, ob 100 Euro überhaupt für genug gleichzeitige Quoten reichen. Dazu kommt die Beschränkung auf Fußball: Ob dessen Vorsprung echt ist, steht noch nicht fest — diese Demo ist auch ein Test darauf.</div></div><h2>Die Mechanik in vier Schritten</h2><div class='card'><div class='schritt'><span class='nr'>1</span><span><b>Fairen Preis bestimmen.</b> Beide Taker-Preise eines Marktes summieren sich auf über 100 % &ndash; die Differenz ist der Spread. Proportionales Normieren verteilt ihn symmetrisch und liefert den Mittelpunkt des Buches. Das ist unser fairer Preis. Eine eigene Prognose braucht es dafür nicht, und genau das ist der Punkt.</span></div><div class='schritt'><span class='nr'>2</span><span><b>Eine Leiterstufe über die Spitze.</b> Auf SX ist <code>percentageOdds</code> die implizite Wahrscheinlichkeit der signierenden Seite. Für einen Taker ist ein Maker mit HÖHEREM Wert attraktiver. Wir legen uns deshalb genau eine Stufe der Quotenleiter (0,125 Prozentpunkte) über den besten vorhandenen Maker &ndash; gerade genug für die Spitze des Buches, nicht mehr.</span></div><div class='schritt'><span class='nr'>3</span><span><b>Nur mit Abstand zum fairen Wert.</b> Gestellt wird nur, wenn danach mindestens 0,30 Prozentpunkte Abstand zum fairen Wert bleiben. Dieser Abstand IST der Ertrag. Der erste Entwurf forderte 1,2 Pp &ndash; damit wurde nie quotiert, weil aktiv gehandelte Märkte viel enger sind. Die Schwelle ist gemessen, nicht geschätzt.</span></div><div class='schritt'><span class='nr'>4</span><span><b>Füllung gegen echte Trades prüfen.</b> Ob eine Quote gefüllt worden wäre, wird nicht geschätzt: Der öffentliche Trade-Strom von SX nennt je Trade die Seite des Takers und seinen Preis. Nimmt ein Taker die Gegenseite zu einer impliziten Wahrscheinlichkeit t, wurden alle Maker mit p ≥ 1−t verbraucht. Lag unsere Quote dort, wären wir dran gewesen.</span></div></div><h2>Einstellungen dieser Demo</h2><div class='card'><div class='trow'><span class='tl'><span class='tname'>Startkapital</span><span class='tmeta'>fiktiv, Papierhandel</span></span><span class='tval '>100,00 USDC</span></div><div class='trow'><span class='tl'><span class='tname'>Ordergröße je Quote</span><span class='tmeta'>SX nimmt keine liegende Order unter 1 USDC</span></span><span class='tval '>2,00 USDC</span></div><div class='trow'><span class='tl'><span class='tname'>Quoten gleichzeitig</span><span class='tmeta'>bindet höchstens 60,00 USDC</span></span><span class='tval '>30</span></div><div class='trow'><span class='tl'><span class='tname'>Märkte je Durchgang</span><span class='tmeta'>schont die API und die Laufzeit</span></span><span class='tval '>20</span></div><div class='trow'><span class='tl'><span class='tname'>Mindestabstand</span><span class='tmeta'>gemessen am 02.10.2026</span></span><span class='tval '>0,30 Pp</span></div><div class='trow'><span class='tl'><span class='tname'>Leiterstufe</span><span class='tmeta'>kleinster Preisschritt auf SX</span></span><span class='tval '>0,125 Pp</span></div><div class='trow'><span class='tl'><span class='tname'>Quotenbereich</span><span class='tmeta'>an den Rändern ist der Mittelpunkt am ungenauesten</span></span><span class='tval '>1,30 – 6,00</span></div><div class='trow'><span class='tl'><span class='tname'>Mindest-Buchtiefe</span><span class='tmeta'>darunter ist der Mittelpunkt unzuverlässig</span></span><span class='tval '>200 USDC</span></div><div class='trow'><span class='tl'><span class='tname'>Vorlauf mindestens</span><span class='tmeta'>kurz vor Anstoß handeln die Informierten</span></span><span class='tval '>30 Minuten</span></div><div class='trow'><span class='tl'><span class='tname'>Quote gültig</span><span class='tmeta'>danach gilt der faire Wert von damals nicht mehr</span></span><span class='tval '>6 Stunden</span></div><div class='trow'><span class='tl'><span class='tname'>Sportarten</span><span class='tmeta'>SX-Sport-IDs; 5 = Fußball</span></span><span class='tval '>5</span></div><div class='trow'><span class='tl'><span class='tname'>Maker-Gebühr</span><span class='tmeta'>Taker zahlt seit August 2026 1 % der Auszahlung</span></span><span class='tval '>0 %</span></div></div><h2>Spielregeln dieser Demo</h2><div class='card'><div class='info' style='margin:0'><b>Papierhandel.</b> Startkapital <b>100 USDC</b>, fiktiv. Es wird kein echtes Geld bewegt &ndash; im Code gibt es keinen Pfad zum Ausführen, und ein Test prüft das bei jedem Durchlauf. Der Einsatz je Wette kommt hier nicht von Kelly, sondern von der Gegenseite: Gefüllt wird, was ein Taker nimmt, höchstens aber unsere Ordergröße.</div><div class='info warnbox'><b>Was diese Demo nicht beantworten kann.</b> Zwei Dinge lassen sich im Papier nicht messen. Erstens die <b>Konkurrenz auf der Stufe</b>: Wir nehmen an, wir hielten sie allein, real teilt man sie. Zweitens die <b>Reaktionszeit</b>: Ein echter Market Maker zieht Quoten bei Nachrichten innerhalb von Sekunden; diese Demo läuft im 5-Minuten-Takt. Beides macht die echten Zahlen schlechter als die hier gezeigten.</div></div><div class='fuss'>Stand 08.10.2026 19:09 &middot; Papierhandel, kein echtes Geld</div></div><div class='tabbar sechs'><button class='tabbtn active' onclick="zeigeReiter('t-ueber',this)"><span class='i'>📈</span>Übersicht</button><button class='tabbtn' onclick="zeigeReiter('t-buch',this)"><span class='i'>📐</span>Buch<span class='cnt'>30</span></button><button class='tabbtn' onclick="zeigeReiter('t-offen',this)"><span class='i'>🎯</span>Offen</button><button class='tabbtn' onclick="zeigeReiter('t-verlauf',this)"><span class='i'>📜</span>Verlauf</button><button class='tabbtn' onclick="zeigeReiter('t-analyse',this)"><span class='i'>🔬</span>Analyse</button><button class='tabbtn' onclick="zeigeReiter('t-info',this)"><span class='i'>ℹ️</span>Info</button></div><script>REITER=["t-ueber", "t-buch", "t-offen", "t-verlauf", "t-analyse", "t-info"];</script></div><script>
+function kipp(el){el.classList.toggle('auf');}
+// Fadenkreuz im Diagramm -- funktioniert mit Maus UND Finger.
+function chart(id){
+ var box=document.getElementById(id);if(!box)return;
+ var svg=box.querySelector('svg'),tip=box.querySelector('.tip');
+ var pts=JSON.parse(box.dataset.pts||'[]');if(!pts.length)return;
+ var lin=svg.querySelector('.cross'),pkt=svg.querySelector('.dot');
+ function zeig(cx){
+  var r=svg.getBoundingClientRect(),vb=svg.viewBox.baseVal;
+  var x=(cx-r.left)/r.width*vb.width,nah=pts[0],d=1e9;
+  for(var i=0;i<pts.length;i++){var dd=Math.abs(pts[i][0]-x);if(dd<d){d=dd;nah=pts[i];}}
+  if(lin){lin.setAttribute('x1',nah[0]);lin.setAttribute('x2',nah[0]);lin.style.opacity=1;}
+  if(pkt){pkt.setAttribute('cx',nah[0]);pkt.setAttribute('cy',nah[1]);pkt.style.opacity=1;}
+  tip.textContent=nah[2];tip.classList.add('an');
+  tip.style.left=(nah[0]/vb.width*r.width)+'px';
+  tip.style.top=(nah[1]/vb.height*r.height)+'px';
+ }
+ function weg(){tip.classList.remove('an');if(lin)lin.style.opacity=0;if(pkt)pkt.style.opacity=0;}
+ svg.addEventListener('mousemove',function(e){zeig(e.clientX);});
+ svg.addEventListener('mouseleave',weg);
+ svg.addEventListener('touchstart',function(e){zeig(e.touches[0].clientX);},{passive:true});
+ svg.addEventListener('touchmove',function(e){zeig(e.touches[0].clientX);},{passive:true});
+ svg.addEventListener('touchend',weg);
+}
+// Reiter innerhalb einer Strategie -- gleiche Logik wie in der Oddify-App.
+// ACHTUNG Reihenfolge: _reiter() schreibt weiter oben im Dokument bereits
+// REITER=[...]. Ein 'var REITER=[]' hier wuerde das ueberschreiben -- genau
+// dieser Fehler liess am 04.10.2026 die Reiter stumm bleiben: Die Adresse
+// sprang auf #t-verlauf, die Ansicht wechselte aber nie.
+if (typeof REITER === 'undefined') { REITER = []; }
+var curTab=0;
+function zeigeReiter(id,btn){
+ REITER.forEach(function(x){var el=document.getElementById(x);
+  if(el)el.classList.toggle('an',x===id);});
+ var bs=document.querySelectorAll('.tabbtn');
+ for(var i=0;i<bs.length;i++)bs[i].classList.remove('active');
+ if(btn)btn.classList.add('active');
+ curTab=REITER.indexOf(id);window.scrollTo(0,0);
+ try{history.replaceState(null,'','#'+id);}catch(e){}
+}
+function wischeReiter(dir){
+ var n=curTab+dir;if(n<0||n>=REITER.length)return;
+ var bs=document.querySelectorAll('.tabbtn');zeigeReiter(REITER[n],bs[n]);
+}
+// Wischen: innerhalb der Strategie zwischen den Reitern, auf dem Menue zwischen den Seiten.
+(function(){
+ var sx=0,sy=0;
+ document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+ document.addEventListener('touchend',function(e){
+  var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+  if(Math.abs(dx)<70||Math.abs(dx)<Math.abs(dy)*1.6)return;
+  if(REITER.length){wischeReiter(dx<0?1:-1);return;}
+  var z=document.body.dataset.nachbar;if(!z)return;
+  var n=JSON.parse(z);var ziel=dx<0?n[1]:n[0];if(ziel)location.href=ziel;
+ },{passive:true});
+})();
+// Direkter Einstieg ueber #abschnitt (z. B. aus einem Lesezeichen)
+window.addEventListener('load',function(){
+ if(!REITER.length)return;
+ var h=location.hash.slice(1),i=REITER.indexOf(h);if(i<0)return;
+ var bs=document.querySelectorAll('.tabbtn');zeigeReiter(REITER[i],bs[i]);
+});
+
+// --- Kachel-Hub <-> Detailseite -------------------------------------------
+// Gleiche Bedienung wie in der Oddify-App: Kachel antippen oeffnet die
+// Detailseite derselben Auswahl, der Zurueck-Pfeil (oder Wischen nach rechts)
+// fuehrt zurueck zur Kachel-Uebersicht.
+var MM_DETAIL = {};
+function mmOeffne(view, key, titel){
+ var hub = document.getElementById(view + '-hub');
+ var det = document.getElementById(view + '-detail');
+ if(!hub || !det) return;
+ hub.style.display = 'none'; det.style.display = ''; MM_DETAIL[view] = key;
+ var t = document.getElementById(view + '-titel');
+ if(t) t.textContent = titel;
+ var bl = det.querySelectorAll('.dstats');
+ for(var i=0;i<bl.length;i++) bl[i].style.display = (bl[i].dataset.key === key ? '' : 'none');
+ var sel = document.getElementById(view + '-fsport');
+ if(sel){ sel.value = (key === '__alle__' ? '' : key); }
+ mmFilter(view);
+ window.scrollTo(0,0);
+}
+function mmZurueck(view){
+ var hub = document.getElementById(view + '-hub');
+ var det = document.getElementById(view + '-detail');
+ if(!hub || !det) return;
+ det.style.display = 'none'; hub.style.display = ''; MM_DETAIL[view] = null;
+ window.scrollTo(0,0);
+}
+// --- Filter + Sortierung ---------------------------------------------------
+// Alles passiert im Browser auf fertig gerenderten Zeilen -- es wird nichts
+// nachgeladen und nichts neu gerechnet. Das haelt die Seite auch offline bedienbar.
+function mmFilter(view){
+ var wrap = document.getElementById(view + '-zeilen');
+ if(!wrap) return;
+ function w(id){ var e = document.getElementById(view + '-' + id); return e ? e.value : ''; }
+ var suche = (w('fsuche') || '').toLowerCase().trim();
+ var sport = w('fsport'), status = w('fstatus'), zeitraum = w('fzeit'), sortierung = w('fsort');
+ var grenze = 0;
+ if(zeitraum && zeitraum !== '0'){ grenze = Date.now()/1000 - parseFloat(zeitraum) * 86400; }
+ var zeilen = [].slice.call(wrap.querySelectorAll('.wz'));
+ var sichtbar = 0;
+ zeilen.forEach(function(z){
+  var ok = true;
+  if(suche && z.dataset.ev.indexOf(suche) < 0) ok = false;
+  if(ok && sport && z.dataset.sport !== sport) ok = false;
+  if(ok && status && z.dataset.status !== status) ok = false;
+  if(ok && grenze && parseFloat(z.dataset.ts || '0') < grenze) ok = false;
+  z.style.display = ok ? '' : 'none';
+  if(ok) sichtbar++;
+ });
+ if(sortierung){
+  // Standard ist ABSTEIGEND (groesster Wert zuerst). Nur die ausdruecklich als
+  // "niedrigste/schlechteste" benannten Optionen drehen um. Die erste Fassung
+  // hatte die Richtung vertauscht -- "Bestes Ergebnis" zeigte das schlechteste.
+  var aufsteigend = (sortierung === 'pnlauf' || sortierung === 'quoteauf');
+  var feld = {datum:'ts', einsatz:'stake', quote:'odds', quoteauf:'odds',
+              pnl:'pnl', pnlauf:'pnl', marge:'marge', clv:'clv'}[sortierung] || 'ts';
+  zeilen.sort(function(a,b){
+   var x = parseFloat(a.dataset[feld] || '0'), y = parseFloat(b.dataset[feld] || '0');
+   return aufsteigend ? (x - y) : (y - x);
+  }).forEach(function(z){ wrap.appendChild(z); });
+ }
+ var c = document.getElementById(view + '-anzahl');
+ if(c) c.textContent = sichtbar + (sichtbar === 1 ? ' Wette' : ' Wetten') + ' angezeigt';
+ var leer = document.getElementById(view + '-leer');
+ if(leer) leer.style.display = sichtbar ? 'none' : '';
+}
+// --- Wochenkalender -------------------------------------------------------
+function mmTag(el){
+ var info = document.getElementById('calInfo');
+ if(!info) return;
+ var tag = el.dataset.tag, pnl = el.dataset.pnl, n = parseInt(el.dataset.n || '0', 10);
+ if(!n){ info.innerHTML = '<b>' + tag + '</b> &middot; keine abgerechnete Wette'; return; }
+ var cls = pnl.charAt(0) === '-' ? 'schlecht' : 'gut';
+ info.innerHTML = '<b>' + tag + '</b> &middot; <span class="' + cls + '">' + pnl +
+   ' USDC</span> aus ' + n + (n === 1 ? ' Wette' : ' Wetten');
+}
+// --- Gruppen auf-/zuklappen ----------------------------------------------
+function mmGruppe(kopf){ kopf.parentElement.classList.toggle('auf'); }
+// --- Wischen: in einer Detailseite zuerst zurueck, sonst Reiter wechseln ---
+// Haengt sich VOR die gemeinsame Geste, indem es dieselbe Funktion ersetzt.
+var _mmWische = wischeReiter;
+wischeReiter = function(dir){
+ if(dir < 0){
+  for(var v in MM_DETAIL){ if(MM_DETAIL[v]){ mmZurueck(v); return; } }
+ }
+ _mmWische(dir);
+};
+</script></body></html>
