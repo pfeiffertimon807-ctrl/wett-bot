@@ -8,7 +8,7 @@ heute = time >= tagStart and time < tagEnde
 tk = syminfo.ticker
 plot(heute and tk == "QQQ" ? 670.0000 : na, "QQQ PIVOT/MVC/PUT_WALL 670 (-232 Mio, DEX) | POI 670 (-239 Mio, DEX)", color=color.orange, linewidth=3, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 28200.0000 : na, "NDX MVC/CALL_WALL/GEX_TOP 28200 (+76 Mio)", color=color.orange, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 680.0000 : na, "QQQ CALL_WALL 680 (+55 Mio, DEX)", color=color.green, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 679.0000 : na, "QQQ CALL_WALL 679 (+38 Mio, DEX)", color=color.green, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 26940.0000 : na, "NDX PUT_WALL/GEX_TOP 26940 (-38 Mio)", color=color.red, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 680.8900 : na, "QQQ GAMMA_FLIP 680.89", color=color.purple, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 27825.3000 : na, "NDX GAMMA_FLIP 27825.3", color=color.purple, linewidth=2, style=plot.style_linebr)
@@ -40,7 +40,7 @@ if barstate.islast
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 28200.0000, "MVC/CALL_WALL/GEX_TOP 28200 (+76 Mio)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
     if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 680.0000, "CALL_WALL 680 (+55 Mio, DEX)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 679.0000, "CALL_WALL 679 (+38 Mio, DEX)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 26940.0000, "PUT_WALL/GEX_TOP 26940 (-38 Mio)", style=label.style_label_left, color=color.new(color.red, 85), textcolor=color.red, size=size.small))
     if heute and tk == "QQQ"

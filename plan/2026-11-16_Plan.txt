@@ -13,7 +13,7 @@ QQQ ~671.42 [eigen]: Regime negativ, Gamma Flip 680.89, Implied Range 651.42 - 6
 Level (QQQ/NDX, nach Prioritaet):
   - QQQ 670 (pivot/mvc/put_wall DEX, -232 Mio)
   - NDX 28200 (mvc/call_wall/gex_top, +76 Mio)
-  - QQQ 680 (call_wall DEX, +55 Mio)
+  - QQQ 679 (call_wall DEX, +38 Mio)
   - NDX 26940 (put_wall/gex_top, -38 Mio)
   - QQQ 680.89 (gamma_flip, +0 Mio)
   - NDX 27825.3 (gamma_flip, +0 Mio)
@@ -35,7 +35,7 @@ LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handel
   QQQ:
         691.42  Implied oben 691.42
         680.89  GAMMA_FLIP 680.89
-        680.00  CALL_WALL 680 (+55 Mio, DEX)
+        679.00  CALL_WALL 679 (+38 Mio, DEX)
         673.00  POI 673 (+31 Mio)
         670.00  PIVOT/MVC/PUT_WALL 670 (-232 Mio, DEX) | POI 670 (-239 Mio, DEX)
         665.00  POI 665 (-76 Mio)
