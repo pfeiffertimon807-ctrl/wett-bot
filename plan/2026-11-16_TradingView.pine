@@ -11,7 +11,7 @@ plot(heute and tk == "NDX" ? 28200.0000 : na, "NDX MVC/CALL_WALL/GEX_TOP 28200 (
 plot(heute and tk == "QQQ" ? 680.0000 : na, "QQQ CALL_WALL 680 (+28 Mio, DEX)", color=color.green, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 26940.0000 : na, "NDX PUT_WALL/GEX_TOP 26940 (-38 Mio)", color=color.red, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 680.8900 : na, "QQQ GAMMA_FLIP 680.89", color=color.purple, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "NDX" ? 27825.3000 : na, "NDX GAMMA_FLIP 27825.3", color=color.purple, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "NDX" ? 27824.1000 : na, "NDX GAMMA_FLIP 27824.1", color=color.purple, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 665.0000 : na, "QQQ POI 665 (-76 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 672.0000 : na, "QQQ POI 672 (+174 Mio, DEX) | POI 672 (+41 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 27780.0000 : na, "NDX GEX_TOP 27780 (-29 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
@@ -46,7 +46,7 @@ if barstate.islast
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 680.8900, "GAMMA_FLIP 680.89", style=label.style_label_left, color=color.new(color.purple, 85), textcolor=color.purple, size=size.small))
     if heute and tk == "NDX"
-        array.push(marken, label.new(bar_index + 2, 27825.3000, "GAMMA_FLIP 27825.3", style=label.style_label_left, color=color.new(color.purple, 85), textcolor=color.purple, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 27824.1000, "GAMMA_FLIP 27824.1", style=label.style_label_left, color=color.new(color.purple, 85), textcolor=color.purple, size=size.small))
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 665.0000, "POI 665 (-76 Mio)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "QQQ"
