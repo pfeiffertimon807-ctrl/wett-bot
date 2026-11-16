@@ -1,0 +1,175 @@
+<!doctype html><html lang='de'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'><meta name='apple-mobile-web-app-title' content='AR Demo'><meta name='theme-color' media='(prefers-color-scheme: light)' content='#f9f9f7'><meta name='theme-color' media='(prefers-color-scheme: dark)' content='#0d0d0d'><link rel='manifest' href='../manifest.webmanifest'><link rel='apple-touch-icon' href='../icon.png'><link rel='icon' type='image/png' href='../icon.png'><title>Backtest: Methode - AR Demo</title><style>
+:root{color-scheme:light;--flaeche:#fcfcfb;--ebene:#f9f9f7;--tinte:#0b0b0b;--tinte2:#52514e;--mut:#898781;
+--gitter:#e1e0d9;--achse:#c3c2b7;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--pos:#2a78d6;--neg:#e34948;--null:#f0efec;
+--rand:rgba(11,11,11,.10);--gut:#006300;--schlecht:#d03b3b;--q1:#cde2fb;--q2:#9ec5f4;--q3:#5598e7;--q4:#256abf;
+--q5:#104281}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--flaeche:#1a1a19;--ebene:#0d0d0d;
+--tinte:#f0efec;--tinte2:#c3c2b7;--mut:#898781;--gitter:#2c2c2a;--achse:#383835;--s1:#3987e5;--s2:#d95926;--s3:#199e70;
+--pos:#3987e5;--neg:#e66767;--null:#383835;--rand:rgba(255,255,255,.10);--gut:#0ca30c;--schlecht:#e66767;
+--q1:#184f95;--q2:#256abf;--q3:#3987e5;--q4:#6da7ec;--q5:#9ec5f4}}
+:root[data-theme="dark"]{color-scheme:dark;--flaeche:#1a1a19;--ebene:#0d0d0d;--tinte:#f0efec;--tinte2:#c3c2b7;
+--mut:#898781;--gitter:#2c2c2a;--achse:#383835;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--pos:#3987e5;--neg:#e66767;
+--null:#383835;--rand:rgba(255,255,255,.10);--gut:#0ca30c;--schlecht:#e66767;--q1:#184f95;--q2:#256abf;--q3:#3987e5;
+--q4:#6da7ec;--q5:#9ec5f4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ebene);color:var(--tinte);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1120px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:24px;margin:0 0 4px}h2{font-size:18px;margin:32px 0 8px}h3{font-size:15px;margin:0 0 6px}
+p{margin:6px 0}.mut{color:var(--tinte2)}
+.karte{background:var(--flaeche);border:1px solid var(--rand);border-radius:10px;padding:14px 16px;margin:10px 0}
+.kacheln{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}
+.kachel{background:var(--flaeche);border:1px solid var(--rand);border-radius:10px;padding:10px 12px}
+.kachel span{display:block;color:var(--tinte2);font-size:13px}.kachel b{display:block;font-size:22px;font-weight:600}
+.raster{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:10px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{fill:var(--tinte2);font:12px system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
+svg .klein{font-size:11px}svg .stark{fill:var(--tinte);font-weight:600}
+.gitter{stroke:var(--gitter);stroke-width:1}.achse{stroke:var(--achse);stroke-width:1}
+.kreuz{stroke:var(--mut);stroke-width:1;display:none;pointer-events:none}
+.zeile{fill:transparent}.zeile:hover,.zeile:focus{fill:var(--rand);outline:none}
+.legende{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 8px;font-size:13px;color:var(--tinte2)}
+.legende i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.legende i.feld{height:10px;width:12px;border-radius:2px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{border-bottom:1px solid var(--gitter);padding:4px 6px;text-align:right;vertical-align:top}
+th:first-child,td:first-child{text-align:left}th{color:var(--tinte2);font-weight:600}
+.tabelle{overflow-x:auto}details{margin:8px 0}summary{cursor:pointer;color:var(--tinte2)}
+pre{white-space:pre-wrap;font-size:12px;background:var(--flaeche);border:1px solid var(--rand);border-radius:8px;
+padding:10px;overflow-x:auto}
+.gut{color:var(--gut)}.schlecht{color:var(--schlecht)}
+#tip{position:fixed;z-index:9;pointer-events:none;background:var(--flaeche);color:var(--tinte);border:1px solid var(--rand);
+border-radius:8px;padding:6px 10px;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.12);max-width:340px}
+#tip .tt-t{color:var(--tinte2);font-size:12px;margin-bottom:2px}#tip .tt-z{display:flex;align-items:center;gap:6px}
+#tip .tt-z i{display:inline-block;width:12px;height:3px;border-radius:2px}#tip .tt-z span{color:var(--tinte2)}
+
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ebene);padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+main{max-width:980px;padding:8px 16px 32px}
+.kopf{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--ebene) 88%,transparent);
+backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--gitter);
+padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+.kopf-in{max-width:980px;margin:0 auto;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.kopf h1{font-size:18px;margin:0}.kopf .app{color:var(--tinte2);font-size:13px;font-weight:600}
+.kopf .stand{color:var(--tinte2);font-size:12.5px;margin-left:auto}
+.leiste{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--flaeche) 94%,transparent);
+backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--gitter);
+padding:6px 4px calc(6px + env(safe-area-inset-bottom));display:flex;justify-content:space-around}
+.leiste a{flex:1;max-width:120px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;
+color:var(--mut);text-decoration:none;font-size:10.5px;padding:4px 0;border-radius:10px}
+.leiste a svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.leiste a.aktiv{color:var(--s1)}
+h2{font-size:17px;margin:26px 0 8px}h3{font-size:15px;margin:0 0 6px}
+.held{background:var(--flaeche);border:1px solid var(--rand);border-radius:16px;padding:16px 18px;margin:12px 0}
+.held .klein{color:var(--tinte2);font-size:13px}.held .gross{font-size:40px;font-weight:700;line-height:1.15;margin:2px 0}
+.zeile2{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:6px;font-size:14px}
+.zeile2 span{color:var(--tinte2)}
+.pille{display:inline-block;border-radius:999px;padding:1px 9px;font-size:12px;font-weight:600;border:1px solid currentColor;
+white-space:nowrap;vertical-align:middle}
+.p-gut{color:var(--gut)}.p-schlecht{color:var(--schlecht)}.p-mut{color:var(--tinte2)}.p-blau{color:var(--s1)}
+.stufen{display:grid;gap:10px}
+.stufe{background:var(--flaeche);border:1px solid var(--rand);border-radius:12px;padding:12px 14px}
+.stufe .kopfzeile{display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.stufe .nr{font-weight:700}.stufe p{margin:6px 0 0;font-size:14px}.stufe .erkl{color:var(--tinte2);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-size:12px;border:1px solid var(--gitter);border-radius:8px;padding:2px 7px;color:var(--tinte2)}
+.chip b{color:var(--tinte)}
+.leiter{position:relative;height:30px;margin:12px 0 4px}
+.leiter .bahn{position:absolute;left:0;right:0;top:13px;height:4px;border-radius:2px;background:var(--gitter)}
+.leiter .marke{position:absolute;top:4px;width:2px;height:22px;background:var(--mut)}
+.leiter .kurs{position:absolute;top:8px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--tinte);
+border:2px solid var(--flaeche)}
+.leiter-text{display:flex;justify-content:space-between;font-size:12px;color:var(--tinte2)}
+.fortschritt{height:8px;border-radius:4px;background:var(--gitter);overflow:hidden;margin:8px 0 4px}
+.fortschritt i{display:block;height:100%;background:var(--s1);border-radius:4px}
+.protokoll{list-style:none;padding:0;margin:0}
+.protokoll li{display:grid;grid-template-columns:48px 1fr;gap:8px;padding:7px 0;border-bottom:1px solid var(--gitter);font-size:14px}
+.protokoll .uhr{color:var(--tinte2);font-variant-numeric:tabular-nums}
+.protokoll .was{font-weight:600}.protokoll .erkl{color:var(--tinte2);font-size:13px}
+.leer{color:var(--tinte2);font-size:14px}
+.zeitleiste{list-style:none;padding:0;margin:0}
+.zeitleiste li{padding:8px 0 8px 18px;border-left:2px solid var(--gitter);position:relative;font-size:14px}
+.zeitleiste li::before{content:'';position:absolute;left:-6px;top:13px;width:10px;height:10px;border-radius:50%;
+background:var(--mut)}
+.zeitleiste li.gut::before{background:var(--gut)}.zeitleiste li.schlecht::before{background:var(--schlecht)}
+.zeitleiste .dat{color:var(--tinte2);font-size:12.5px;margin-right:6px}
+a{color:var(--s1)}
+.erklaer p{margin:8px 0}.erklaer li{margin:4px 0}
+.karte svg{max-width:760px;margin:0 auto}
+
+:root{--k1:#2a78d6;--k2:#eb6834;--k3:#1baf7a;--k4:#eda100;--k5:#e87ba4;--k6:#008300;--k7:#6250d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--k1:#3987e5;--k2:#d95926;--k3:#199e70;
+--k4:#c98500;--k5:#d55181;--k6:#008300;--k7:#9085e9}}
+:root[data-theme="dark"]{--k1:#3987e5;--k2:#d95926;--k3:#199e70;--k4:#c98500;--k5:#d55181;--k6:#008300;--k7:#9085e9}
+.punkt{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:baseline}
+.raster2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.mini{background:var(--flaeche);border:1px solid var(--rand);border-radius:12px;padding:10px 12px}
+.mini h3{font-size:14px;margin:0 0 2px}.mini .wert{font-size:13px;color:var(--tinte2)}
+.tabelle td.links,.tabelle th.links{text-align:left}
+.urteil{font-size:12px;color:var(--tinte2);white-space:nowrap}
+.hinweisbox{border-left:3px solid var(--s1);padding:8px 12px;background:var(--flaeche);border-radius:0 10px 10px 0;
+margin:10px 0;font-size:14px}
+.warnbox{border-left:3px solid var(--schlecht);padding:8px 12px;background:var(--flaeche);border-radius:0 10px 10px 0;
+margin:10px 0;font-size:14px}
+.stufenzeile{display:grid;grid-template-columns:110px 1fr 54px;align-items:center;gap:8px;font-size:13px;margin:3px 0}
+.stufenzeile .bahn{height:16px;background:var(--gitter);border-radius:4px;overflow:hidden}
+.stufenzeile .bahn i{display:block;height:100%;border-radius:0 4px 4px 0}
+.stufenzeile b{text-align:right;font-variant-numeric:tabular-nums}
+</style></head><body><header class='kopf'><div class='kopf-in'><span class='app'>AR Demo</span><h1>Backtest: Methode</h1><span class='stand'>Stand 11:00 ET (15 Min. verzögert)</span></div></header><main><p><a href='../backtest.html'>&larr; Übersicht</a></p><div class='karte erklaer'><h3>Was gerechnet wird</h3>
+<p>Für jeden Handelstag ab dem 19.10.2026 und für jeden Markt läuft dasselbe Programm wie in der Live-Demo: Premarket-Plan
+um 9:25 New Yorker Zeit, dann Minute für Minute die vier Prüfstufen, Einstieg, Stop, Ziele und Nachziehen. Das Programm
+sieht zu jedem Zeitpunkt nur, was bis dahin bekannt war (kein Blick in die Zukunft). Jeder Future-Kontrakt führt ein eigenes
+simuliertes Konto nach den Regeln von Take Profit Trader 50K: Prüfung (Ziel 3.000 $, 2.000 $ Verlustgrenze, Consistency
+50 %), danach Funded mit nachlaufender Grenze inklusive offener Gewinne, Gebühren und Auszahlungen.</p>
+<p><b>Warum erst ab 19.10.?</b> Minutenkerzen der Futures liegen im eigenen Archiv ab dem 18.10. vor. Die Optionsdaten
+reichen bis 05.10. zurück; die Tage davor (05.-16.10.) dienen nur zum Einstellen von Gold und ES, damit der Test seine
+eigenen Einstellungen nicht bestimmt.</p></div><div class='karte erklaer'><h3>Woher die Daten stammen</h3>
+<ul><li><b>Optionen (Level und Net Drift):</b> 1-Minuten-Kerzen jeder einzelnen 0DTE-Option von tastytrade/dxFeed: Kurs,
+Volumen, Volumen am Geld und am Brief (= Verkäufer bzw. Käufer haben aktiv gehandelt), implizite Volatilität und
+Open Interest - auch für längst verfallene Optionen. Daraus werden alle 5 Minuten die Optionsketten und jede Minute der
+Net Drift nachgebaut (QQQ, NDX, SPX, GLD, dazu VIX-Optionen für die VIX-Nodes).</li>
+<li><b>Futures (Orderflow):</b> 1-Minuten-Kerzen (Yahoo und dxFeed). Wo dxFeed-Kerzen vorliegen (die letzten Tage), ist das
+Minuten-Delta gemessen, sonst aus der Kerzenform geschätzt. Einzeltrades (Footprint, Big Trades) gibt es erst ab der eigenen
+Live-Aufzeichnung (NQ seit 16.11.).</li>
+<li><b>Ab 16.11.2026</b> nutzt der Backtest für NQ die eigene Live-Aufzeichnung (jeder Optionstrade einzeln, Echtzeit-Ketten,
+NQ-Ticks).</li></ul></div><h2>Abgleich: rekonstruiert gegen live</h2><div class='karte'><h3>2026-11-16</h3><div class='tabelle'><table><tr><th>Net Drift 9:30-11:00</th><th>Korrelation</th><th>Ende live (Mio $)</th><th>Ende rekonstruiert</th><th>gleiche Richtung</th><th>Gegenrichtung</th></tr><tr><td>SPX</td><td>0,99</td><td>+11,22</td><td>+7,96</td><td>81 %</td><td>0 %</td></tr><tr><td>QQQ</td><td>0,70</td><td>+0,61</td><td>+2,07</td><td>26 %</td><td>29 %</td></tr><tr><td>NDX</td><td>0,98</td><td>-2,58</td><td>-2,65</td><td>99 %</td><td>0 %</td></tr></table></div><p><b>QQQ-Pivot:</b> live 671.0, rekonstruiert 671.0; größte 5 Strikes: 5 von 5 gleich; SPX-Regime live negativ, rekonstruiert negativ.</p><p><b>Engine:</b> live 6 Kandidaten, Trades: keiner; rekonstruiert 9 Kandidaten, Trades: keiner.</p><div class='legende'><span><i style='background:var(--s1)'></i>live (Einzeltrades)</span><span><i style='background:var(--s2)'></i>rekonstruiert (Minutenkerzen)</span></div><h3>SPX: Differenz Calls minus Puts</h3><svg viewBox='0 0 480 200' role='img' aria-label='Net Drift SPX' data-linien='abgl_2026-11-16_SPX-d'><line class='gitter' x1='52' x2='350' y1='146.8' y2='146.8'/><text x='44' y='150.8' text-anchor='end'>0 Mio</text><line class='gitter' x1='52' x2='350' y1='90.2' y2='90.2'/><text x='44' y='94.2' text-anchor='end'>5 Mio</text><line class='gitter' x1='52' x2='350' y1='33.6' y2='33.6'/><text x='44' y='37.6' text-anchor='end'>10 Mio</text><text x='52.0' y='190' text-anchor='middle'>09:30</text><text x='154.8' y='190' text-anchor='middle'>10:00</text><text x='257.5' y='190' text-anchor='middle'>10:30</text><line class='achse' x1='52' x2='350' y1='170' y2='170'/><line class='achse' x1='52' x2='350' y1='146.8' y2='146.8'/><path d='M55.4,155.8 L72.6,143.0 L89.7,126.9 L106.8,122.7 L123.9,125.3 L141.1,138.0 L158.2,161.5 L175.3,153.8 L192.4,157.1 L209.6,135.1 L226.7,134.4 L243.8,134.6 L260.9,96.9 L278.1,87.6 L295.2,83.4 L312.3,59.0 L329.4,37.8 L346.6,20.5' fill='none' stroke='var(--s1)' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/><path d='M55.4,155.9 L72.6,135.6 L89.7,124.7 L106.8,125.7 L123.9,131.5 L141.1,146.9 L158.2,160.1 L175.3,159.8 L192.4,159.7 L209.6,134.6 L226.7,135.9 L243.8,139.5 L260.9,111.4 L278.1,106.5 L295.2,105.7 L312.3,86.8 L329.4,68.2 L346.6,52.2' fill='none' stroke='var(--s2)' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/><line x1='364' x2='376' y1='20.5' y2='20.5' stroke='var(--s1)' stroke-width='3' stroke-linecap='round'/><text x='381' y='24.5' class='klein stark'>live 11,2 Mio</text><line x1='364' x2='376' y1='52.2' y2='52.2' stroke='var(--s2)' stroke-width='3' stroke-linecap='round'/><text x='381' y='56.2' class='klein stark'>rekonstr. 8,4 Mio</text><line class='kreuz' x1='0' x2='0' y1='12' y2='170'/></svg><script type='application/json' id='abgl_2026-11-16_SPX-d'>{"l":52,"r":350,"x":[55.4,72.6,89.7,106.8,123.9,141.1,158.2,175.3,192.4,209.6,226.7,243.8,260.9,278.1,295.2,312.3,329.4,346.6],"t":["09:31 ET","09:36 ET","09:41 ET","09:46 ET","09:51 ET","09:56 ET","10:01 ET","10:06 ET","10:11 ET","10:16 ET","10:21 ET","10:26 ET","10:31 ET","10:36 ET","10:41 ET","10:46 ET","10:51 ET","10:56 ET"],"s":[{"n":"live","f":"var(--s1)","w":["-0,8 Mio","0,3 Mio","1,8 Mio","2,1 Mio","1,9 Mio","0,8 Mio","-1,3 Mio","-0,6 Mio","-0,9 Mio","1,0 Mio","1,1 Mio","1,1 Mio","4,4 Mio","5,2 Mio","5,6 Mio","7,8 Mio","9,6 Mio","11,2 Mio"]},{"n":"rekonstr.","f":"var(--s2)","w":["-0,8 Mio","1,0 Mio","1,9 Mio","1,9 Mio","1,4 Mio","-0,0 Mio","-1,2 Mio","-1,2 Mio","-1,1 Mio","1,1 Mio","1,0 Mio","0,6 Mio","3,1 Mio","3,6 Mio","3,6 Mio","5,3 Mio","6,9 Mio","8,4 Mio"]}]}</script><h3>QQQ: Differenz Calls minus Puts</h3><svg viewBox='0 0 480 200' role='img' aria-label='Net Drift QQQ' data-linien='abgl_2026-11-16_QQQ-d'><line class='gitter' x1='52' x2='350' y1='153.9' y2='153.9'/><text x='44' y='157.9' text-anchor='end'>-2 Mio</text><line class='gitter' x1='52' x2='350' y1='122.3' y2='122.3'/><text x='44' y='126.3' text-anchor='end'>-1 Mio</text><line class='gitter' x1='52' x2='350' y1='90.7' y2='90.7'/><text x='44' y='94.7' text-anchor='end'>0 Mio</text><line class='gitter' x1='52' x2='350' y1='59.0' y2='59.0'/><text x='44' y='63.0' text-anchor='end'>1 Mio</text><line class='gitter' x1='52' x2='350' y1='27.4' y2='27.4'/><text x='44' y='31.4' text-anchor='end'>2 Mio</text><text x='52.0' y='190' text-anchor='middle'>09:30</text><text x='154.8' y='190' text-anchor='middle'>10:00</text><text x='257.5' y='190' text-anchor='middle'>10:30</text><line class='achse' x1='52' x2='350' y1='170' y2='170'/><line class='achse' x1='52' x2='350' y1='90.7' y2='90.7'/><path d='M55.4,86.2 L72.6,92.8 L89.7,109.0 L106.8,105.4 L123.9,144.3 L141.1,129.6 L158.2,161.5 L175.3,146.6 L192.4,135.0 L209.6,128.5 L226.7,136.7 L243.8,128.3 L260.9,103.1 L278.1,109.4 L295.2,109.3 L312.3,76.9 L329.4,76.7 L346.6,71.7' fill='none' stroke='var(--s1)' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/><path d='M55.4,85.3 L72.6,98.2 L89.7,96.1 L106.8,87.8 L123.9,95.2 L141.1,78.5 L158.2,100.9 L175.3,94.3 L192.4,77.7 L209.6,70.0 L226.7,72.8 L243.8,71.9 L260.9,50.2 L278.1,57.8 L295.2,63.8 L312.3,30.4 L329.4,24.3 L346.6,20.5' fill='none' stroke='var(--s2)' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/><line x1='364' x2='376' y1='20.5' y2='20.5' stroke='var(--s2)' stroke-width='3' stroke-linecap='round'/><text x='381' y='24.5' class='klein stark'>rekonstr. 2,2 Mio</text><line x1='364' x2='376' y1='71.7' y2='71.7' stroke='var(--s1)' stroke-width='3' stroke-linecap='round'/><text x='381' y='75.7' class='klein stark'>live 0,6 Mio</text><line class='kreuz' x1='0' x2='0' y1='12' y2='170'/></svg><script type='application/json' id='abgl_2026-11-16_QQQ-d'>{"l":52,"r":350,"x":[55.4,72.6,89.7,106.8,123.9,141.1,158.2,175.3,192.4,209.6,226.7,243.8,260.9,278.1,295.2,312.3,329.4,346.6],"t":["09:31 ET","09:36 ET","09:41 ET","09:46 ET","09:51 ET","09:56 ET","10:01 ET","10:06 ET","10:11 ET","10:16 ET","10:21 ET","10:26 ET","10:31 ET","10:36 ET","10:41 ET","10:46 ET","10:51 ET","10:56 ET"],"s":[{"n":"live","f":"var(--s1)","w":["0,1 Mio","-0,1 Mio","-0,6 Mio","-0,5 Mio","-1,7 Mio","-1,2 Mio","-2,2 Mio","-1,8 Mio","-1,4 Mio","-1,2 Mio","-1,5 Mio","-1,2 Mio","-0,4 Mio","-0,6 Mio","-0,6 Mio","0,4 Mio","0,4 Mio","0,6 Mio"]},{"n":"rekonstr.","f":"var(--s2)","w":["0,2 Mio","-0,2 Mio","-0,2 Mio","0,1 Mio","-0,1 Mio","0,4 Mio","-0,3 Mio","-0,1 Mio","0,4 Mio","0,7 Mio","0,6 Mio","0,6 Mio","1,3 Mio","1,0 Mio","0,8 Mio","1,9 Mio","2,1 Mio","2,2 Mio"]}]}</script><h3>NDX: Differenz Calls minus Puts</h3><svg viewBox='0 0 480 200' role='img' aria-label='Net Drift NDX' data-linien='abgl_2026-11-16_NDX-d'><line class='gitter' x1='52' x2='350' y1='137.4' y2='137.4'/><text x='44' y='141.4' text-anchor='end'>-3 Mio</text><line class='gitter' x1='52' x2='350' y1='99.5' y2='99.5'/><text x='44' y='103.5' text-anchor='end'>-2 Mio</text><line class='gitter' x1='52' x2='350' y1='61.6' y2='61.6'/><text x='44' y='65.6' text-anchor='end'>-1 Mio</text><line class='gitter' x1='52' x2='350' y1='23.7' y2='23.7'/><text x='44' y='27.7' text-anchor='end'>0 Mio</text><text x='52.0' y='190' text-anchor='middle'>09:30</text><text x='154.8' y='190' text-anchor='middle'>10:00</text><text x='257.5' y='190' text-anchor='middle'>10:30</text><line class='achse' x1='52' x2='350' y1='170' y2='170'/><line class='achse' x1='52' x2='350' y1='23.7' y2='23.7'/><path d='M55.4,22.7 L72.6,48.0 L89.7,135.7 L106.8,119.9 L123.9,121.4 L141.1,136.3 L158.2,144.8 L175.3,149.1 L192.4,153.2 L209.6,149.0 L226.7,152.1 L243.8,153.3 L260.9,148.0 L278.1,145.9 L295.2,144.1 L312.3,133.6 L329.4,130.8 L346.6,120.7' fill='none' stroke='var(--s1)' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/><path d='M55.4,20.5 L72.6,58.2 L89.7,158.0 L106.8,141.0 L123.9,136.7 L141.1,151.0 L158.2,149.0 L175.3,159.3 L192.4,161.5 L209.6,158.3 L226.7,154.9 L243.8,160.5 L260.9,149.7 L278.1,149.7 L295.2,149.2 L312.3,136.3 L329.4,137.9 L346.6,124.1' fill='none' stroke='var(--s2)' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/><line x1='364' x2='376' y1='120.7' y2='120.7' stroke='var(--s1)' stroke-width='3' stroke-linecap='round'/><text x='381' y='124.7' class='klein stark'>live -2,6 Mio</text><path d='M354,124.1 L362,134.7' stroke='var(--mut)' fill='none'/><line x1='364' x2='376' y1='134.7' y2='134.7' stroke='var(--s2)' stroke-width='3' stroke-linecap='round'/><text x='381' y='138.7' class='klein stark'>rekonstr. -2,6 Mio</text><line class='kreuz' x1='0' x2='0' y1='12' y2='170'/></svg><script type='application/json' id='abgl_2026-11-16_NDX-d'>{"l":52,"r":350,"x":[55.4,72.6,89.7,106.8,123.9,141.1,158.2,175.3,192.4,209.6,226.7,243.8,260.9,278.1,295.2,312.3,329.4,346.6],"t":["09:31 ET","09:36 ET","09:41 ET","09:46 ET","09:51 ET","09:56 ET","10:01 ET","10:06 ET","10:11 ET","10:16 ET","10:21 ET","10:26 ET","10:31 ET","10:36 ET","10:41 ET","10:46 ET","10:51 ET","10:56 ET"],"s":[{"n":"live","f":"var(--s1)","w":["0,0 Mio","-0,6 Mio","-3,0 Mio","-2,5 Mio","-2,6 Mio","-3,0 Mio","-3,2 Mio","-3,3 Mio","-3,4 Mio","-3,3 Mio","-3,4 Mio","-3,4 Mio","-3,3 Mio","-3,2 Mio","-3,2 Mio","-2,9 Mio","-2,8 Mio","-2,6 Mio"]},{"n":"rekonstr.","f":"var(--s2)","w":["0,1 Mio","-0,9 Mio","-3,5 Mio","-3,1 Mio","-3,0 Mio","-3,4 Mio","-3,3 Mio","-3,6 Mio","-3,6 Mio","-3,5 Mio","-3,5 Mio","-3,6 Mio","-3,3 Mio","-3,3 Mio","-3,3 Mio","-3,0 Mio","-3,0 Mio","-2,6 Mio"]}]}</script></div><div class='hinweisbox'>Wo die Rekonstruktion abweicht, liegt es vor allem an Mehrbein- und Floor-Trades (Spreads): Die Live-Aufzeichnung erkennt und entfernt sie (sein ABJ-Filter), in den Minutenkerzen sind sie nicht erkennbar. Bei QQQ wiegt das schwerer als bei SPX und NDX. Jeder weitere Tag mit beiden Quellen kommt hier automatisch dazu.</div><h2>Märkte und Umrechnung</h2><div class='karte erklaer'><h3>Nasdaq-100 (NQ, MNQ) - NQ GOAT, MNQ GOLD</h3><p>NQ handelt er, weil es &#x27;more velocity, more aggression&#x27; hat; MNQ für Base Hits, Puffer und Risikosteuerung (Kap. 15, Nr. 33).</p><ul><li>Originalmarkt der Strategie: alle Einstellungen wie im Regelwerk.</li></ul></div><div class='karte erklaer'><h3>S&amp;P 500 (ES, MES) - ES mid</h3><p>ES ist &#x27;the king&#x27; für Orderflow und Optionsdaten, aber &#x27;zu ausgeglichen, ich handle gern Continuations&#x27;; für ES-Trader sind CBOE-Daten (SPX) Pflicht (Kap. 15/19, Nr. 1, 33).</p><ul><li>Level und Net Drift aus dem SPX-0DTE-Buch (statt QQQ/NDX); Kontext wie bei NQ (SPX, VIX).</li><li>NQ-Punktwerte x 0.17 (Tagesspanne ES 69,75 / NQ 411,1, Median 21.08.-16.10.2026), auf Ticks gerundet.</li><li>Zone um ein SPX-Level +/- 3 Punkte (wie für SPX im Regelwerk), Drift-Schwelle 1 Mio $ (SPX-Wert des Regelwerks).</li></ul><div class='tabelle'><table><tr><th>Stellgröße</th><th>NQ</th><th>hier</th></tr><tr><td>overnight_totband_punkte</td><td>20.0</td><td>3.5</td></tr><tr><td>amt_toleranz_punkte</td><td>5.0</td><td>0.75</td></tr><tr><td>be_plus_punkte</td><td>1.0</td><td>0.25</td></tr><tr><td>konsolidierung_max_spanne</td><td>40.0</td><td>6.75</td></tr><tr><td>profil_raster_punkte</td><td>1.0</td><td>0.25</td></tr><tr><td>zone_halbbreite_qqq</td><td>0.25</td><td>3.0</td></tr><tr><td>ndx_level_nutzen</td><td>True</td><td>False</td></tr><tr><td>drift_schwelle_mio</td><td>{&#x27;QQQ&#x27;: 0.5, &#x27;NDX&#x27;: 0.5, &#x27;SPX&#x27;: 1.0}</td><td>{&#x27;QQQ&#x27;: 1.0, &#x27;NDX&#x27;: 1.0, &#x27;SPX&#x27;: 1.0}</td></tr><tr><td>großer_zufluss_dollar</td><td>{&#x27;QQQ&#x27;: 250000.0, &#x27;NDX&#x27;: 250000.0, &#x27;SPX&#x27;: 1000000.0}</td><td>{&#x27;QQQ&#x27;: 1000000.0, &#x27;NDX&#x27;: 1000000.0, &#x27;SPX&#x27;: 1000000.0}</td></tr></table></div></div><div class='karte erklaer'><h3>Gold (GC, MGC) - GC A+</h3><p>Gold: &#x27;A+, schoener Orderflow&#x27;, &#x27;würde ich handeln, wenn nicht NQ&#x27;; Optionsflow über GLD-Optionen, aber &#x27;not as efficient, gold has some other price drivers&#x27; (Kap. 15/19, Nr. 1, 33).</p><ul><li>Level, Net Drift und Gamma-Regime aus dem GLD-0DTE-Buch (GLD hat täglich verfallende Optionen); Volatilität: Gold-VIX GVZ statt VIX (GVZ hat keine Optionen -&gt; kein VIX-Node-Baustein); keine Sektor-Flagge.</li><li>NQ-Punktwerte x 0.218 (Tagesspanne GC 89,7 / NQ 411,1), auf 0,10-Ticks gerundet.</li><li>Zonen um GLD-Level +/- 0,15 $ (QQQ-Breite 0,25 x Kursverhältnis 393,8/721,3); Drift-Schwelle 0,03 Mio $ (QQQ 0,5 Mio x Netto-Prämie GLD/QQQ 0,12/2,11); ruhiger Tag: GVZ unter 25 (VIX 16 x 24,4/15,4).</li></ul><div class='tabelle'><table><tr><th>Stellgröße</th><th>NQ</th><th>hier</th></tr><tr><td>overnight_totband_punkte</td><td>20.0</td><td>4.4</td></tr><tr><td>amt_toleranz_punkte</td><td>5.0</td><td>1.1</td></tr><tr><td>be_plus_punkte</td><td>1.0</td><td>0.2</td></tr><tr><td>konsolidierung_max_spanne</td><td>40.0</td><td>8.7</td></tr><tr><td>profil_raster_punkte</td><td>1.0</td><td>0.2</td></tr><tr><td>zone_halbbreite_qqq</td><td>0.25</td><td>0.15</td></tr><tr><td>zone_halbbreite_spx</td><td>3.0</td><td>0.15</td></tr><tr><td>respekt_abstand_spx</td><td>5.0</td><td>0.25</td></tr><tr><td>ndx_level_nutzen</td><td>True</td><td>False</td></tr><tr><td>sektoren_rote_flagge</td><td>True</td><td>False</td></tr><tr><td>drift_schwelle_mio</td><td>{&#x27;QQQ&#x27;: 0.5, &#x27;NDX&#x27;: 0.5, &#x27;SPX&#x27;: 1.0}</td><td>{&#x27;QQQ&#x27;: 0.03, &#x27;NDX&#x27;: 0.03, &#x27;SPX&#x27;: 0.03}</td></tr><tr><td>pm_drift_schwelle_mio</td><td>1.0</td><td>0.03</td></tr><tr><td>großer_zufluss_dollar</td><td>{&#x27;QQQ&#x27;: 250000.0, &#x27;NDX&#x27;: 250000.0, &#x27;SPX&#x27;: 1000000.0}</td><td>{&#x27;QQQ&#x27;: 15000.0, &#x27;NDX&#x27;: 15000.0, &#x27;SPX&#x27;: 15000.0}</td></tr><tr><td>setup4_vix_max</td><td>16.0</td><td>25.0</td></tr><tr><td>niedrigvola_vix</td><td>16.0</td><td>25.0</td></tr></table></div></div><h2>Kosten und Ausführung</h2><div class='karte tabelle'><table><tr><th>Kontrakt</th><th>$ je Punkt</th><th>Tick</th><th>Gebühr hin und zurück</th></tr><tr><td>NQ</td><td>20</td><td>0,25</td><td>4,50 $</td></tr><tr><td>MNQ</td><td>2</td><td>0,25</td><td>1,50 $</td></tr><tr><td>ES</td><td>50</td><td>0,25</td><td>4,50 $</td></tr><tr><td>MES</td><td>5</td><td>0,25</td><td>1,50 $</td></tr><tr><td>GC</td><td>100</td><td>0,10</td><td>4,50 $</td></tr><tr><td>MGC</td><td>10</td><td>0,10</td><td>1,50 $</td></tr></table><p class='erkl'>Gebühren: Take Profit Trader seit 08.08.2026 (Minis 4,50 $, Micros 1,50 $). Einstieg zum Markt einen Tick schlechter als der nächste Kurs, Stops ebenfalls mit einem Tick Schlupf, Ziele erst gefüllt, wenn ein Tick durchgehandelt wurde. Ohne Einzeltrades ist die Reihenfolge in einer Minute unbekannt: Erreicht eine Kerze Stop und Ziel, zählt der Stop. QQQ-Optionen: halbe Geld-Brief-Spanne (1 %, mindestens 1 Cent) je Seite plus 0,65 $ Gebühr je Kontrakt und Seite.</p></div><h2>Grenzen - was dieser Backtest (noch) nicht kann</h2><div class='karte erklaer'><ul>
+<li><b>Kurzer Zeitraum:</b> wenige Wochen sind für eine Strategie mit wenigen Trades zu kurz. Der Zeitraum waechst jeden Tag.</li>
+<li><b>Orderflow vor dem 16.11. nur aus Minutenkerzen:</b> Footprint, gefangene Kontrakte und Big Trades brauchen Einzeltrades.
+Die Näherung (Volumen, Docht, Delta der Minute) ist strenger und ungenauer.</li>
+<li><b>Net Drift vor dem 16.11. ohne Spread-Filter</b> (siehe Abgleich).</li>
+<li><b>Gold und ES sind Übertragungen:</b> Das Skript beschreibt den Ansatz für diese Märkte, nicht jede Zahl. Die Umrechnung
+ist vor dem Testzeitraum festgelegt.</li>
+<li><b>Er entscheidet frei:</b> Viele Schwellen sind im Skript nicht genannt (Art "Auslegung" im Regelwerk). Der strenge Lauf
+nimmt die Regeln woertlich; deshalb gibt es die Analyse.</li></ul></div></main><nav class='leiste'><a href='../index.html' class=''><svg viewBox='0 0 24 24'><path d='M3 17l5-5 4 4 8-8'/><path d='M14 8h6v6'/></svg><span>Heute</span></a><a href='../backtest.html' class='aktiv'><svg viewBox='0 0 24 24'><rect x='3' y='3' width='7' height='7' rx='1.5'/><rect x='14' y='3' width='7' height='7' rx='1.5'/><rect x='3' y='14' width='7' height='7' rx='1.5'/><rect x='14' y='14' width='7' height='7' rx='1.5'/></svg><span>Backtest</span></a><a href='../konto.html' class=''><svg viewBox='0 0 24 24'><rect x='3' y='6' width='18' height='13' rx='2'/><path d='M3 10h18M7 15h4'/></svg><span>Konto</span></a><a href='../verlauf.html' class=''><svg viewBox='0 0 24 24'><path d='M4 19V5M4 19h16'/><path d='M8 15v-4M12 15V8M16 15v-6'/></svg><span>Verlauf</span></a><a href='../strategie.html' class=''><svg viewBox='0 0 24 24'><path d='M5 4h11l3 3v13H5z'/><path d='M9 10h7M9 14h7M9 18h4'/></svg><span>Strategie</span></a><a href='../daten.html' class=''><svg viewBox='0 0 24 24'><ellipse cx='12' cy='6' rx='7' ry='3'/><path d='M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6'/><path d='M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3'/></svg><span>Daten</span></a></nav><div id='tip' hidden></div><script>(()=>{const tip=document.getElementById('tip');
+function zeigen(x,y,titel,zeilen){tip.replaceChildren();const t=document.createElement('div');t.className='tt-t';
+t.textContent=titel;tip.appendChild(t);for(const z of zeilen){const r=document.createElement('div');r.className='tt-z';
+if(z.f){const k=document.createElement('i');k.style.background=z.f;r.appendChild(k);}const b=document.createElement('b');
+b.textContent=z.w;r.appendChild(b);if(z.n){const s=document.createElement('span');s.textContent=z.n;r.appendChild(s);}
+tip.appendChild(r);}tip.hidden=false;const bw=tip.offsetWidth,bh=tip.offsetHeight;let lx=x+14,ly=y+14;
+if(lx+bw>innerWidth-8)lx=x-bw-14;if(ly+bh>innerHeight-8)ly=y-bh-14;tip.style.left=Math.max(8,lx)+'px';
+tip.style.top=Math.max(8,ly)+'px';}
+function weg(){tip.hidden=true;}
+function punkt(svg,ev){const p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;
+return p.matrixTransform(svg.getScreenCTM().inverse());}
+function suche(a,v){let lo=0,hi=a.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(a[m]<v)lo=m;else hi=m;}
+return Math.abs(a[lo]-v)<=Math.abs(a[hi]-v)?lo:hi;}
+for(const svg of document.querySelectorAll('svg[data-linien]')){const d=JSON.parse(
+document.getElementById(svg.dataset.linien).textContent);const kreuz=svg.querySelector('.kreuz');
+svg.addEventListener('pointermove',ev=>{if(ev.target.closest('[data-tip]'))return;const p=punkt(svg,ev);
+if(p.x<d.l||p.x>d.r||!d.x.length){weg();kreuz.style.display='none';return;}const i=suche(d.x,p.x);
+kreuz.setAttribute('x1',d.x[i]);kreuz.setAttribute('x2',d.x[i]);kreuz.style.display='';
+zeigen(ev.clientX,ev.clientY,d.t[i],d.s.map(s=>({w:s.w[i],n:s.n,f:s.f})));});
+svg.addEventListener('pointerleave',()=>{weg();kreuz.style.display='none';});}
+for(const svg of document.querySelectorAll('svg[data-waerme]')){const d=JSON.parse(
+document.getElementById(svg.dataset.waerme).textContent);const m=svg.querySelector('.markierung');
+svg.addEventListener('pointermove',ev=>{const p=punkt(svg,ev);if(p.x<d.x[0]||p.x>d.x[d.x.length-1]||
+p.y<d.y[0]||p.y>d.y[d.y.length-1]){weg();m.style.display='none';return;}let i=0;while(i<d.x.length-2&&p.x>d.x[i+1])i++;
+let j=0;while(j<d.y.length-2&&p.y>d.y[j+1])j++;m.setAttribute('x',d.x[i]);m.setAttribute('y',d.y[j]);
+m.setAttribute('width',d.x[i+1]-d.x[i]-2);m.setAttribute('height',d.y[j+1]-d.y[j]-2);m.style.display='';
+zeigen(ev.clientX,ev.clientY,d.t[i]+' ET, Strike '+d.k[j],[{w:d.w[i][j],n:'GEX (0DTE)'}]);});
+svg.addEventListener('pointerleave',()=>{weg();m.style.display='none';});}
+document.addEventListener('pointermove',ev=>{const el=ev.target.closest?ev.target.closest('[data-tip]'):null;
+if(el){zeigen(ev.clientX,ev.clientY,el.dataset.titel||'',[{w:el.dataset.tip,n:el.dataset.name||''}]);return;}
+if(!ev.target.closest||!ev.target.closest('svg[data-linien],svg[data-waerme]'))weg();});
+document.addEventListener('focusin',ev=>{const el=ev.target.closest?ev.target.closest('[data-tip]'):null;if(!el)return;
+const r=el.getBoundingClientRect();zeigen(r.right,r.top,el.dataset.titel||'',[{w:el.dataset.tip,n:el.dataset.name||''}]);});
+document.addEventListener('focusout',weg);})();</script></body></html>

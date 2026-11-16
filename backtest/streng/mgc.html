@@ -1,0 +1,150 @@
+<!doctype html><html lang='de'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'><meta name='apple-mobile-web-app-title' content='AR Demo'><meta name='theme-color' media='(prefers-color-scheme: light)' content='#f9f9f7'><meta name='theme-color' media='(prefers-color-scheme: dark)' content='#0d0d0d'><link rel='manifest' href='../../manifest.webmanifest'><link rel='apple-touch-icon' href='../../icon.png'><link rel='icon' type='image/png' href='../../icon.png'><title>MGC (Regelwerk (streng)) - AR Demo</title><style>
+:root{color-scheme:light;--flaeche:#fcfcfb;--ebene:#f9f9f7;--tinte:#0b0b0b;--tinte2:#52514e;--mut:#898781;
+--gitter:#e1e0d9;--achse:#c3c2b7;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--pos:#2a78d6;--neg:#e34948;--null:#f0efec;
+--rand:rgba(11,11,11,.10);--gut:#006300;--schlecht:#d03b3b;--q1:#cde2fb;--q2:#9ec5f4;--q3:#5598e7;--q4:#256abf;
+--q5:#104281}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--flaeche:#1a1a19;--ebene:#0d0d0d;
+--tinte:#f0efec;--tinte2:#c3c2b7;--mut:#898781;--gitter:#2c2c2a;--achse:#383835;--s1:#3987e5;--s2:#d95926;--s3:#199e70;
+--pos:#3987e5;--neg:#e66767;--null:#383835;--rand:rgba(255,255,255,.10);--gut:#0ca30c;--schlecht:#e66767;
+--q1:#184f95;--q2:#256abf;--q3:#3987e5;--q4:#6da7ec;--q5:#9ec5f4}}
+:root[data-theme="dark"]{color-scheme:dark;--flaeche:#1a1a19;--ebene:#0d0d0d;--tinte:#f0efec;--tinte2:#c3c2b7;
+--mut:#898781;--gitter:#2c2c2a;--achse:#383835;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--pos:#3987e5;--neg:#e66767;
+--null:#383835;--rand:rgba(255,255,255,.10);--gut:#0ca30c;--schlecht:#e66767;--q1:#184f95;--q2:#256abf;--q3:#3987e5;
+--q4:#6da7ec;--q5:#9ec5f4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ebene);color:var(--tinte);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1120px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:24px;margin:0 0 4px}h2{font-size:18px;margin:32px 0 8px}h3{font-size:15px;margin:0 0 6px}
+p{margin:6px 0}.mut{color:var(--tinte2)}
+.karte{background:var(--flaeche);border:1px solid var(--rand);border-radius:10px;padding:14px 16px;margin:10px 0}
+.kacheln{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}
+.kachel{background:var(--flaeche);border:1px solid var(--rand);border-radius:10px;padding:10px 12px}
+.kachel span{display:block;color:var(--tinte2);font-size:13px}.kachel b{display:block;font-size:22px;font-weight:600}
+.raster{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:10px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{fill:var(--tinte2);font:12px system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
+svg .klein{font-size:11px}svg .stark{fill:var(--tinte);font-weight:600}
+.gitter{stroke:var(--gitter);stroke-width:1}.achse{stroke:var(--achse);stroke-width:1}
+.kreuz{stroke:var(--mut);stroke-width:1;display:none;pointer-events:none}
+.zeile{fill:transparent}.zeile:hover,.zeile:focus{fill:var(--rand);outline:none}
+.legende{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 8px;font-size:13px;color:var(--tinte2)}
+.legende i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.legende i.feld{height:10px;width:12px;border-radius:2px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{border-bottom:1px solid var(--gitter);padding:4px 6px;text-align:right;vertical-align:top}
+th:first-child,td:first-child{text-align:left}th{color:var(--tinte2);font-weight:600}
+.tabelle{overflow-x:auto}details{margin:8px 0}summary{cursor:pointer;color:var(--tinte2)}
+pre{white-space:pre-wrap;font-size:12px;background:var(--flaeche);border:1px solid var(--rand);border-radius:8px;
+padding:10px;overflow-x:auto}
+.gut{color:var(--gut)}.schlecht{color:var(--schlecht)}
+#tip{position:fixed;z-index:9;pointer-events:none;background:var(--flaeche);color:var(--tinte);border:1px solid var(--rand);
+border-radius:8px;padding:6px 10px;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.12);max-width:340px}
+#tip .tt-t{color:var(--tinte2);font-size:12px;margin-bottom:2px}#tip .tt-z{display:flex;align-items:center;gap:6px}
+#tip .tt-z i{display:inline-block;width:12px;height:3px;border-radius:2px}#tip .tt-z span{color:var(--tinte2)}
+
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ebene);padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+main{max-width:980px;padding:8px 16px 32px}
+.kopf{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--ebene) 88%,transparent);
+backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--gitter);
+padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+.kopf-in{max-width:980px;margin:0 auto;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.kopf h1{font-size:18px;margin:0}.kopf .app{color:var(--tinte2);font-size:13px;font-weight:600}
+.kopf .stand{color:var(--tinte2);font-size:12.5px;margin-left:auto}
+.leiste{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--flaeche) 94%,transparent);
+backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--gitter);
+padding:6px 4px calc(6px + env(safe-area-inset-bottom));display:flex;justify-content:space-around}
+.leiste a{flex:1;max-width:120px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;
+color:var(--mut);text-decoration:none;font-size:10.5px;padding:4px 0;border-radius:10px}
+.leiste a svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.leiste a.aktiv{color:var(--s1)}
+h2{font-size:17px;margin:26px 0 8px}h3{font-size:15px;margin:0 0 6px}
+.held{background:var(--flaeche);border:1px solid var(--rand);border-radius:16px;padding:16px 18px;margin:12px 0}
+.held .klein{color:var(--tinte2);font-size:13px}.held .gross{font-size:40px;font-weight:700;line-height:1.15;margin:2px 0}
+.zeile2{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:6px;font-size:14px}
+.zeile2 span{color:var(--tinte2)}
+.pille{display:inline-block;border-radius:999px;padding:1px 9px;font-size:12px;font-weight:600;border:1px solid currentColor;
+white-space:nowrap;vertical-align:middle}
+.p-gut{color:var(--gut)}.p-schlecht{color:var(--schlecht)}.p-mut{color:var(--tinte2)}.p-blau{color:var(--s1)}
+.stufen{display:grid;gap:10px}
+.stufe{background:var(--flaeche);border:1px solid var(--rand);border-radius:12px;padding:12px 14px}
+.stufe .kopfzeile{display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.stufe .nr{font-weight:700}.stufe p{margin:6px 0 0;font-size:14px}.stufe .erkl{color:var(--tinte2);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-size:12px;border:1px solid var(--gitter);border-radius:8px;padding:2px 7px;color:var(--tinte2)}
+.chip b{color:var(--tinte)}
+.leiter{position:relative;height:30px;margin:12px 0 4px}
+.leiter .bahn{position:absolute;left:0;right:0;top:13px;height:4px;border-radius:2px;background:var(--gitter)}
+.leiter .marke{position:absolute;top:4px;width:2px;height:22px;background:var(--mut)}
+.leiter .kurs{position:absolute;top:8px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--tinte);
+border:2px solid var(--flaeche)}
+.leiter-text{display:flex;justify-content:space-between;font-size:12px;color:var(--tinte2)}
+.fortschritt{height:8px;border-radius:4px;background:var(--gitter);overflow:hidden;margin:8px 0 4px}
+.fortschritt i{display:block;height:100%;background:var(--s1);border-radius:4px}
+.protokoll{list-style:none;padding:0;margin:0}
+.protokoll li{display:grid;grid-template-columns:48px 1fr;gap:8px;padding:7px 0;border-bottom:1px solid var(--gitter);font-size:14px}
+.protokoll .uhr{color:var(--tinte2);font-variant-numeric:tabular-nums}
+.protokoll .was{font-weight:600}.protokoll .erkl{color:var(--tinte2);font-size:13px}
+.leer{color:var(--tinte2);font-size:14px}
+.zeitleiste{list-style:none;padding:0;margin:0}
+.zeitleiste li{padding:8px 0 8px 18px;border-left:2px solid var(--gitter);position:relative;font-size:14px}
+.zeitleiste li::before{content:'';position:absolute;left:-6px;top:13px;width:10px;height:10px;border-radius:50%;
+background:var(--mut)}
+.zeitleiste li.gut::before{background:var(--gut)}.zeitleiste li.schlecht::before{background:var(--schlecht)}
+.zeitleiste .dat{color:var(--tinte2);font-size:12.5px;margin-right:6px}
+a{color:var(--s1)}
+.erklaer p{margin:8px 0}.erklaer li{margin:4px 0}
+.karte svg{max-width:760px;margin:0 auto}
+
+:root{--k1:#2a78d6;--k2:#eb6834;--k3:#1baf7a;--k4:#eda100;--k5:#e87ba4;--k6:#008300;--k7:#6250d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--k1:#3987e5;--k2:#d95926;--k3:#199e70;
+--k4:#c98500;--k5:#d55181;--k6:#008300;--k7:#9085e9}}
+:root[data-theme="dark"]{--k1:#3987e5;--k2:#d95926;--k3:#199e70;--k4:#c98500;--k5:#d55181;--k6:#008300;--k7:#9085e9}
+.punkt{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:baseline}
+.raster2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.mini{background:var(--flaeche);border:1px solid var(--rand);border-radius:12px;padding:10px 12px}
+.mini h3{font-size:14px;margin:0 0 2px}.mini .wert{font-size:13px;color:var(--tinte2)}
+.tabelle td.links,.tabelle th.links{text-align:left}
+.urteil{font-size:12px;color:var(--tinte2);white-space:nowrap}
+.hinweisbox{border-left:3px solid var(--s1);padding:8px 12px;background:var(--flaeche);border-radius:0 10px 10px 0;
+margin:10px 0;font-size:14px}
+.warnbox{border-left:3px solid var(--schlecht);padding:8px 12px;background:var(--flaeche);border-radius:0 10px 10px 0;
+margin:10px 0;font-size:14px}
+.stufenzeile{display:grid;grid-template-columns:110px 1fr 54px;align-items:center;gap:8px;font-size:13px;margin:3px 0}
+.stufenzeile .bahn{height:16px;background:var(--gitter);border-radius:4px;overflow:hidden}
+.stufenzeile .bahn i{display:block;height:100%;border-radius:0 4px 4px 0}
+.stufenzeile b{text-align:right;font-variant-numeric:tabular-nums}
+</style></head><body><header class='kopf'><div class='kopf-in'><span class='app'>AR Demo</span><h1>MGC (Regelwerk (streng))</h1><span class='stand'>Stand 11:00 ET (15 Min. verzögert)</span></div></header><main><p><a href='../../backtest.html'>&larr; Übersicht</a> &middot; Variante: <b>Regelwerk (streng)</b> &middot; <a href='../analyse/mgc.html'>andere Variante</a></p><div class='held'><div class='klein'><span class='punkt' style='background:var(--k5)'></span>MGC &middot; Micro Gold, 10 Feinunzen (COMEX) &middot; GC A+</div><div class='gross '>+0 $</div><div class='zeile2'><div><span>Trades</span> 0</div><div><span>Handelstage</span> 20</div><div><span>Trefferquote</span> -</div><div><span>&Oslash; R</span> -</div></div><p class='erkl'>Gold: &#x27;A+, schoener Orderflow&#x27;, &#x27;würde ich handeln, wenn nicht NQ&#x27;; Optionsflow über GLD-Optionen, aber &#x27;not as efficient, gold has some other price drivers&#x27; (Kap. 15/19, Nr. 1, 33).</p></div><h2>Prop-Konto: Take Profit Trader (TPT) 50K</h2><div class='kacheln'><div class='kachel'><span>Phase jetzt</span><b class=''>Test (Konto 1)</b></div><div class='kachel'><span>Saldo</span><b class=''>50.000 $</b></div><div class='kachel'><span>Abstand zur Grenze</span><b class=''>2.000 $</b></div><div class='kachel'><span>Gebühren bisher</span><b class='schlecht'>-170 $</b></div><div class='kachel'><span>Auszahlungen (netto)</span><b class=''>+0 $</b></div><div class='kachel'><span>Bilanz</span><b class='schlecht'>-170 $</b></div></div><div class='legende'><span><i style='background:var(--s1)'></i>Saldo</span><span><i style='background:var(--neg)'></i>Verlustgrenze</span><span><i style='background:var(--mut)'></i>Ziel</span></div><div class='karte'><svg viewBox='0 0 480 240' role='img' aria-label='Kontoverlauf' data-linien='konto_mgc-d'><line class='gitter' x1='60' x2='362' y1='199.4' y2='199.4'/><text x='52' y='203.4' text-anchor='end'>48.000 $</text><line class='gitter' x1='60' x2='362' y1='128.7' y2='128.7'/><text x='52' y='132.7' text-anchor='end'>50.000 $</text><line class='gitter' x1='60' x2='362' y1='58.0' y2='58.0'/><text x='52' y='62.0' text-anchor='end'>52.000 $</text><text x='65.8' y='230' text-anchor='middle'>19.10.</text><text x='112.2' y='230' text-anchor='middle'>23.10.</text><text x='181.8' y='230' text-anchor='middle'>29.10.</text><text x='251.8' y='230' text-anchor='middle'>04.11.</text><text x='321.4' y='230' text-anchor='middle'>10.11.</text><line class='achse' x1='60' x2='362' y1='210' y2='210'/><path d='M65.8,128.7 L77.4,128.7 L89.0,128.7 L100.6,128.7 L112.2,128.7 L147.0,128.7 L158.6,128.7 L170.2,128.7 L181.8,128.7 L193.4,128.7 L228.6,128.7 L240.2,128.7 L251.8,128.7 L263.4,128.7 L275.0,128.7 L309.8,128.7 L321.4,128.7 L333.0,128.7 L344.6,128.7 L356.2,128.7' fill='none' stroke='var(--s1)' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/><path d='M65.8,199.4 L77.4,199.4 L89.0,199.4 L100.6,199.4 L112.2,199.4 L147.0,199.4 L158.6,199.4 L170.2,199.4 L181.8,199.4 L193.4,199.4 L228.6,199.4 L240.2,199.4 L251.8,199.4 L263.4,199.4 L275.0,199.4 L309.8,199.4 L321.4,199.4 L333.0,199.4 L344.6,199.4 L356.2,199.4' fill='none' stroke='var(--neg)' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/><path d='M65.8,22.6 L77.4,22.6 L89.0,22.6 L100.6,22.6 L112.2,22.6 L147.0,22.6 L158.6,22.6 L170.2,22.6 L181.8,22.6 L193.4,22.6 L228.6,22.6 L240.2,22.6 L251.8,22.6 L263.4,22.6 L275.0,22.6 L309.8,22.6 L321.4,22.6 L333.0,22.6 L344.6,22.6 L356.2,22.6' fill='none' stroke='var(--mut)' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/><line x1='376' x2='388' y1='22.6' y2='22.6' stroke='var(--mut)' stroke-width='3' stroke-linecap='round'/><text x='393' y='26.6' class='klein stark'>Ziel 53.000 $</text><line x1='376' x2='388' y1='128.7' y2='128.7' stroke='var(--s1)' stroke-width='3' stroke-linecap='round'/><text x='393' y='132.7' class='klein stark'>Saldo 50.000 $</text><line x1='376' x2='388' y1='199.4' y2='199.4' stroke='var(--neg)' stroke-width='3' stroke-linecap='round'/><text x='393' y='203.4' class='klein stark'>Grenze 48.000 $</text><line class='kreuz' x1='0' x2='0' y1='12' y2='210'/></svg><script type='application/json' id='konto_mgc-d'>{"l":60,"r":362,"x":[65.8,77.4,89.0,100.6,112.2,147.0,158.6,170.2,181.8,193.4,228.6,240.2,251.8,263.4,275.0,309.8,321.4,333.0,344.6,356.2],"t":["19.10.","20.10.","21.10.","22.10.","23.10.","26.10.","27.10.","28.10.","29.10.","30.10.","02.11.","03.11.","04.11.","05.11.","06.11.","09.11.","10.11.","11.11.","12.11.","13.11."],"s":[{"n":"Saldo","f":"var(--s1)","w":["50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $","50.000 $"]},{"n":"Grenze","f":"var(--neg)","w":["48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $","48.000 $"]},{"n":"Ziel","f":"var(--mut)","w":["53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $","53.000 $"]}]}</script></div><p class='erkl'>Größe je Trade wie in der Demo (Kap. 41): in der Prüfung 25 % des erlaubten Drawdowns (500 $) und alles am ersten Ziel bei 1,25 R; im Funded-Konto 0,75 % bzw. 1,5 % des Kontos. Höchstens 60 MGC; Gebühr 1,50 $ je Kontrakt hin und zurück. Passt der Stop nicht in das Risiko (weniger als 1 Kontrakt), fällt der Trade aus - bei den großen Kontrakten (NQ, ES, GC) kommt das oefter vor.</p><details><summary>Ereignisse des Kontos</summary><div class='karte'><ul class='zeitleiste'><li class=''><span class='dat'>2026-10-19</span>Monatsgebühr Test <b class='schlecht'>-170,00 $</b></li><li class=''><span class='dat'>2026-10-19</span>Konto 1: Test gestartet (Take Profit Trader (TPT) 50K)</li></ul></div></details><h2>Trades</h2><p class='leer'>In dieser Variante kein Trade.</p><h2>Trichter dieses Marktes</h2><div class='karte'><div class='stufenzeile'><span>Kandidaten</span><div class='bahn'><i style='width:100.0%;background:var(--q2)'></i></div><b>50</b></div><div class='stufenzeile'><span>1 Kontext ok</span><div class='bahn'><i style='width:2.0%;background:var(--q3)'></i></div><b>1</b></div><div class='stufenzeile'><span>2 Ort ok</span><div class='bahn'><i style='width:2.0%;background:var(--q4)'></i></div><b>1</b></div><div class='stufenzeile'><span>3 Net Drift ok</span><div class='bahn'><i style='width:2.0%;background:var(--q5)'></i></div><b>1</b></div><div class='stufenzeile'><span>4 Orderflow ok</span><div class='bahn'><i style='width:0.0%;background:var(--q5)'></i></div><b>0</b></div><p class='erkl'>Endstation je Kandidat: 40 Kontext, 8 nicht geprüft, 1 Setup ungültig, 1 Orderflow</p></div><h2>Tag für Tag</h2><div class='karte tabelle'><table><tr><th>Tag</th><th>Phase</th><th>Pivot</th><th>Regime</th><th>Kand.</th><th>Trades</th><th>Ergebnis</th></tr><tr><td><a href='../tag-2026-11-13.html'>Fr 13.11.</a></td><td>Prüfung</td><td>GLD 355 (pivot/mvc/call_wall/put_w</td><td>negativ</td><td>3</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-11-12.html'>Do 12.11.</a></td><td>Prüfung</td><td>GLD 355 (pivot/mvc/put_wall DEX, -</td><td>negativ</td><td>0</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-11-11.html'>Mi 11.11.</a></td><td>Prüfung</td><td>GLD 373 (pivot/mvc/call_wall, +19 </td><td>negativ</td><td>0</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-11-10.html'>Di 10.11.</a></td><td>Prüfung</td><td>GLD 371 (pivot/mvc/GLD:gamma_flip/</td><td>positiv</td><td>4</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-11-09.html'>Mo 09.11.</a></td><td>Prüfung</td><td>GLD 377 (pivot/mvc/call_wall DEX, </td><td>positiv</td><td>8</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-11-06.html'>Fr 06.11.</a></td><td>Prüfung</td><td>GLD 365 (pivot/mvc/put_wall DEX, -</td><td>positiv</td><td>0</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-11-05.html'>Do 05.11.</a></td><td>Prüfung</td><td>GLD 377 (pivot/mvc/call_wall, +25 </td><td>positiv</td><td>2</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-11-04.html'>Mi 04.11.</a></td><td>Prüfung</td><td>GLD 370 (pivot/mvc/call_wall, +9 M</td><td>positiv</td><td>5</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-11-03.html'>Di 03.11.</a></td><td>Prüfung</td><td>GLD 364 (pivot/mvc, +6 Mio)</td><td>positiv</td><td>1</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-11-02.html'>Mo 02.11.</a></td><td>Prüfung</td><td>GLD 359 (pivot/mvc, +9 Mio)</td><td>positiv</td><td>4</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-30.html'>Fr 30.10.</a></td><td>Prüfung</td><td>GLD 362 (pivot/mvc/put_wall DEX, -</td><td>negativ</td><td>0</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-29.html'>Do 29.10.</a></td><td>Prüfung</td><td>GLD 365 (pivot/mvc, -5 Mio)</td><td>negativ</td><td>2</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-28.html'>Mi 28.10.</a></td><td>Prüfung</td><td>GLD 375 (pivot/mvc/call_wall DEX, </td><td>positiv</td><td>14</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-27.html'>Di 27.10.</a></td><td>Prüfung</td><td>GLD 368 (pivot/mvc/call_wall DEX, </td><td>positiv</td><td>4</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-26.html'>Mo 26.10.</a></td><td>Prüfung</td><td>GLD 370 (pivot/mvc/call_wall/put_w</td><td>positiv</td><td>1</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-23.html'>Fr 23.10.</a></td><td>Prüfung</td><td>GLD 369 (pivot/mvc/put_wall DEX, -</td><td>negativ</td><td>0</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-22.html'>Do 22.10.</a></td><td>Prüfung</td><td>GLD 375 (pivot/mvc/put_wall DEX, -</td><td>negativ</td><td>0</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-21.html'>Mi 21.10.</a></td><td>Prüfung</td><td>GLD 381 (pivot/mvc/call_wall/clust</td><td>positiv</td><td>0</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-20.html'>Di 20.10.</a></td><td>Prüfung</td><td>GLD 375 (pivot/mvc/put_wall DEX, -</td><td>negativ</td><td>1</td><td>0</td><td class=''>+0,00 $</td></tr><tr><td><a href='../tag-2026-10-19.html'>Mo 19.10.</a></td><td>Prüfung</td><td>GLD 382 (pivot/mvc/call_wall, +16 </td><td>positiv</td><td>1</td><td>0</td><td class=''>+0,00 $</td></tr></table></div><h2>Wie dieser Markt eingestellt ist</h2><div class='karte erklaer'><ul><li>Level, Net Drift und Gamma-Regime aus dem GLD-0DTE-Buch (GLD hat täglich verfallende Optionen); Volatilität: Gold-VIX GVZ statt VIX (GVZ hat keine Optionen -&gt; kein VIX-Node-Baustein); keine Sektor-Flagge.</li><li>NQ-Punktwerte x 0.218 (Tagesspanne GC 89,7 / NQ 411,1), auf 0,10-Ticks gerundet.</li><li>Zonen um GLD-Level +/- 0,15 $ (QQQ-Breite 0,25 x Kursverhältnis 393,8/721,3); Drift-Schwelle 0,03 Mio $ (QQQ 0,5 Mio x Netto-Prämie GLD/QQQ 0,12/2,11); ruhiger Tag: GVZ unter 25 (VIX 16 x 24,4/15,4).</li></ul></div></main><nav class='leiste'><a href='../../index.html' class=''><svg viewBox='0 0 24 24'><path d='M3 17l5-5 4 4 8-8'/><path d='M14 8h6v6'/></svg><span>Heute</span></a><a href='../../backtest.html' class='aktiv'><svg viewBox='0 0 24 24'><rect x='3' y='3' width='7' height='7' rx='1.5'/><rect x='14' y='3' width='7' height='7' rx='1.5'/><rect x='3' y='14' width='7' height='7' rx='1.5'/><rect x='14' y='14' width='7' height='7' rx='1.5'/></svg><span>Backtest</span></a><a href='../../konto.html' class=''><svg viewBox='0 0 24 24'><rect x='3' y='6' width='18' height='13' rx='2'/><path d='M3 10h18M7 15h4'/></svg><span>Konto</span></a><a href='../../verlauf.html' class=''><svg viewBox='0 0 24 24'><path d='M4 19V5M4 19h16'/><path d='M8 15v-4M12 15V8M16 15v-6'/></svg><span>Verlauf</span></a><a href='../../strategie.html' class=''><svg viewBox='0 0 24 24'><path d='M5 4h11l3 3v13H5z'/><path d='M9 10h7M9 14h7M9 18h4'/></svg><span>Strategie</span></a><a href='../../daten.html' class=''><svg viewBox='0 0 24 24'><ellipse cx='12' cy='6' rx='7' ry='3'/><path d='M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6'/><path d='M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3'/></svg><span>Daten</span></a></nav><div id='tip' hidden></div><script>(()=>{const tip=document.getElementById('tip');
+function zeigen(x,y,titel,zeilen){tip.replaceChildren();const t=document.createElement('div');t.className='tt-t';
+t.textContent=titel;tip.appendChild(t);for(const z of zeilen){const r=document.createElement('div');r.className='tt-z';
+if(z.f){const k=document.createElement('i');k.style.background=z.f;r.appendChild(k);}const b=document.createElement('b');
+b.textContent=z.w;r.appendChild(b);if(z.n){const s=document.createElement('span');s.textContent=z.n;r.appendChild(s);}
+tip.appendChild(r);}tip.hidden=false;const bw=tip.offsetWidth,bh=tip.offsetHeight;let lx=x+14,ly=y+14;
+if(lx+bw>innerWidth-8)lx=x-bw-14;if(ly+bh>innerHeight-8)ly=y-bh-14;tip.style.left=Math.max(8,lx)+'px';
+tip.style.top=Math.max(8,ly)+'px';}
+function weg(){tip.hidden=true;}
+function punkt(svg,ev){const p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;
+return p.matrixTransform(svg.getScreenCTM().inverse());}
+function suche(a,v){let lo=0,hi=a.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(a[m]<v)lo=m;else hi=m;}
+return Math.abs(a[lo]-v)<=Math.abs(a[hi]-v)?lo:hi;}
+for(const svg of document.querySelectorAll('svg[data-linien]')){const d=JSON.parse(
+document.getElementById(svg.dataset.linien).textContent);const kreuz=svg.querySelector('.kreuz');
+svg.addEventListener('pointermove',ev=>{if(ev.target.closest('[data-tip]'))return;const p=punkt(svg,ev);
+if(p.x<d.l||p.x>d.r||!d.x.length){weg();kreuz.style.display='none';return;}const i=suche(d.x,p.x);
+kreuz.setAttribute('x1',d.x[i]);kreuz.setAttribute('x2',d.x[i]);kreuz.style.display='';
+zeigen(ev.clientX,ev.clientY,d.t[i],d.s.map(s=>({w:s.w[i],n:s.n,f:s.f})));});
+svg.addEventListener('pointerleave',()=>{weg();kreuz.style.display='none';});}
+for(const svg of document.querySelectorAll('svg[data-waerme]')){const d=JSON.parse(
+document.getElementById(svg.dataset.waerme).textContent);const m=svg.querySelector('.markierung');
+svg.addEventListener('pointermove',ev=>{const p=punkt(svg,ev);if(p.x<d.x[0]||p.x>d.x[d.x.length-1]||
+p.y<d.y[0]||p.y>d.y[d.y.length-1]){weg();m.style.display='none';return;}let i=0;while(i<d.x.length-2&&p.x>d.x[i+1])i++;
+let j=0;while(j<d.y.length-2&&p.y>d.y[j+1])j++;m.setAttribute('x',d.x[i]);m.setAttribute('y',d.y[j]);
+m.setAttribute('width',d.x[i+1]-d.x[i]-2);m.setAttribute('height',d.y[j+1]-d.y[j]-2);m.style.display='';
+zeigen(ev.clientX,ev.clientY,d.t[i]+' ET, Strike '+d.k[j],[{w:d.w[i][j],n:'GEX (0DTE)'}]);});
+svg.addEventListener('pointerleave',()=>{weg();m.style.display='none';});}
+document.addEventListener('pointermove',ev=>{const el=ev.target.closest?ev.target.closest('[data-tip]'):null;
+if(el){zeigen(ev.clientX,ev.clientY,el.dataset.titel||'',[{w:el.dataset.tip,n:el.dataset.name||''}]);return;}
+if(!ev.target.closest||!ev.target.closest('svg[data-linien],svg[data-waerme]'))weg();});
+document.addEventListener('focusin',ev=>{const el=ev.target.closest?ev.target.closest('[data-tip]'):null;if(!el)return;
+const r=el.getBoundingClientRect();zeigen(r.right,r.top,el.dataset.titel||'',[{w:el.dataset.tip,n:el.dataset.name||''}]);});
+document.addEventListener('focusout',weg);})();</script></body></html>
