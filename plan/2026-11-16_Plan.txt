@@ -13,13 +13,13 @@ QQQ ~671.42 [eigen]: Regime negativ, Gamma Flip 680.89, Implied Range 651.42 - 6
 Level (QQQ/NDX, nach Prioritaet):
   - QQQ 670 (pivot/mvc/put_wall DEX, -232 Mio)
   - NDX 28200 (mvc/call_wall/gex_top, +76 Mio)
-  - QQQ 680 (call_wall DEX, +4 Mio)
+  - QQQ 681 (call_wall DEX, +13 Mio)
   - NDX 26940 (put_wall/gex_top, -38 Mio)
   - QQQ 680.89 (gamma_flip, +0 Mio)
   - NDX 27825.3 (gamma_flip, +0 Mio)
   - QQQ 665 (poi, -76 Mio)
-  - QQQ 671 (poi DEX, -64 Mio)
-  - QQQ 672 (poi, -44 Mio)
+  - QQQ 670 (poi DEX, -239 Mio)
+  - QQQ 671 (poi, -65 Mio)
   - NDX 27790 (gex_top DEX, -25 Mio)
 AMT-Marken NQ: rth_vortag VAL 27719.00 / POC 27823.50 / VAH 28022.00; tag_vortag VAL 27701.00 / POC 27823.50 / VAH 28216.00; woche_vorwoche VAL 27850.00 / POC 28354.50 / VAH 28655.00; overnight VAL 27604.00 / POC 27664.50 / VAH 27937.00
 Management heute: normal
@@ -34,11 +34,10 @@ Hinweis: SPX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
 LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handelt die Level auf dem QQQ-Chart und rechnet nicht auf NQ um):
   QQQ:
         691.42  Implied oben 691.42
+        681.00  CALL_WALL 681 (+13 Mio, DEX)
         680.89  GAMMA_FLIP 680.89
-        680.00  CALL_WALL 680 (+4 Mio, DEX)
-        672.00  POI 672 (-44 Mio)
-        671.00  POI 671 (-64 Mio, DEX)
-        670.00  PIVOT/MVC/PUT_WALL 670 (-232 Mio, DEX)
+        671.00  POI 671 (-65 Mio)
+        670.00  PIVOT/MVC/PUT_WALL 670 (-232 Mio, DEX) | POI 670 (-239 Mio, DEX)
         665.00  POI 665 (-76 Mio)
         651.42  Implied unten 651.42
   NDX:
