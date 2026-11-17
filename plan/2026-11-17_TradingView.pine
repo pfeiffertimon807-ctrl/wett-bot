@@ -9,11 +9,10 @@ tk = syminfo.ticker
 plot(heute and tk == "NDX" ? 27000.0000 : na, "NDX PUT_WALL/GEX_TOP 27000 (-90 Mio, compounded)", color=color.red, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 664.7700 : na, "QQQ GAMMA_FLIP 664.77 (compounded)", color=color.purple, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 27281.9000 : na, "NDX GAMMA_FLIP 27281.9 (compounded)", color=color.purple, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 658.0000 : na, "QQQ CLUSTER 658 (-228 Mio, compounded DEX)", color=color.gray, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 658.0000 : na, "QQQ CLUSTER 658 (-228 Mio, compounded DEX) | PUT_WALL/POI 658 (-166 Mio, DEX)", color=color.gray, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 670.0000 : na, "QQQ POI 670 (+66 Mio, compounded) | PIVOT/MVC/CALL_WALL 670 (+66 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 27500.0000 : na, "NDX GEX_TOP 27500 (+26 Mio, compounded)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 27550.0000 : na, "NDX MVC/CALL_WALL/GEX_TOP 27550 (+162 Mio, DEX)", color=color.orange, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 660.0000 : na, "QQQ PUT_WALL/POI 660 (-99 Mio, DEX)", color=color.red, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 668.0000 : na, "QQQ CLUSTER 668 (+177 Mio, DEX)", color=color.gray, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 655.0000 : na, "QQQ POI 655 (-44 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 642.1900 : na, "QQQ Implied unten 642.19", color=color.silver, linewidth=1, style=plot.style_linebr)
@@ -45,15 +44,13 @@ if barstate.islast
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 27281.9000, "GAMMA_FLIP 27281.9 (compounded)", style=label.style_label_left, color=color.new(color.purple, 85), textcolor=color.purple, size=size.small))
     if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 658.0000, "CLUSTER 658 (-228 Mio, compounded DEX)", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 658.0000, "CLUSTER 658 (-228 Mio, compounded DEX) | PUT_WALL/POI 658 (-166 Mio, DEX)", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 670.0000, "POI 670 (+66 Mio, compounded) | PIVOT/MVC/CALL_WALL 670 (+66 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 27500.0000, "GEX_TOP 27500 (+26 Mio, compounded)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 27550.0000, "MVC/CALL_WALL/GEX_TOP 27550 (+162 Mio, DEX)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
-    if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 660.0000, "PUT_WALL/POI 660 (-99 Mio, DEX)", style=label.style_label_left, color=color.new(color.red, 85), textcolor=color.red, size=size.small))
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 668.0000, "CLUSTER 668 (+177 Mio, DEX)", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
     if heute and tk == "QQQ"
