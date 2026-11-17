@@ -20,12 +20,12 @@ plot(heute and tk == "QQQ" ? 642.1900 : na, "QQQ Implied unten 642.19", color=co
 plot(heute and tk == "QQQ" ? 685.0100 : na, "QQQ Implied oben 685.01", color=color.silver, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 662.0000 : na, "QQQ Range unten 662", color=color.teal, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 669.0000 : na, "QQQ Range oben 669", color=color.teal, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "SPX" ? 7350.0000 : na, "SPX MVC 7350 (-769 Mio)", color=color.orange, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7350.0000 : na, "SPX MVC 7350 (-767 Mio)", color=color.orange, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7450.0000 : na, "SPX CALL_WALL 7450 (-171 Mio)", color=color.green, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7400.0000 : na, "SPX PUT_WALL 7400 (-624 Mio)", color=color.red, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7459.7000 : na, "SPX GAMMA FLIP 7460", color=color.purple, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "SPX" ? 7270.4000 : na, "SPX Implied unten 7270", color=color.silver, linewidth=1, style=plot.style_linebr)
-plot(heute and tk == "SPX" ? 7540.3000 : na, "SPX Implied oben 7540", color=color.silver, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7270.7000 : na, "SPX Implied unten 7271", color=color.silver, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7540.6000 : na, "SPX Implied oben 7541", color=color.silver, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7485.0000 : na, "SPX Node 7485", color=color.blue, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7490.0000 : na, "SPX Node 7490 | Range oben 7490", color=color.blue, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7525.0000 : na, "SPX Node 7525", color=color.blue, linewidth=1, style=plot.style_linebr)
@@ -67,7 +67,7 @@ if barstate.islast
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 669.0000, "Range oben 669", style=label.style_label_left, color=color.new(color.teal, 85), textcolor=color.teal, size=size.small))
     if heute and tk == "SPX"
-        array.push(marken, label.new(bar_index + 2, 7350.0000, "MVC 7350 (-769 Mio)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 7350.0000, "MVC 7350 (-767 Mio)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
     if heute and tk == "SPX"
         array.push(marken, label.new(bar_index + 2, 7450.0000, "CALL_WALL 7450 (-171 Mio)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
     if heute and tk == "SPX"
@@ -75,9 +75,9 @@ if barstate.islast
     if heute and tk == "SPX"
         array.push(marken, label.new(bar_index + 2, 7459.7000, "GAMMA FLIP 7460", style=label.style_label_left, color=color.new(color.purple, 85), textcolor=color.purple, size=size.small))
     if heute and tk == "SPX"
-        array.push(marken, label.new(bar_index + 2, 7270.4000, "Implied unten 7270", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 7270.7000, "Implied unten 7271", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
     if heute and tk == "SPX"
-        array.push(marken, label.new(bar_index + 2, 7540.3000, "Implied oben 7540", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 7540.6000, "Implied oben 7541", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
     if heute and tk == "SPX"
         array.push(marken, label.new(bar_index + 2, 7485.0000, "Node 7485", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "SPX"
