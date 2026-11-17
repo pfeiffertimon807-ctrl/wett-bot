@@ -8,17 +8,17 @@ Overnight NQ: +44.5 Punkte; SPX-Premarket-Drift: +1.84 Mio
 IV Rank QQQ (VXN) 74.55, SPX (VIX) 53.70; Term Structure Contango (ruhig); COR1M 11.80
 Rote Flagge Sektoren (Tagesverluste in Folge): XLK, XLY, XLI, XLB
 QQQ ~663.60 [eigen]: Regime negativ, Gamma Flip 664.77, Implied Range 642.19 - 685.01
-  PIVOT 669 (+65 Mio); POIs: 659 (-56), 655 (-44), 670 (+43)
+  PIVOT 670 (+66 Mio); POIs: 659 (-56), 655 (-44), 670 (+43)
 Level (QQQ/NDX, nach Prioritaet):
   - NDX 27000 (put_wall/gex_top compounded, -90 Mio)
   - QQQ 664.77 (gamma_flip compounded, +0 Mio)
   - NDX 27281.9 (gamma_flip compounded, +0 Mio)
   - QQQ 658 (cluster compounded DEX, -228 Mio)
-  - QQQ 669 (poi compounded, +61 Mio)
+  - QQQ 670 (poi compounded, +66 Mio)
   - NDX 27500 (gex_top compounded, +26 Mio)
-  - QQQ 669 (pivot/mvc/call_wall DEX, +65 Mio)
+  - QQQ 670 (pivot/mvc/call_wall DEX, +66 Mio)
   - NDX 27550 (mvc/call_wall/gex_top DEX, +162 Mio)
-  - QQQ 659 (put_wall/poi DEX, -56 Mio)
+  - QQQ 660 (put_wall/poi DEX, -99 Mio)
   - QQQ 668 (cluster DEX, +177 Mio)
   - QQQ 655 (poi, -44 Mio)
 AMT-Marken NQ: rth_vortag VAL 27338.00 / POC 27430.50 / VAH 27625.00; tag_vortag VAL 27296.00 / POC 27430.50 / VAH 27705.00; woche_vorwoche VAL 27850.00 / POC 28354.50 / VAH 28655.00; overnight VAL 27274.00 / POC 27368.50 / VAH 27425.00
@@ -34,11 +34,12 @@ Hinweis: SPX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
 LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handelt die Level auf dem QQQ-Chart und rechnet nicht auf NQ um):
   QQQ:
         685.01  Implied oben 685.01
-        669.00  POI 669 (+61 Mio, compounded) | PIVOT/MVC/CALL_WALL 669 (+65 Mio, DEX) | Range oben 669
+        670.00  POI 670 (+66 Mio, compounded) | PIVOT/MVC/CALL_WALL 670 (+66 Mio, DEX)
+        669.00  Range oben 669
         668.00  CLUSTER 668 (+177 Mio, DEX)
         664.77  GAMMA_FLIP 664.77 (compounded)
         662.00  Range unten 662
-        659.00  PUT_WALL/POI 659 (-56 Mio, DEX)
+        660.00  PUT_WALL/POI 660 (-99 Mio, DEX)
         658.00  CLUSTER 658 (-228 Mio, compounded DEX)
         655.00  POI 655 (-44 Mio)
         642.19  Implied unten 642.19
