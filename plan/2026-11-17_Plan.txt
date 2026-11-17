@@ -14,7 +14,7 @@ Level (QQQ/NDX, nach Prioritaet):
   - QQQ 664.77 (gamma_flip compounded, +0 Mio)
   - NDX 27281.9 (gamma_flip compounded, +0 Mio)
   - QQQ 658 (cluster compounded DEX, -228 Mio)
-  - QQQ 670 (poi compounded, +43 Mio)
+  - QQQ 669 (poi compounded, +61 Mio)
   - NDX 27500 (gex_top compounded, +26 Mio)
   - QQQ 669 (pivot/mvc/call_wall DEX, +65 Mio)
   - NDX 27550 (mvc/call_wall/gex_top DEX, +162 Mio)
@@ -34,8 +34,7 @@ Hinweis: SPX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
 LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handelt die Level auf dem QQQ-Chart und rechnet nicht auf NQ um):
   QQQ:
         685.01  Implied oben 685.01
-        670.00  POI 670 (+43 Mio, compounded)
-        669.00  PIVOT/MVC/CALL_WALL 669 (+65 Mio, DEX) | Range oben 669
+        669.00  POI 669 (+61 Mio, compounded) | PIVOT/MVC/CALL_WALL 669 (+65 Mio, DEX) | Range oben 669
         668.00  CLUSTER 668 (+177 Mio, DEX)
         664.77  GAMMA_FLIP 664.77 (compounded)
         662.00  Range unten 662
