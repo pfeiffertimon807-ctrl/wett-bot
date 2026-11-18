@@ -1,0 +1,66 @@
+PREMARKET-PLAN 2026-11-18 (Stand 09:25 ET, nur kostenlose Daten)
+VIX 24.32 (faellt gg. Vortag 25.46), Bereich 20-25 (normal bis erhoeht)
+  VIX-GEX Verfall 2026-11-18: positive Nodes [23.5, 24.0], groesster negativer Node None, VIX im positiven Gamma -- HEUTE VIX-VERFALL
+SPX ~7352.5: Regime negativ (Netto-GEX -5,708 Mio), Gamma Flip 7454.67, Charm stuetzend (supportive) (Charm Zero 7513.04)
+  SPX-Pivot (All-Expiry): 7465 (+10 Mio)
+  0DTE-Range zwischen groessten positiven Nodes: 7295 - 7450
+  Implied Range (2 Sigma): 7199 - 7506
+Overnight NQ: -167.2 Punkte; SPX-Premarket-Drift: +0.71 Mio
+IV Rank QQQ (VXN) 81.86, SPX (VIX) 68.20; Term Structure Contango (ruhig); COR1M 16.42
+Rote Flagge Sektoren (Tagesverluste in Folge): XLK, XLY, XLI, XLB
+QQQ ~660.26 [eigen]: Regime positiv, Gamma Flip 655.37, Implied Range 639.40 - 681.12
+  PIVOT 664 (+66 Mio); POIs: 670 (+63), 650 (-59), 668 (+40)
+Level (QQQ/NDX, nach Prioritaet):
+  - QQQ 670 (poi compounded, +63 Mio)
+  - NDX 27490 (gex_top compounded DEX, +62 Mio)
+  - QQQ 664 (pivot/mvc DEX, +66 Mio)
+  - NDX 27150 (mvc/call_wall/gex_top DEX, +222 Mio)
+  - QQQ 660 (call_wall/put_wall, +9 Mio)
+  - NDX 27000 (put_wall, -21 Mio)
+  - QQQ 655.37 (gamma_flip, +0 Mio)
+  - NDX 26865.9 (gamma_flip, +0 Mio)
+  - QQQ 650 (poi, -59 Mio)
+  - QQQ 668 (poi, +40 Mio)
+  - NDX 27200 (gex_top DEX, +80 Mio)
+AMT-Marken NQ: rth_vortag VAL 26751.00 / POC 26973.50 / VAH 27102.00; tag_vortag VAL 26819.00 / POC 26973.50 / VAH 27258.00; woche_vorwoche VAL 27850.00 / POC 28354.50 / VAH 28655.00; overnight VAL 27174.00 / POC 27222.50 / VAH 27387.00
+Management heute: base_hits (VIX-Verfallstag mit VIX im positiven Gamma)
+Szenario: Haelt 664 als Unterstuetzung und der Net Drift ist call-lastig -> Long, Ziel 668.00
+Szenario: Bricht 664 mit Aggression und der Net Drift ist put-lastig -> Short nach Retest, Ziel 660.00
+Szenario: Bedingung fuer alles: Net Drift (QQQ/NDX, in den ersten 15 Minuten SPX) muss nach 9:30 bestaetigen
+Hinweis: QQQ: 28 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit NQ)
+Hinweis: QQQ: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
+Hinweis: NDX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
+Hinweis: SPX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
+
+LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handelt die Level auf dem QQQ-Chart und rechnet nicht auf NQ um):
+  QQQ:
+        681.12  Implied oben 681.12
+        670.00  POI 670 (+63 Mio, compounded)
+        668.00  POI 668 (+40 Mio)
+        664.00  PIVOT/MVC 664 (+66 Mio, DEX) | Range oben 664
+        660.00  CALL_WALL/PUT_WALL 660 (+9 Mio)
+        655.37  GAMMA_FLIP 655.37
+        655.00  Range unten 655
+        650.00  POI 650 (-59 Mio)
+        639.40  Implied unten 639.40
+  NDX:
+      27490.00  GEX_TOP 27490 (+62 Mio, compounded DEX)
+      27200.00  GEX_TOP 27200 (+80 Mio, DEX)
+      27150.00  MVC/CALL_WALL/GEX_TOP 27150 (+222 Mio, DEX)
+      27000.00  PUT_WALL 27000 (-21 Mio)
+      26865.90  GAMMA_FLIP 26865.9
+  SPX:
+       7506.20  Implied oben 7506
+       7465.00  SPX-PIVOT All-Expiry 7465 (+10 Mio) | Node 7465
+       7454.70  GAMMA FLIP 7455
+       7450.00  Node 7450 | Range oben 7450
+       7430.00  Node 7430
+       7425.00  Node 7425
+       7350.00  CALL_WALL 7350 (-148 Mio)
+       7310.00  MVC 7310 (-838 Mio) | PUT_WALL 7310 (-838 Mio)
+       7295.00  Range unten 7295
+       7198.80  Implied unten 7199
+  VIX:
+         24.00  VIX positiver Node 24
+         23.50  VIX positiver Node 23.5
+Dasselbe als Skript: Datei *_TradingView.pine -> in TradingView unten 'Pine Editor' oeffnen, Inhalt einfuegen, 'Zum Chart hinzufuegen'. Es zeichnet nur auf QQQ, NDX, SPX und VIX und nur fuer diesen Tag.
