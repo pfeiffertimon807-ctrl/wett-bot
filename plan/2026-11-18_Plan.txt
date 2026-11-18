@@ -22,7 +22,7 @@ Level (QQQ/NDX, nach Prioritaet):
   - QQQ 650 (poi, -59 Mio)
   - QQQ 668 (poi, +40 Mio)
   - NDX 27200 (gex_top DEX, +80 Mio)
-AMT-Marken NQ: rth_vortag VAL 26751.00 / POC 26973.50 / VAH 27102.00; tag_vortag VAL 26819.00 / POC 26973.50 / VAH 27258.00; woche_vorwoche VAL 27850.00 / POC 28354.50 / VAH 28655.00; overnight VAL 27174.00 / POC 27222.50 / VAH 27393.00
+AMT-Marken NQ: rth_vortag VAL 26751.00 / POC 26973.50 / VAH 27102.00; tag_vortag VAL 26819.00 / POC 26973.50 / VAH 27258.00; woche_vorwoche VAL 27850.00 / POC 28354.50 / VAH 28655.00; overnight VAL 27174.00 / POC 27222.50 / VAH 27387.00
 Management heute: base_hits (VIX-Verfallstag mit VIX im positiven Gamma)
 Szenario: Haelt 664 als Unterstuetzung und der Net Drift ist call-lastig -> Long, Ziel 668.00
 Szenario: Bricht 664 mit Aggression und der Net Drift ist put-lastig -> Short nach Retest, Ziel 660.00
