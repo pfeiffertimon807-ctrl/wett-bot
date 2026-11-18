@@ -10,7 +10,7 @@ plot(heute and tk == "QQQ" ? 670.0000 : na, "QQQ POI 670 (+63 Mio, compounded)",
 plot(heute and tk == "NDX" ? 27490.0000 : na, "NDX GEX_TOP 27490 (+62 Mio, compounded DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 664.0000 : na, "QQQ PIVOT/MVC 664 (+182 Mio, DEX) | Range oben 664", color=color.orange, linewidth=3, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 27150.0000 : na, "NDX MVC/CALL_WALL/GEX_TOP 27150 (+222 Mio, DEX)", color=color.orange, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 661.0000 : na, "QQQ CALL_WALL/PUT_WALL 661 (+105 Mio)", color=color.green, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 660.0000 : na, "QQQ CALL_WALL/PUT_WALL 660 (+137 Mio)", color=color.green, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 27000.0000 : na, "NDX PUT_WALL 27000 (-21 Mio)", color=color.red, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 655.3700 : na, "QQQ GAMMA_FLIP 655.37", color=color.purple, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 26865.9000 : na, "NDX GAMMA_FLIP 26865.9", color=color.purple, linewidth=2, style=plot.style_linebr)
@@ -46,7 +46,7 @@ if barstate.islast
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 27150.0000, "MVC/CALL_WALL/GEX_TOP 27150 (+222 Mio, DEX)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
     if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 661.0000, "CALL_WALL/PUT_WALL 661 (+105 Mio)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 660.0000, "CALL_WALL/PUT_WALL 660 (+137 Mio)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 27000.0000, "PUT_WALL 27000 (-21 Mio)", style=label.style_label_left, color=color.new(color.red, 85), textcolor=color.red, size=size.small))
     if heute and tk == "QQQ"
