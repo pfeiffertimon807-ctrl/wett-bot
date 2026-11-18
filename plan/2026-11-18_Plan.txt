@@ -1,10 +1,13 @@
 PREMARKET-PLAN 2026-11-18 (Stand 09:25 ET, nur kostenlose Daten)
 VIX 24.32 (faellt gg. Vortag 25.46), Bereich 20-25 (normal bis erhoeht)
   VIX-GEX Verfall 2026-11-18: positive Nodes [23.5, 24.0], groesster negativer Node None, VIX im positiven Gamma -- HEUTE VIX-VERFALL
-SPX ~7352.5: Regime negativ (Netto-GEX -5,708 Mio), Gamma Flip 7454.67, Charm stuetzend (supportive) (Charm Zero 7513.04)
-  SPX-Pivot (All-Expiry): 7465 (+10 Mio)
-  0DTE-Range zwischen groessten positiven Nodes: 7295 - 7450
+SPX ~7352.5 (naive 0DTE-Rechnung): Regime negativ (Netto-GEX -5,708 Mio), Gamma Flip 7454.67, Charm stuetzend (supportive) (Charm Zero 7513.04)
+  SPX-Pivot (All-Expiry): 7500 (+4,199 Mio)
+  0DTE-Range zwischen groessten positiven Nodes: 7330 - 7360
   Implied Range (2 Sigma): 7199 - 7506
+SPX-Positionierung (Kaeufer-/Verkaeufervolumen aller Verfaelle, Rechenweg position): Regime positiv, Charm stuetzend, Gamma Flip 7346
+  Groesste Haendler-Strikes: 7500 (+4,199 Mio), 7360 (+744 Mio), 7275 (+481 Mio)
+  Kundenpositionen nahe am Kurs: 7300 Puts gekauft (12,936), 7350 Puts gekauft (11,844), 7400 Calls gekauft (11,393), 7450 Calls gekauft (15,700)
 Overnight NQ: -167.2 Punkte; SPX-Premarket-Drift: +0.71 Mio
 IV Rank QQQ (VXN) 81.86, SPX (VIX) 68.20; Term Structure Contango (ruhig); COR1M 16.42
 Rote Flagge Sektoren (Tagesverluste in Folge): XLK, XLY, XLI, XLB
@@ -22,22 +25,29 @@ Level (QQQ/NDX, nach Prioritaet):
   - QQQ 650 (poi, -59 Mio)
   - QQQ 668 (poi, +40 Mio)
   - NDX 27200 (gex_top DEX, +80 Mio)
+  - QQQ 669 (vortages_pivot, +9 Mio)
+  - QQQ 661 (abgelehnt, -1 Mio)
 AMT-Marken NQ: rth_vortag VAL 26751.00 / POC 26973.50 / VAH 27102.00; tag_vortag VAL 26819.00 / POC 26973.50 / VAH 27258.00; woche_vorwoche VAL 27850.00 / POC 28354.50 / VAH 28655.00; overnight VAL 27174.00 / POC 27222.50 / VAH 27387.00
 Management heute: base_hits (VIX-Verfallstag mit VIX im positiven Gamma)
 Szenario: Haelt 664 als Unterstuetzung und der Net Drift ist call-lastig -> Long, Ziel 668.00
-Szenario: Bricht 664 mit Aggression und der Net Drift ist put-lastig -> Short nach Retest, Ziel 660.00
+Szenario: Bricht 664 mit Aggression und der Net Drift ist put-lastig -> Short nach Retest, Ziel 661.00
 Szenario: Bedingung fuer alles: Net Drift (QQQ/NDX, in den ersten 15 Minuten SPX) muss nach 9:30 bestaetigen
 Hinweis: QQQ: 28 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit NQ)
 Hinweis: QQQ: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
 Hinweis: NDX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
 Hinweis: SPX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
+Hinweis: SPX aus der Positionierung (Rechenweg position, 7327 Serien)
+Hinweis: Marke Vortages-Pivot 669 (Plan P3)
+Hinweis: Marke 661: ueber Nacht 9-mal umgekehrt (Plan P3)
 
 LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handelt die Level auf dem QQQ-Chart und rechnet nicht auf NQ um):
   QQQ:
         681.12  Implied oben 681.12
         670.00  POI 670 (+63 Mio, compounded)
+        669.00  VORTAGES_PIVOT 669 (+9 Mio)
         668.00  POI 668 (+40 Mio)
         664.00  PIVOT/MVC 664 (+182 Mio, DEX) | Range oben 664
+        661.00  ABGELEHNT 661 (-1 Mio)
         660.00  CALL_WALL/PUT_WALL 660 (+137 Mio)
         655.37  GAMMA_FLIP 655.37
         655.00  Range unten 655
@@ -51,14 +61,15 @@ LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handel
       26865.90  GAMMA_FLIP 26865.9
   SPX:
        7506.20  Implied oben 7506
-       7465.00  SPX-PIVOT All-Expiry 7465 (+10 Mio) | Node 7465
+       7500.00  SPX-PIVOT All-Expiry 7500 (+4199 Mio) | Node 7500
        7454.70  GAMMA FLIP 7455
-       7450.00  Node 7450 | Range oben 7450
-       7430.00  Node 7430
        7425.00  Node 7425
+       7400.00  Node 7400
+       7360.00  Node 7360 | Range oben 7360
        7350.00  CALL_WALL 7350 (-148 Mio)
+       7330.00  Range unten 7330
        7310.00  MVC 7310 (-838 Mio) | PUT_WALL 7310 (-838 Mio)
-       7295.00  Range unten 7295
+       7275.00  Node 7275
        7198.80  Implied unten 7199
   VIX:
          24.00  VIX positiver Node 24
