@@ -9,11 +9,11 @@ Overnight NQ: -167.2 Punkte; SPX-Premarket-Drift: +0.71 Mio
 IV Rank QQQ (VXN) 81.86, SPX (VIX) 68.20; Term Structure Contango (ruhig); COR1M 16.42
 Rote Flagge Sektoren (Tagesverluste in Folge): XLK, XLY, XLI, XLB
 QQQ ~660.26 [eigen]: Regime positiv, Gamma Flip 655.37, Implied Range 639.40 - 681.12
-  PIVOT 664 (+66 Mio); POIs: 670 (+63), 650 (-59), 668 (+40)
+  PIVOT 665 (+191 Mio); POIs: 670 (+63), 650 (-59), 668 (+40)
 Level (QQQ/NDX, nach Prioritaet):
   - QQQ 670 (poi compounded, +63 Mio)
   - NDX 27490 (gex_top compounded DEX, +62 Mio)
-  - QQQ 664 (pivot/mvc DEX, +66 Mio)
+  - QQQ 665 (pivot/mvc DEX, +191 Mio)
   - NDX 27150 (mvc/call_wall/gex_top DEX, +222 Mio)
   - QQQ 660 (call_wall/put_wall, +9 Mio)
   - NDX 27000 (put_wall, -21 Mio)
@@ -22,7 +22,7 @@ Level (QQQ/NDX, nach Prioritaet):
   - QQQ 650 (poi, -59 Mio)
   - QQQ 668 (poi, +40 Mio)
   - NDX 27200 (gex_top DEX, +80 Mio)
-AMT-Marken NQ: rth_vortag VAL 26751.00 / POC 26973.50 / VAH 27102.00; tag_vortag VAL 26819.00 / POC 26973.50 / VAH 27258.00; woche_vorwoche VAL 27850.00 / POC 28354.50 / VAH 28655.00; overnight VAL 27174.00 / POC 27222.50 / VAH 27387.00
+AMT-Marken NQ: rth_vortag VAL 26751.00 / POC 26973.50 / VAH 27102.00; tag_vortag VAL 26819.00 / POC 26973.50 / VAH 27258.00; woche_vorwoche VAL 27850.00 / POC 28354.50 / VAH 28655.00; overnight VAL 27174.00 / POC 27222.50 / VAH 27393.00
 Management heute: base_hits (VIX-Verfallstag mit VIX im positiven Gamma)
 Szenario: Haelt 664 als Unterstuetzung und der Net Drift ist call-lastig -> Long, Ziel 668.00
 Szenario: Bricht 664 mit Aggression und der Net Drift ist put-lastig -> Short nach Retest, Ziel 660.00
@@ -37,7 +37,8 @@ LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handel
         681.12  Implied oben 681.12
         670.00  POI 670 (+63 Mio, compounded)
         668.00  POI 668 (+40 Mio)
-        664.00  PIVOT/MVC 664 (+66 Mio, DEX) | Range oben 664
+        665.00  PIVOT/MVC 665 (+191 Mio, DEX)
+        664.00  Range oben 664
         660.00  CALL_WALL/PUT_WALL 660 (+9 Mio)
         655.37  GAMMA_FLIP 655.37
         655.00  Range unten 655
