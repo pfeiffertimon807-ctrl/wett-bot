@@ -30,7 +30,7 @@ Management heute: normal
 Szenario: Haelt 680 als Unterstuetzung und der Net Drift ist call-lastig -> Long, Ziel -
 Szenario: Bricht 680 mit Aggression und der Net Drift ist put-lastig -> Short nach Retest, Ziel 675.00
 Szenario: Bedingung fuer alles: Net Drift (QQQ/NDX, in den ersten 15 Minuten SPX) muss nach 9:30 bestaetigen
-Hinweis: QQQ: 37 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit NQ)
+Hinweis: QQQ: 38 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit NQ)
 Hinweis: QQQ: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
 Hinweis: NDX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
 Hinweis: SPX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
