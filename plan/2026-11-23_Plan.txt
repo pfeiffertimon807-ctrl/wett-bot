@@ -21,7 +21,7 @@ Level (QQQ/NDX, nach Prioritaet):
   - NDX 26000 (call_wall/put_wall/gex_top DEX, +1 Mio)
   - QQQ 638.5 (cluster DEX, +50 Mio)
   - QQQ 627 (poi DEX, -7 Mio)
-  - QQQ 637 (poi DEX, +13 Mio)
+  - QQQ 636 (poi DEX, -5 Mio)
   - QQQ 653 (overnight, +0 Mio)
   - QQQ 627 (abgelehnt, -1 Mio)
 AMT-Marken NQ: rth_vortag VAL 25500.00 / POC 25568.50 / VAH 26371.00; tag_vortag VAL 25506.00 / POC 25568.50 / VAH 26413.00; woche_vorwoche VAL 26614.00 / POC 27270.50 / VAH 27825.00; overnight VAL 25691.00 / POC 25835.50 / VAH 26040.00
@@ -47,7 +47,7 @@ LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handel
         653.00  OVERNIGHT 653
         640.00  PIVOT/MVC/CALL_WALL/PUT_WALL 640 (-8 Mio, DEX)
         638.50  CLUSTER 638.5 (+50 Mio, DEX)
-        637.00  POI 637 (+13 Mio, DEX)
+        636.00  POI 636 (-5 Mio, DEX)
         635.00  POI 635 (-5 Mio, compounded DEX)
         627.00  POI 627 (-7 Mio, DEX) | ABGELEHNT 627 (-1 Mio)
         618.51  Implied unten 618.51

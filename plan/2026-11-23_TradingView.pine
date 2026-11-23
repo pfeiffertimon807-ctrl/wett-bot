@@ -13,7 +13,7 @@ plot(heute and tk == "NDX" ? 25775.0000 : na, "NDX MVC/GEX_TOP 25775 (+2 Mio, DE
 plot(heute and tk == "NDX" ? 26000.0000 : na, "NDX CALL_WALL/PUT_WALL/GEX_TOP 26000 (+1 Mio, DEX)", color=color.green, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 638.5000 : na, "QQQ CLUSTER 638.5 (+50 Mio, DEX)", color=color.gray, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 627.0000 : na, "QQQ POI 627 (-7 Mio, DEX) | ABGELEHNT 627 (-1 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 637.0000 : na, "QQQ POI 637 (+13 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 636.0000 : na, "QQQ POI 636 (-5 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 653.0000 : na, "QQQ OVERNIGHT 653", color=color.gray, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 618.5100 : na, "QQQ Implied unten 618.51", color=color.silver, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 687.6900 : na, "QQQ Implied oben 687.69", color=color.silver, linewidth=1, style=plot.style_linebr)
@@ -49,7 +49,7 @@ if barstate.islast
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 627.0000, "POI 627 (-7 Mio, DEX) | ABGELEHNT 627 (-1 Mio)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 637.0000, "POI 637 (+13 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 636.0000, "POI 636 (-5 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 653.0000, "OVERNIGHT 653", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
     if heute and tk == "QQQ"
