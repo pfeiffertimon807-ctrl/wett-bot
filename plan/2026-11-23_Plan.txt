@@ -14,13 +14,13 @@ Rote Flagge Sektoren (Tagesverluste in Folge): XLF, XLE, XLV, XLI, XLB
 QQQ ~653.10 [eigen]: Regime positiv, Gamma Flip -, Implied Range 618.51 - 687.69
   PIVOT 640 (-8 Mio); POIs: 637 (+13), 635 (+12), 628 (+9)
 Level (QQQ/NDX, nach Prioritaet):
-  - QQQ 634 (poi compounded DEX, -3 Mio)
+  - QQQ 635 (poi compounded DEX, -5 Mio)
   - NDX 25950 (gex_top compounded, -1 Mio)
   - QQQ 640 (pivot/mvc/call_wall/put_wall DEX, -8 Mio)
   - NDX 25775 (mvc/gex_top DEX, +2 Mio)
   - NDX 26000 (call_wall/put_wall/gex_top DEX, +1 Mio)
   - QQQ 638.5 (cluster DEX, +50 Mio)
-  - QQQ 629 (poi DEX, -7 Mio)
+  - QQQ 627 (poi DEX, -7 Mio)
   - QQQ 637 (poi DEX, +13 Mio)
   - QQQ 653 (overnight, +0 Mio)
   - QQQ 627 (abgelehnt, -1 Mio)
@@ -48,9 +48,8 @@ LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handel
         640.00  PIVOT/MVC/CALL_WALL/PUT_WALL 640 (-8 Mio, DEX)
         638.50  CLUSTER 638.5 (+50 Mio, DEX)
         637.00  POI 637 (+13 Mio, DEX)
-        634.00  POI 634 (-3 Mio, compounded DEX)
-        629.00  POI 629 (-7 Mio, DEX)
-        627.00  ABGELEHNT 627 (-1 Mio)
+        635.00  POI 635 (-5 Mio, compounded DEX)
+        627.00  POI 627 (-7 Mio, DEX) | ABGELEHNT 627 (-1 Mio)
         618.51  Implied unten 618.51
   NDX:
       26000.00  CALL_WALL/PUT_WALL/GEX_TOP 26000 (+1 Mio, DEX)

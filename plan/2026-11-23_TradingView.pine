@@ -6,16 +6,15 @@ tagStart = timestamp("America/New_York", 2026, 11, 23, 4, 0, 0)
 tagEnde = timestamp("America/New_York", 2026, 11, 24, 4, 0, 0)
 heute = time >= tagStart and time < tagEnde
 tk = syminfo.ticker
-plot(heute and tk == "QQQ" ? 634.0000 : na, "QQQ POI 634 (-3 Mio, compounded DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 635.0000 : na, "QQQ POI 635 (-5 Mio, compounded DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 25950.0000 : na, "NDX GEX_TOP 25950 (-1 Mio, compounded)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 640.0000 : na, "QQQ PIVOT/MVC/CALL_WALL/PUT_WALL 640 (-8 Mio, DEX)", color=color.orange, linewidth=3, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 25775.0000 : na, "NDX MVC/GEX_TOP 25775 (+2 Mio, DEX)", color=color.orange, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 26000.0000 : na, "NDX CALL_WALL/PUT_WALL/GEX_TOP 26000 (+1 Mio, DEX)", color=color.green, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 638.5000 : na, "QQQ CLUSTER 638.5 (+50 Mio, DEX)", color=color.gray, linewidth=1, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 629.0000 : na, "QQQ POI 629 (-7 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 627.0000 : na, "QQQ POI 627 (-7 Mio, DEX) | ABGELEHNT 627 (-1 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 637.0000 : na, "QQQ POI 637 (+13 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 653.0000 : na, "QQQ OVERNIGHT 653", color=color.gray, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 627.0000 : na, "QQQ ABGELEHNT 627 (-1 Mio)", color=color.gray, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 618.5100 : na, "QQQ Implied unten 618.51", color=color.silver, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 687.6900 : na, "QQQ Implied oben 687.69", color=color.silver, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7100.0000 : na, "SPX MVC 7100 (-298 Mio) | PUT_WALL 7100 (-298 Mio)", color=color.orange, linewidth=2, style=plot.style_linebr)
@@ -36,7 +35,7 @@ if barstate.islast
         label.delete(m)
     array.clear(marken)
     if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 634.0000, "POI 634 (-3 Mio, compounded DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 635.0000, "POI 635 (-5 Mio, compounded DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 25950.0000, "GEX_TOP 25950 (-1 Mio, compounded)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "QQQ"
@@ -48,13 +47,11 @@ if barstate.islast
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 638.5000, "CLUSTER 638.5 (+50 Mio, DEX)", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
     if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 629.0000, "POI 629 (-7 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 627.0000, "POI 627 (-7 Mio, DEX) | ABGELEHNT 627 (-1 Mio)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 637.0000, "POI 637 (+13 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 653.0000, "OVERNIGHT 653", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
-    if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 627.0000, "ABGELEHNT 627 (-1 Mio)", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 618.5100, "Implied unten 618.51", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
     if heute and tk == "QQQ"
