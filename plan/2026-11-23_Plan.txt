@@ -20,7 +20,7 @@ Level (QQQ/NDX, nach Prioritaet):
   - NDX 25775 (mvc/gex_top DEX, +2 Mio)
   - NDX 26000 (call_wall/put_wall/gex_top DEX, +1 Mio)
   - QQQ 638.5 (cluster DEX, +50 Mio)
-  - QQQ 627 (poi DEX, -7 Mio)
+  - QQQ 629 (poi DEX, -7 Mio)
   - QQQ 637 (poi DEX, +13 Mio)
   - QQQ 653 (overnight, +0 Mio)
   - QQQ 627 (abgelehnt, -1 Mio)
@@ -49,7 +49,8 @@ LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handel
         638.50  CLUSTER 638.5 (+50 Mio, DEX)
         637.00  POI 637 (+13 Mio, DEX)
         634.00  POI 634 (-3 Mio, compounded DEX)
-        627.00  POI 627 (-7 Mio, DEX) | ABGELEHNT 627 (-1 Mio)
+        629.00  POI 629 (-7 Mio, DEX)
+        627.00  ABGELEHNT 627 (-1 Mio)
         618.51  Implied unten 618.51
   NDX:
       26000.00  CALL_WALL/PUT_WALL/GEX_TOP 26000 (+1 Mio, DEX)
