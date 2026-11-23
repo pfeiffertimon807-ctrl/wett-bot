@@ -1,70 +1,75 @@
 PREMARKET-PLAN 2026-11-23 (Stand 09:25 ET, nur kostenlose Daten)
 VIX 26.78 (faellt gg. Vortag 35.89), Bereich 25-30 (erhoeht)
   VIX-GEX Verfall 2026-11-24: positive Nodes [30.0, 26.0], groesster negativer Node 20.0, VIX im positiven Gamma
-SPX ~7224.3 (naive 0DTE-Rechnung): Regime positiv (Netto-GEX +51 Mio), Gamma Flip 7200.63, Charm stuetzend (supportive) (Charm Zero 7374.73)
-  SPX-Pivot (All-Expiry): 7210 (+287 Mio)
+SPX ~7224.3 (naive 0DTE-Rechnung): Regime positiv (Netto-GEX +3,455 Mio), Gamma Flip 7050.79, Charm stuetzend (supportive) (Charm Zero 7398.27)
+  SPX-Pivot (All-Expiry): 7210 (+248 Mio)
   0DTE-Range zwischen groessten positiven Nodes: 7210 - 7270
-  Implied Range (2 Sigma): 6972 - 7476
+  Implied Range (2 Sigma): 6988 - 7460
 SPX-Positionierung (Kaeufer-/Verkaeufervolumen aller Verfaelle, Rechenweg position): Regime negativ, Charm stuetzend, Gamma Flip -
-  Groesste Haendler-Strikes: 7150 (+484 Mio), 7210 (+287 Mio), 7245 (+222 Mio)
-  Kundenpositionen nahe am Kurs: 7250 Puts verkauft (16,943), 7250 Calls gekauft (5,013), 7320 Puts gekauft (11,286), 7320 Calls gekauft (10,434)
-Overnight NQ: +1374.2 Punkte; SPX-Premarket-Drift: +3.87 Mio
+  Groesste Haendler-Strikes: 7150 (+391 Mio), 7210 (+248 Mio), 7245 (+229 Mio)
+  Kundenpositionen nahe am Kurs: 7250 Puts verkauft (17,011), 7250 Calls gekauft (5,715), 7200 Puts gekauft (17,921), 7320 Puts gekauft (11,289)
+Overnight NQ: +1374.2 Punkte; SPX-Premarket-Drift: +4.74 Mio
 IV Rank QQQ (VXN) 100.00, SPX (VIX) 100.00; Term Structure Contango (ruhig); COR1M 36.05
 Rote Flagge Sektoren (Tagesverluste in Folge): XLF, XLE, XLV, XLI, XLB
-QQQ ~653.10 [eigen]: Regime positiv, Gamma Flip -, Implied Range 618.51 - 687.69
-  PIVOT 640 (-8 Mio); POIs: 637 (+13), 635 (+12), 628 (+9)
+QQQ ~653.10 [eigen]: Regime positiv, Gamma Flip -, Implied Range 618.72 - 687.48
+  PIVOT 660 (+82 Mio, compounded mit NDX); POIs: 650 (+47), 670 (+27), 640 (+23)
 Level (QQQ/NDX, nach Prioritaet):
-  - QQQ 635 (poi compounded DEX, -5 Mio)
-  - NDX 25950 (gex_top compounded, -1 Mio)
-  - QQQ 640 (pivot/mvc/call_wall/put_wall DEX, -8 Mio)
-  - NDX 25775 (mvc/gex_top DEX, +2 Mio)
-  - NDX 26000 (call_wall/put_wall/gex_top DEX, +1 Mio)
-  - QQQ 638.5 (cluster DEX, +50 Mio)
-  - QQQ 627 (poi DEX, -6 Mio)
-  - QQQ 638 (poi DEX, -3 Mio)
-  - QQQ 653 (overnight, +0 Mio)
+  - QQQ 660 (pivot/mvc/call_wall compounded, +82 Mio)
+  - NDX 27000 (mvc/call_wall/gex_top compounded, +63 Mio)
+  - QQQ 645 (put_wall, -8 Mio)
+  - NDX 26500 (put_wall/gex_top, -57 Mio)
+  - NDX 26422.3 (gamma_flip, +0 Mio)
+  - QQQ 640 (poi DEX, -6 Mio)
+  - QQQ 650 (poi DEX, +47 Mio)
+  - QQQ 670 (poi, +27 Mio)
+  - QQQ 653 (overnight, +7 Mio)
   - QQQ 627 (abgelehnt, -1 Mio)
+  - QQQ 628 (abgelehnt, +8 Mio)
 AMT-Marken NQ: rth_vortag VAL 25500.00 / POC 25568.50 / VAH 26371.00; tag_vortag VAL 25506.00 / POC 25568.50 / VAH 26413.00; woche_vorwoche VAL 26614.00 / POC 27270.50 / VAH 27825.00; overnight VAL 25691.00 / POC 25835.50 / VAH 26040.00
 Management heute: normal
-Szenario: Haelt 640 als Unterstuetzung und der Net Drift ist call-lastig -> Long, Ziel 653.00
-Szenario: Bricht 640 mit Aggression und der Net Drift ist put-lastig -> Short nach Retest, Ziel 638.50
+Szenario: Haelt 660 als Unterstuetzung und der Net Drift ist call-lastig -> Long, Ziel 670.00
+Szenario: Bricht 660 mit Aggression und der Net Drift ist put-lastig -> Short nach Retest, Ziel 653.00
 Szenario: Bedingung fuer alles: Net Drift (QQQ/NDX, in den ersten 15 Minuten SPX) muss nach 9:30 bestaetigen
 Hinweis: QQQ: 43 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit NQ)
 Hinweis: NDX: 2 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit NQ)
 Hinweis: SPX: 2 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit ES)
-Hinweis: QQQ: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
-Hinweis: NDX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
-Hinweis: SPX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
-Hinweis: Optionsketten aus dem dxFeed-Kerzenarchiv rekonstruiert: VIX
+Hinweis: Optionsketten aus dem dxFeed-Kerzenarchiv rekonstruiert: QQQ, NDX, SPX, VIX
+Hinweis: Net Drift QQQ: aus Minutenkerzen (Kaeufer-/Verkaeufer-Volumen je Kontrakt)
+Hinweis: Net Drift NDX: aus Minutenkerzen (Kaeufer-/Verkaeufer-Volumen je Kontrakt)
+Hinweis: Net Drift SPX: aus Minutenkerzen (Kaeufer-/Verkaeufer-Volumen je Kontrakt)
 Hinweis: SPX All-Expiry aus den dxFeed-Tageskerzen (Verfaelle bis 100 Tage; Ersatz fuer die volle CBOE-Kette)
-Hinweis: SPX aus der Positionierung (Rechenweg position, 9418 Serien)
+Hinweis: SPX aus der Positionierung (Rechenweg position, 9418 Serien, 0DTE-Kundenhandel am Morgen eingerechnet)
 Hinweis: Marke 653: Overnight-Hoch 653.10 hier abgewiesen (Plan P3)
 Hinweis: Marke 627: ueber Nacht 11-mal umgekehrt (Plan P3)
+Hinweis: Marke 628: ueber Nacht 8-mal umgekehrt (Plan P3)
 
 LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handelt die Level auf dem QQQ-Chart und rechnet nicht auf NQ um):
   QQQ:
-        687.69  Implied oben 687.69
-        653.00  OVERNIGHT 653
-        640.00  PIVOT/MVC/CALL_WALL/PUT_WALL 640 (-8 Mio, DEX)
-        638.50  CLUSTER 638.5 (+50 Mio, DEX)
-        638.00  POI 638 (-3 Mio, DEX)
-        635.00  POI 635 (-5 Mio, compounded DEX)
-        627.00  POI 627 (-6 Mio, DEX) | ABGELEHNT 627 (-1 Mio)
-        618.51  Implied unten 618.51
+        687.48  Implied oben 687.48
+        670.00  POI 670 (+27 Mio)
+        660.00  PIVOT/MVC/CALL_WALL 660 (+82 Mio, compounded) | Range oben 660
+        653.00  OVERNIGHT 653 (+7 Mio)
+        650.00  POI 650 (+47 Mio, DEX) | Range unten 650
+        645.00  PUT_WALL 645 (-8 Mio)
+        640.00  POI 640 (-6 Mio, DEX)
+        628.00  ABGELEHNT 628 (+8 Mio)
+        627.00  ABGELEHNT 627 (-1 Mio)
+        618.72  Implied unten 618.72
   NDX:
-      26000.00  CALL_WALL/PUT_WALL/GEX_TOP 26000 (+1 Mio, DEX)
-      25950.00  GEX_TOP 25950 (-1 Mio, compounded)
-      25775.00  MVC/GEX_TOP 25775 (+2 Mio, DEX)
+      27000.00  MVC/CALL_WALL/GEX_TOP 27000 (+63 Mio, compounded)
+      26500.00  PUT_WALL/GEX_TOP 26500 (-57 Mio)
+      26422.30  GAMMA_FLIP 26422.3
   SPX:
-       7476.10  Implied oben 7476
+       7460.50  Implied oben 7460
        7270.00  Node 7270 | Range oben 7270
+       7250.00  CALL_WALL 7250 (+86 Mio)
        7245.00  Node 7245
-       7210.00  SPX-PIVOT All-Expiry 7210 (+287 Mio) | Node 7210 | Range unten 7210
-       7200.60  GAMMA FLIP 7201
-       7160.00  CALL_WALL 7160 (+143 Mio)
+       7220.00  Node 7220
+       7210.00  SPX-PIVOT All-Expiry 7210 (+248 Mio) | Node 7210 | Range unten 7210
        7150.00  Node 7150
-       7100.00  MVC 7100 (-298 Mio) | PUT_WALL 7100 (-298 Mio)
-       6972.50  Implied unten 6972
+       7100.00  MVC 7100 (-300 Mio) | PUT_WALL 7100 (-300 Mio)
+       7050.80  GAMMA FLIP 7051
+       6988.10  Implied unten 6988
   VIX:
          30.00  VIX positiver Node 30
          26.00  VIX positiver Node 26
