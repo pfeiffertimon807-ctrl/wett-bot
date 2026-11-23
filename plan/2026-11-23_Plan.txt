@@ -12,11 +12,11 @@ Overnight NQ: +1374.2 Punkte; SPX-Premarket-Drift: +3.87 Mio
 IV Rank QQQ (VXN) 100.00, SPX (VIX) 100.00; Term Structure Contango (ruhig); COR1M 36.05
 Rote Flagge Sektoren (Tagesverluste in Folge): XLF, XLE, XLV, XLI, XLB
 QQQ ~653.10 [eigen]: Regime positiv, Gamma Flip -, Implied Range 618.51 - 687.69
-  PIVOT 639 (+5 Mio); POIs: 637 (+13), 635 (+12), 628 (+9)
+  PIVOT 640 (-8 Mio); POIs: 637 (+13), 635 (+12), 628 (+9)
 Level (QQQ/NDX, nach Prioritaet):
-  - QQQ 635 (poi compounded DEX, +12 Mio)
+  - QQQ 634 (poi compounded DEX, -3 Mio)
   - NDX 25950 (gex_top compounded, -1 Mio)
-  - QQQ 639 (pivot/mvc/call_wall/put_wall DEX, +5 Mio)
+  - QQQ 640 (pivot/mvc/call_wall/put_wall DEX, -8 Mio)
   - NDX 25775 (mvc/gex_top DEX, +2 Mio)
   - NDX 26000 (call_wall/put_wall/gex_top DEX, +1 Mio)
   - QQQ 638.5 (cluster DEX, +50 Mio)
@@ -45,10 +45,10 @@ LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handel
   QQQ:
         687.69  Implied oben 687.69
         653.00  OVERNIGHT 653
-        639.00  PIVOT/MVC/CALL_WALL/PUT_WALL 639 (+5 Mio, DEX)
+        640.00  PIVOT/MVC/CALL_WALL/PUT_WALL 640 (-8 Mio, DEX)
         638.50  CLUSTER 638.5 (+50 Mio, DEX)
         637.00  POI 637 (+13 Mio, DEX)
-        635.00  POI 635 (+12 Mio, compounded DEX)
+        634.00  POI 634 (-3 Mio, compounded DEX)
         627.00  POI 627 (-7 Mio, DEX) | ABGELEHNT 627 (-1 Mio)
         618.51  Implied unten 618.51
   NDX:
