@@ -34,7 +34,7 @@ Szenario: Bricht 640 mit Aggression und der Net Drift ist put-lastig -> Short na
 Szenario: Bedingung fuer alles: Net Drift (QQQ/NDX, in den ersten 15 Minuten SPX) muss nach 9:30 bestaetigen
 Hinweis: QQQ: 47 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit NQ)
 Hinweis: NDX: 2 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit NQ)
-Hinweis: SPX: 2 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit ES)
+Hinweis: SPX: 3 Minutenkerzen mit Fehlkursen verworfen (Abgleich mit ES)
 Hinweis: QQQ: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
 Hinweis: NDX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
 Hinweis: SPX: Echtzeit-Ketten von tastytrade statt verzoegerter CBOE-Ketten
