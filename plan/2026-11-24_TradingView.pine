@@ -14,7 +14,7 @@ plot(heute and tk == "QQQ" ? 655.4800 : na, "QQQ GAMMA_FLIP 655.48", color=color
 plot(heute and tk == "NDX" ? 26763.3000 : na, "NDX GAMMA_FLIP 26763.3", color=color.purple, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 635.0000 : na, "QQQ POI 635 (-65 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 641.0000 : na, "QQQ POI 641 (-68 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 648.0000 : na, "QQQ POI 648 (-47 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 649.0000 : na, "QQQ POI 649 (+36 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 26080.0000 : na, "NDX GEX_TOP 26080 (-21 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 650.0000 : na, "QQQ VORTAGES_PIVOT 650 (-20 Mio)", color=color.gray, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 652.0000 : na, "QQQ ABGELEHNT 652 (-2 Mio)", color=color.gray, linewidth=2, style=plot.style_linebr)
@@ -54,7 +54,7 @@ if barstate.islast
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 641.0000, "POI 641 (-68 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 648.0000, "POI 648 (-47 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 649.0000, "POI 649 (+36 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 26080.0000, "GEX_TOP 26080 (-21 Mio)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "QQQ"
