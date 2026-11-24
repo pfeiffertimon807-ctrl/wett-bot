@@ -8,7 +8,7 @@ heute = time >= tagStart and time < tagEnde
 tk = syminfo.ticker
 plot(heute and tk == "QQQ" ? 640.0000 : na, "QQQ PIVOT/MVC/PUT_WALL 640 (-79 Mio, DEX)", color=color.orange, linewidth=3, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 25750.0000 : na, "NDX MVC/PUT_WALL/GEX_TOP 25750 (-82 Mio, DEX)", color=color.orange, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 645.0000 : na, "QQQ CALL_WALL 645 (-25 Mio)", color=color.green, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 646.0000 : na, "QQQ CALL_WALL 646 (+12 Mio)", color=color.green, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 27020.0000 : na, "NDX CALL_WALL/GEX_TOP 27020 (+38 Mio)", color=color.green, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 655.4800 : na, "QQQ GAMMA_FLIP 655.48", color=color.purple, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 26763.3000 : na, "NDX GAMMA_FLIP 26763.3", color=color.purple, linewidth=2, style=plot.style_linebr)
@@ -42,7 +42,7 @@ if barstate.islast
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 25750.0000, "MVC/PUT_WALL/GEX_TOP 25750 (-82 Mio, DEX)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
     if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 645.0000, "CALL_WALL 645 (-25 Mio)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 646.0000, "CALL_WALL 646 (+12 Mio)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 27020.0000, "CALL_WALL/GEX_TOP 27020 (+38 Mio)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
     if heute and tk == "QQQ"
