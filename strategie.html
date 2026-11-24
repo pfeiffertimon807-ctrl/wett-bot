@@ -95,15 +95,15 @@ background:var(--mut)}
 a{color:var(--s1)}
 .erklaer p{margin:8px 0}.erklaer li{margin:4px 0}
 .karte svg{max-width:760px;margin:0 auto}
-</style></head><body><header class='kopf'><div class='kopf-in'><span class='app'>AR Demo</span><h1>Strategie</h1><span class='stand'>Stand 08:33 ET (15 Min. verzögert)</span></div></header><main><div class='karte erklaer'><h3>Worum es geht</h3><p>Nachgebaut ist die Strategie von Aleks Rosme aus dem Skript: <b>NQ-Futures</b> (bzw. die
-kleinen MNQ) im Fenster <b>9:30-11:00 New Yorker Zeit</b>, höchstens 2 Trade am Tag. Die Idee: Große
+</style></head><body><header class='kopf'><div class='kopf-in'><span class='app'>AR Demo</span><h1>Strategie</h1><span class='stand'>Stand 08:39 ET (15 Min. verzögert)</span></div></header><main><div class='karte erklaer'><h3>Worum es geht</h3><p>Nachgebaut ist die Strategie von Aleks Rosme aus dem Skript: <b>NQ-Futures</b> (bzw. die
+kleinen MNQ) im Fenster <b>9:30-11:00 New Yorker Zeit</b>, höchstens 2 Trades am Tag. Die Idee: Große
 Händler (Dealer) müssen ihre Optionspositionen absichern. Wo dabei viel Gamma liegt, reagiert der Kurs - dort entstehen
 die Level. Gehandelt wird nur, wenn an so einem Level vier Dinge zusammenpassen.</p>
 <p>Diese App zeigt das als <b>Demo</b>: Jeden Handelstag rechnet das Programm mit echten Marktdaten mit, als ob es
 handeln würde, und bucht die Ergebnisse auf ein simuliertes Prop-Firmen-Konto. Echte Orders gibt es nie.</p></div><div class='karte erklaer'><h3>Der Tagesablauf</h3><ol><li><b>Vor 9:25 ET (15:25 deutsch):</b> Optionsketten von QQQ, NDX, SPX und VIX
 lesen, Gamma je Strike berechnen (GEX), dazu VIX, Overnight-Bewegung, SPX-Optionsfluss der Nacht.</li>
-<li><b>9:25 ET - Premarket-Plan:</b> Pivot (meist der größte Strike, MVC), 1-3 weitere Level (POIs), Call/Put Wall,
-Gamma Flip, Implied Range, zwei Szenarien.</li><li><b>9:30-9:45:</b> nicht direkt einsteigen; in den ersten 15 Minuten
+<li><b>9:25 ET - Premarket-Plan:</b> <b>Pivot</b> = der Strike, an dem QQQ um 09:15 ET handelt (die runde 5er-Zahl, sonst der Strike mit dem meisten Gamma) - so beschreibt er ihn in seinen Discord-Plänen ('QQQ is now trading around 670 (pivot point)'); er bleibt den ganzen Tag, 1-3 weitere Level (POIs), Call/Put Wall,
+Gamma Flip, Implied Range, zwei Szenarien. SPX-Pivot: die größte Händler-Position ganz nah am Kurs, nur 50er-Strikes (wie fast alle seine SPX-Pivots).</li><li><b>9:30-9:45:</b> nicht direkt einsteigen; in den ersten 15 Minuten
 führt der SPX-Optionsfluss.</li><li><b>bis 11:00:</b> Setups an den Leveln suchen und die vier Stufen prüfen.</li>
 <li><b>Nach dem Trade:</b> Stop sofort, Teilgewinn am ersten Ziel, Rest mit nachgezogenem Stop.</li></ol></div><div class='karte erklaer'><h3>Die vier Stufen (Kap. 26-30)</h3><p><b>1. Kontext:</b> Passt das große Bild? VIX-Richtung, SPX-Gamma-Regime
 und -Magnete, Charm, Overnight, SPX-Vorbörsenfluss, Abpraller an SPX-/VIX-Nodes. Jeder Baustein zählt +1 oder -1;
@@ -117,23 +117,29 @@ danach QQQ (NDX bestätigt). Die Richtung muss 3 Minuten bestehen.</p>
 Kontrakte) und die eigene Seite aggressiv werden; Schluss jenseits der gefangenen Kontrakte.</p></div><div class='karte erklaer'><h3>Die vier Setups (Kap. 31-34)</h3><p><b>Setup 1 - Break &amp; Retest:</b> Level wird mit Aggression gebrochen
 und von der anderen Seite retestet (sein Lieblingssetup, etwa zwei Drittel der Trades).</p>
 <p><b>Setup 2 - Pivot-Respekt:</b> Der Kurs prallt am Pivot ab, in Richtung des Flusses.</p>
-<p><b>Setup 3 - Umkehr an großem positivem Gamma:</b> gegen eine künstliche Bewegung, nur bei positivem SPX-Gamma.</p>
+<p><b>Setup 3 - Umkehr an großem positivem Gamma:</b> gegen eine künstliche Bewegung, nur bei positivem SPX-Gamma.
+<b>Unterform 3U:</b> die Gegenseite steigt am Pivot bzw. an seinen Nachlade-Marken ein und scheitert, der Kurs wird zurück
+in die Value akzeptiert.</p>
 <p><b>Setup 4 - Range-Fade:</b> an ruhigen Tagen an den Range-Grenzen (große positive Strikes, Implied Range).</p></div><div class='karte erklaer'><h3>Einstieg, Stop, Ziele (Kap. 36-39)</h3><p>Einstieg zum Markt nach der Bestätigung (mit 1
 Tick Schlupf), Stop hinter der Struktur (2 Ticks Puffer). Erstes Ziel bei 2,0R für
 50% der Position, dann Stop auf Einstand +1,00 Punkte; der Rest läuft mit
 nachgezogenem Stop hinter die jüngste Effort-Zone. An ruhigen Tagen (VIX unter 16) und bei
 positivem SPX-Gamma nur Base Hits (alles am ersten Ziel). Gebühren 1,50 $ je MNQ hin und
-zurück.</p></div><div class='karte erklaer'><h3>Prüfung gegen Funded (Kap. 41)</h3><p>Er trennt die Phasen strikt: In der <b>Prüfung</b> geht es ums
+zurück.</p><p>Kein Trade, wenn der Stop weiter als 50 NQ-Punkte wäre (alle seine gemessenen Stops lagen darunter; ein Setup mit 'bigger stop' liess er aus).</p><p>An Tagen mit VIX ab 22 zur Planzeit: Orderflow-Filter mal 1,35 und Risiko mal 0,50 ('increase my orderflow filters', 'decrease my risk').</p></div><div class='karte erklaer'><h3>Prüfung gegen Funded (Kap. 41)</h3><p>Er trennt die Phasen strikt: In der <b>Prüfung</b> geht es ums
 Überleben (Risiko 20-30 % des Drawdowns, Ziele 1:1 bis 1:1,5, Kurve glätten). Im <b>Funded-Konto</b> geht es um
 Auszahlungen (0,75-1,5 % Risiko, mehr sobald ein Puffer steht, Gewinner laufen lassen). Die Consistency-Regel der Firma
-begrenzt den Gewinn je Tag - deshalb schließt er früh, wenn der Tagesgewinn den Deckel erreicht (Kap. 40).</p></div><div class='karte erklaer'><h3>Woher die Daten kommen</h3><p><b>Optionsketten:</b> CBOE (kostenlos, 15 Minuten verzögert) und tastytrade
-(Echtzeit). <b>Net Drift:</b> jeder einzelne Optionstrade über tastytrade mit Käufer-/Verkäuferseite.
+begrenzt den Gewinn je Tag - deshalb schließt er früh, wenn der Tagesgewinn den Deckel erreicht (Kap. 40).</p></div><div class='karte erklaer'><h3>Woher die Daten kommen</h3><p><b>Optionsketten:</b> tastytrade/dxFeed (Echtzeit) und das eigene Kerzenarchiv;
+die kostenlose CBOE-Abfrage ist seit 20.11.2026 gesperrt. <b>Net Drift:</b> jeder einzelne Optionstrade über tastytrade mit Käufer-/Verkäuferseite.
 <b>NQ-Orderflow:</b> jeder NQ-Trade über tastytrade. <b>Kurse:</b> Yahoo. Seine bezahlten Werkzeuge (Quantdata,
 OptionsDepth, Deepcharts) werden durch eigene Rechnung ersetzt; was dabei nur eine Näherung ist (z. B. SPX ohne
 CBOE-getaggte Kundenpositionen, Deep-Effort-Zonen), steht im Prüfbericht.</p>
+<p><b>Seine Pläne als Prüfstein:</b> Seine Discord-Pläne (#premarket, Originale aus Bildschirmvideos) und die Trades aus
+dem Skript sind Prüffälle - die Seite <a href='backtest/er-gegen-uns.html'>Er gegen uns</a> zeigt, wie nah die Regeln ihm
+kommen.</p>
 <p>Weil die App öffentlich im Netz liegt, erscheinen Marktdaten hier 15 Minuten verzögert (Echtzeitdaten der Börsen
 dürfen nicht öffentlich weitergegeben werden). Gerechnet wird intern mit Echtzeit.</p></div><div class='karte erklaer'><h3>Kleines Wörterbuch</h3><ul><li><b>GEX (Gamma Exposure):</b> wie stark Dealer bei Kursbewegungen absichern
-müssen, je Strike in Dollar je 1 % Bewegung.</li><li><b>MVC:</b> der Strike mit der größten GEX - meist der Pivot.</li>
+müssen, je Strike in Dollar je 1 % Bewegung.</li><li><b>MVC:</b> der Strike mit der größten GEX - bleibt immer eine Marke im Plan.</li>
+<li><b>Pivot:</b> seine Hauptmarke des Tages ('PIVOT POINT = main level for today').</li>
 <li><b>Call/Put Wall:</b> größte Call- bzw. Put-Exposure.</li><li><b>Gamma Flip:</b> Kurs, bei dem das Gamma von positiv
 auf negativ wechselt.</li><li><b>Positives Gamma:</b> Dealer bremsen Bewegungen (Umkehr, Range). <b>Negatives Gamma:</b>
 Dealer verstärken sie (Ausbrüche).</li><li><b>0DTE:</b> Optionen, die heute verfallen.</li><li><b>Net Drift:</b>
