@@ -1,0 +1,94 @@
+//@version=5
+indicator("AR Level 2026-11-25", overlay=true, max_labels_count=100)
+// Erzeugt am 2026-11-25 09:25:00 ET aus kostenlosen Daten (CBOE-Ketten, eigene Rechnung).
+// Zeichnet nur auf QQQ, NDX, SPX und VIX und nur fuer den Plantag (04:00 ET bis 04:00 ET am Folgetag).
+tagStart = timestamp("America/New_York", 2026, 11, 25, 4, 0, 0)
+tagEnde = timestamp("America/New_York", 2026, 11, 26, 4, 0, 0)
+heute = time >= tagStart and time < tagEnde
+tk = syminfo.ticker
+plot(heute and tk == "QQQ" ? 605.0000 : na, "QQQ MVC/PUT_WALL 605 (-131 Mio, DEX)", color=color.orange, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 619.0000 : na, "QQQ PIVOT 619 (-72 Mio, DEX)", color=color.orange, linewidth=3, style=plot.style_linebr)
+plot(heute and tk == "NDX" ? 25100.0000 : na, "NDX MVC/PUT_WALL/GEX_TOP 25100 (-49 Mio)", color=color.orange, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 638.0000 : na, "QQQ CALL_WALL 638 (+15 Mio)", color=color.green, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "NDX" ? 26110.0000 : na, "NDX CALL_WALL/GAMMA_FLIP 26110 (+11 Mio)", color=color.green, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 610.0000 : na, "QQQ POI 610 (-49 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 620.0000 : na, "QQQ POI 620 (-45 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "NDX" ? 24800.0000 : na, "NDX GEX_TOP 24800 (-32 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "NDX" ? 25000.0000 : na, "NDX GEX_TOP 25000 (-28 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 640.0000 : na, "QQQ VORTAGES_PIVOT 640 (+10 Mio)", color=color.gray, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 617.0000 : na, "QQQ OVERNIGHT 617 (-19 Mio)", color=color.gray, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 631.0000 : na, "QQQ ABGELEHNT 631 (-5 Mio)", color=color.gray, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 592.9800 : na, "QQQ Implied unten 592.98", color=color.silver, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 642.3600 : na, "QQQ Implied oben 642.36", color=color.silver, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7070.0000 : na, "SPX MVC 7070 (-582 Mio) | Node 7070", color=color.orange, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7000.0000 : na, "SPX CALL_WALL 7000 (-347 Mio) | PUT_WALL 7000 (-347 Mio)", color=color.green, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7207.6000 : na, "SPX GAMMA FLIP 7208", color=color.purple, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 6851.9000 : na, "SPX Implied unten 6852", color=color.silver, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7251.4000 : na, "SPX Implied oben 7251", color=color.silver, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7050.0000 : na, "SPX SPX-PIVOT All-Expiry 7050 (+85 Mio) | Node 7050 | Range unten 7050", color=color.orange, linewidth=3, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 6950.0000 : na, "SPX Node 6950", color=color.blue, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7065.0000 : na, "SPX Node 7065", color=color.blue, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7100.0000 : na, "SPX Node 7100 | Range oben 7100", color=color.blue, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "SPX" ? 7150.0000 : na, "SPX Node 7150", color=color.blue, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "VIX" ? 35.0000 : na, "VIX VIX positiver Node 35", color=color.green, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "VIX" ? 30.0000 : na, "VIX VIX positiver Node 30", color=color.green, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "VIX" ? 21.0000 : na, "VIX VIX negativer Node 21", color=color.red, linewidth=2, style=plot.style_linebr)
+var label[] marken = array.new<label>()
+if barstate.islast
+    for m in marken
+        label.delete(m)
+    array.clear(marken)
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 605.0000, "MVC/PUT_WALL 605 (-131 Mio, DEX)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 619.0000, "PIVOT 619 (-72 Mio, DEX)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
+    if heute and tk == "NDX"
+        array.push(marken, label.new(bar_index + 2, 25100.0000, "MVC/PUT_WALL/GEX_TOP 25100 (-49 Mio)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 638.0000, "CALL_WALL 638 (+15 Mio)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
+    if heute and tk == "NDX"
+        array.push(marken, label.new(bar_index + 2, 26110.0000, "CALL_WALL/GAMMA_FLIP 26110 (+11 Mio)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 610.0000, "POI 610 (-49 Mio)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 620.0000, "POI 620 (-45 Mio)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+    if heute and tk == "NDX"
+        array.push(marken, label.new(bar_index + 2, 24800.0000, "GEX_TOP 24800 (-32 Mio)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+    if heute and tk == "NDX"
+        array.push(marken, label.new(bar_index + 2, 25000.0000, "GEX_TOP 25000 (-28 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 640.0000, "VORTAGES_PIVOT 640 (+10 Mio)", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 617.0000, "OVERNIGHT 617 (-19 Mio)", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 631.0000, "ABGELEHNT 631 (-5 Mio)", style=label.style_label_left, color=color.new(color.gray, 85), textcolor=color.gray, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 592.9800, "Implied unten 592.98", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 642.3600, "Implied oben 642.36", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 7070.0000, "MVC 7070 (-582 Mio) | Node 7070", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 7000.0000, "CALL_WALL 7000 (-347 Mio) | PUT_WALL 7000 (-347 Mio)", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 7207.6000, "GAMMA FLIP 7208", style=label.style_label_left, color=color.new(color.purple, 85), textcolor=color.purple, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 6851.9000, "Implied unten 6852", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 7251.4000, "Implied oben 7251", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 7050.0000, "SPX-PIVOT All-Expiry 7050 (+85 Mio) | Node 7050 | Range unten 7050", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 6950.0000, "Node 6950", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 7065.0000, "Node 7065", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 7100.0000, "Node 7100 | Range oben 7100", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+    if heute and tk == "SPX"
+        array.push(marken, label.new(bar_index + 2, 7150.0000, "Node 7150", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+    if heute and tk == "VIX"
+        array.push(marken, label.new(bar_index + 2, 35.0000, "VIX positiver Node 35", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
+    if heute and tk == "VIX"
+        array.push(marken, label.new(bar_index + 2, 30.0000, "VIX positiver Node 30", style=label.style_label_left, color=color.new(color.green, 85), textcolor=color.green, size=size.small))
+    if heute and tk == "VIX"
+        array.push(marken, label.new(bar_index + 2, 21.0000, "VIX negativer Node 21", style=label.style_label_left, color=color.new(color.red, 85), textcolor=color.red, size=size.small))
