@@ -17,7 +17,7 @@ Level (QQQ/NDX, nach Prioritaet):
   - NDX 26250 (mvc/call_wall/gex_top compounded DEX, +301 Mio)
   - QQQ 650 (mvc/call_wall, +208 Mio)
   - QQQ 640 (put_wall/poi DEX, -52 Mio)
-  - NDX 26010 (put_wall DEX, +5 Mio)
+  - NDX 25990 (put_wall DEX, -2 Mio)
   - QQQ 633.51 (gamma_flip, +0 Mio)
   - NDX 25828.7 (gamma_flip, +0 Mio)
   - QQQ 641 (poi DEX, +70 Mio)
@@ -57,7 +57,7 @@ LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handel
       26350.00  GEX_TOP 26350 (+96 Mio)
       26250.00  MVC/CALL_WALL/GEX_TOP 26250 (+301 Mio, compounded DEX)
       26220.00  GEX_TOP 26220 (+100 Mio, DEX)
-      26010.00  PUT_WALL 26010 (+5 Mio, DEX)
+      25990.00  PUT_WALL 25990 (-2 Mio, DEX)
       25828.70  GAMMA_FLIP 25828.7
   SPX:
        7359.50  Implied oben 7360
