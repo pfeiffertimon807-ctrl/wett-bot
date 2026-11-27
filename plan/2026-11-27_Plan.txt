@@ -21,7 +21,7 @@ Level (QQQ/NDX, nach Prioritaet):
   - QQQ 633.51 (gamma_flip, +0 Mio)
   - NDX 25828.7 (gamma_flip, +0 Mio)
   - QQQ 641 (poi DEX, +70 Mio)
-  - QQQ 644 (poi, +54 Mio)
+  - QQQ 645 (poi, +80 Mio)
   - NDX 26220 (gex_top DEX, +100 Mio)
   - NDX 26350 (gex_top, +96 Mio)
   - QQQ 619 (vortages_pivot, -0 Mio)
@@ -47,7 +47,7 @@ LEVEL ZUM EINTRAGEN IN TRADINGVIEW (Kurse in Einheiten des Basiswerts; er handel
         662.56  Implied oben 662.56
         650.00  MVC/CALL_WALL 650 (+208 Mio) | Range oben 650
         648.00  PIVOT 648 (+34 Mio, compounded)
-        644.00  POI 644 (+54 Mio)
+        645.00  POI 645 (+80 Mio)
         641.00  POI 641 (+70 Mio, DEX) | Range unten 641
         640.00  PUT_WALL/POI 640 (-52 Mio, DEX)
         633.51  GAMMA_FLIP 633.51
