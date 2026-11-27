@@ -13,13 +13,14 @@ plot(heute and tk == "QQQ" ? 640.0000 : na, "QQQ PUT_WALL/POI 640 (-52 Mio, DEX)
 plot(heute and tk == "NDX" ? 26000.0000 : na, "NDX PUT_WALL 26000 (-2 Mio, DEX)", color=color.red, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 633.5100 : na, "QQQ GAMMA_FLIP 633.51", color=color.purple, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 25828.7000 : na, "NDX GAMMA_FLIP 25828.7", color=color.purple, linewidth=2, style=plot.style_linebr)
-plot(heute and tk == "QQQ" ? 641.0000 : na, "QQQ POI 641 (+70 Mio, DEX) | Range unten 641", color=color.blue, linewidth=2, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 642.0000 : na, "QQQ POI 642 (+294 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 645.0000 : na, "QQQ POI 645 (+80 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 26220.0000 : na, "NDX GEX_TOP 26220 (+100 Mio, DEX)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "NDX" ? 26350.0000 : na, "NDX GEX_TOP 26350 (+96 Mio)", color=color.blue, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 619.0000 : na, "QQQ VORTAGES_PIVOT 619 (-0 Mio)", color=color.gray, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 630.7200 : na, "QQQ Implied unten 630.72", color=color.silver, linewidth=1, style=plot.style_linebr)
 plot(heute and tk == "QQQ" ? 662.5600 : na, "QQQ Implied oben 662.56", color=color.silver, linewidth=1, style=plot.style_linebr)
+plot(heute and tk == "QQQ" ? 641.0000 : na, "QQQ Range unten 641", color=color.teal, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7250.0000 : na, "SPX MVC 7250 (+750 Mio) | CALL_WALL 7250 (+750 Mio) | PUT_WALL 7250 (+750 Mio)", color=color.orange, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7199.1000 : na, "SPX GAMMA FLIP 7199", color=color.purple, linewidth=2, style=plot.style_linebr)
 plot(heute and tk == "SPX" ? 7087.4000 : na, "SPX Implied unten 7087", color=color.silver, linewidth=1, style=plot.style_linebr)
@@ -51,7 +52,7 @@ if barstate.islast
     if heute and tk == "NDX"
         array.push(marken, label.new(bar_index + 2, 25828.7000, "GAMMA_FLIP 25828.7", style=label.style_label_left, color=color.new(color.purple, 85), textcolor=color.purple, size=size.small))
     if heute and tk == "QQQ"
-        array.push(marken, label.new(bar_index + 2, 641.0000, "POI 641 (+70 Mio, DEX) | Range unten 641", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
+        array.push(marken, label.new(bar_index + 2, 642.0000, "POI 642 (+294 Mio, DEX)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 645.0000, "POI 645 (+80 Mio)", style=label.style_label_left, color=color.new(color.blue, 85), textcolor=color.blue, size=size.small))
     if heute and tk == "NDX"
@@ -64,6 +65,8 @@ if barstate.islast
         array.push(marken, label.new(bar_index + 2, 630.7200, "Implied unten 630.72", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
     if heute and tk == "QQQ"
         array.push(marken, label.new(bar_index + 2, 662.5600, "Implied oben 662.56", style=label.style_label_left, color=color.new(color.silver, 85), textcolor=color.silver, size=size.small))
+    if heute and tk == "QQQ"
+        array.push(marken, label.new(bar_index + 2, 641.0000, "Range unten 641", style=label.style_label_left, color=color.new(color.teal, 85), textcolor=color.teal, size=size.small))
     if heute and tk == "SPX"
         array.push(marken, label.new(bar_index + 2, 7250.0000, "MVC 7250 (+750 Mio) | CALL_WALL 7250 (+750 Mio) | PUT_WALL 7250 (+750 Mio)", style=label.style_label_left, color=color.new(color.orange, 85), textcolor=color.orange, size=size.small))
     if heute and tk == "SPX"
